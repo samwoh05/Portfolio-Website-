@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#c4552c"/>
+  <g fill="none" stroke="#f7f0e5" stroke-width="1.5" opacity=".45">
+    <circle cx="646" cy="152" r="118"/><circle cx="646" cy="152" r="176"/>
+    <path d="M0 470 H800 M0 502 H800 M0 534 H800"/>
+  </g>
+  <text x="50" y="452" font-family="Anton, Impact, Haettenschweiler, sans-serif"
+        font-size="250" fill="#f7f0e5" opacity=".92">PY</text>
+  <text x="54" y="524" font-family="Helvetica, Arial, sans-serif" font-size="21"
+        font-weight="bold" letter-spacing="9" fill="#f7f0e5" opacity=".8">MINI GAMES</text>
+</svg>

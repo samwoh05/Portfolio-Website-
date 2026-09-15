@@ -1,0 +1,10 @@
+# Kept on this Mac, never published
+
+# Full-size originals (camera masters, portraits) — the site uses web copies
+source/
+# Camera-export video; the site plays the web-encoded .mp4 beside it
+*.mov
+
+# Local preview server and editor/OS clutter
+.claude/
+.DS_Store

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#2f6b45"/>
+  <!-- the tunnel: rings receding toward the lecture theatre -->
+  <g fill="none" stroke="#f7f0e5" stroke-width="2" opacity=".5">
+    <rect x="70"  y="60"  width="660" height="480" rx="8"/>
+    <rect x="146" y="106" width="508" height="388" rx="8"/>
+    <rect x="222" y="152" width="356" height="296" rx="8"/>
+    <rect x="298" y="198" width="204" height="204" rx="8"/>
+    <rect x="360" y="236" width="80"  height="128" rx="6"/>
+  </g>
+  <g stroke="#d9992b" stroke-width="3" opacity=".85">
+    <path d="M70 60 146 106M730 60 654 106M70 540 146 494M730 540 654 494"/>
+  </g>
+  <text x="50" y="452" font-family="Anton, Impact, Haettenschweiler, sans-serif"
+        font-size="132" fill="#f7f0e5" opacity=".93">OPEN HOUSE</text>
+  <text x="54" y="524" font-family="Helvetica, Arial, sans-serif" font-size="21"
+        font-weight="bold" letter-spacing="9" fill="#f7f0e5" opacity=".8">LED TUNNEL</text>
+</svg>

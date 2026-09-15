@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#1f3fa8"/>
+  <!-- sound arriving from one side: the whole point of the game -->
+  <g fill="none" stroke="#f7f0e5" stroke-width="1.5" opacity=".42">
+    <circle cx="118" cy="300" r="88"/><circle cx="118" cy="300" r="148"/>
+    <circle cx="118" cy="300" r="208"/><circle cx="118" cy="300" r="268"/>
+  </g>
+  <!-- three targets: left, right, centre -->
+  <g fill="none" stroke="#f7f0e5" stroke-width="2" opacity=".55">
+    <circle cx="596" cy="150" r="26"/><circle cx="596" cy="150" r="11"/>
+    <circle cx="690" cy="300" r="26"/><circle cx="690" cy="300" r="11"/>
+    <circle cx="596" cy="450" r="26"/><circle cx="596" cy="450" r="11"/>
+  </g>
+  <text x="50" y="452" font-family="Anton, Impact, Haettenschweiler, sans-serif"
+        font-size="200" fill="#f7f0e5" opacity=".93">S.O.N.I.C</text>
+  <text x="54" y="524" font-family="Helvetica, Arial, sans-serif" font-size="21"
+        font-weight="bold" letter-spacing="9" fill="#f7f0e5" opacity=".8">DIRECTIONAL HEARING</text>
+</svg>
