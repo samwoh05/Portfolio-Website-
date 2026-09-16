@@ -261,8 +261,9 @@ master. `.nojekyll` tells Pages to serve the files as they are.
 Because it's a plain static folder, Netlify, Vercel or Cloudflare Pages would
 host it just as well: import the repo, no build command, output directory `/`.
 
-Fonts load from Google Fonts, so type falls back to system faces offline.
-Everything else works with no connection at all.
+Anton, DM Sans and Neucha are served from `assets/fonts/` rather than a font
+CDN, so the site makes no third-party requests at all and the type is right
+even with no connection.
 
 ---
 
