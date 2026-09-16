@@ -1,4 +1,4 @@
-# Samuel Yee — Portfolio
+# Samuel Yee — Portfolio Website
 
 A five-page portfolio site, live at
 <https://samwoh05.github.io/Portfolio-Website-/>. No build step, no framework,
