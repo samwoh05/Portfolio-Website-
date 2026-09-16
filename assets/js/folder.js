@@ -30,7 +30,7 @@
 
   function href(p) {
     return p.detail
-      ? (window.HASH_ROUTING ? "#project/" : "project.html?p=") + encodeURIComponent(p.slug)
+      ? "project.html?p=" + encodeURIComponent(p.slug)
       : (p.href || "#");
   }
 

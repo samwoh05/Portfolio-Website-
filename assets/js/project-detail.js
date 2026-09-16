@@ -40,11 +40,11 @@
   if (!p) {
     slot.innerHTML =
       '<header class="detail__head">' +
-        '<a class="detail__back" href="' + (window.HASH_ROUTING ? "#projects" : "projects.html") + '">' + BACK + 'All projects</a>' +
+        '<a class="detail__back" href="projects.html">' + BACK + 'All projects</a>' +
         '<h1 class="display h-lg" style="margin:18px 0 0">Not found</h1>' +
         '<p class="lede" style="margin:18px 0 0">' +
           "That project isn't in the list. " +
-          '<a class="cta-link" href="' + (window.HASH_ROUTING ? "#projects" : "projects.html") + '" style="display:inline-flex">See all projects' + ARROW + "</a>" +
+          '<a class="cta-link" href="projects.html" style="display:inline-flex">See all projects' + ARROW + "</a>" +
         "</p>" +
       "</header>";
     document.title = "Project — Samuel Yee";
@@ -97,7 +97,7 @@
   var reelHtml = "";
   if (p.reel) {
     var reelId = (p.reel.match(/\/reel\/([^/?#]+)/) || [])[1];
-    if (reelId && !window.HASH_ROUTING) {
+    if (reelId) {
       reelHtml =
         '<figure class="detail__reel">' +
           '<div class="detail__reel-frame">' +
@@ -129,13 +129,13 @@
   /* Next project, so the page ends on a way forward rather than a dead stop */
   var next = DATA[(idx + 1) % DATA.length];
   var nextHref = next.detail
-    ? (window.HASH_ROUTING ? "#project/" : "project.html?p=") + encodeURIComponent(next.slug)
-    : (next.href || (window.HASH_ROUTING ? "#projects" : "projects.html"));
+    ? "project.html?p=" + encodeURIComponent(next.slug)
+    : (next.href || "projects.html");
   var nextExt = /^https?:/i.test(nextHref);
 
   slot.innerHTML =
     '<header class="detail__head">' +
-      '<a class="detail__back" href="' + (window.HASH_ROUTING ? "#projects" : "projects.html") + '">' + BACK + "All projects</a>" +
+      '<a class="detail__back" href="projects.html">' + BACK + "All projects</a>" +
       '<p class="label rise in" style="margin:26px 0 clamp(14px,2.4vh,22px)"><span>' +
         esc(p.org || "Project") + "</span></p>" +
       '<h1 class="display h-lg rise in" data-d="1" style="margin:0;max-width:16ch"><span>' +

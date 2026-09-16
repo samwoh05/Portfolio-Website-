@@ -27,7 +27,7 @@
     /* A project with written-up detail opens its own page; one without goes
        straight to wherever it lives. */
     var href = p.detail
-      ? (window.HASH_ROUTING ? "#project/" : "project.html?p=") + encodeURIComponent(p.slug)
+      ? "project.html?p=" + encodeURIComponent(p.slug)
       : (p.href || "#");
     var external = /^https?:/i.test(href);
     var tags = (p.tags || []).map(function (t) {

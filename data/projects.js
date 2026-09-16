@@ -195,7 +195,7 @@ window.PROJECTS_DATA = {
         "JavaScript",
         "No Build Step"
       ],
-      "href": "index.html",
+      "href": "https://github.com/samwoh05/Portfolio-Website-",
       "cover": "assets/img/covers/portfolio.svg"
     }
   ]

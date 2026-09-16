@@ -19,7 +19,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%201.jpg",
+      "src": "assets/gallery/Joo%20Chiat%201.webp",
       "w": 1280,
       "h": 720,
       "group": "Joo Chiat",
@@ -29,7 +29,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%202.jpg",
+      "src": "assets/gallery/Joo%20Chiat%202.webp",
       "w": 1280,
       "h": 720,
       "group": "Joo Chiat",
@@ -39,7 +39,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%203.jpg",
+      "src": "assets/gallery/Joo%20Chiat%203.webp",
       "w": 720,
       "h": 1280,
       "group": "Joo Chiat",
@@ -49,7 +49,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%204.jpg",
+      "src": "assets/gallery/Joo%20Chiat%204.webp",
       "w": 1280,
       "h": 720,
       "group": "Joo Chiat",
@@ -59,7 +59,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%205.jpg",
+      "src": "assets/gallery/Joo%20Chiat%205.webp",
       "w": 1280,
       "h": 720,
       "group": "Joo Chiat",
@@ -69,7 +69,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%206.jpg",
+      "src": "assets/gallery/Joo%20Chiat%206.webp",
       "w": 1080,
       "h": 1119,
       "group": "Joo Chiat",
@@ -79,7 +79,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%207.jpg",
+      "src": "assets/gallery/Joo%20Chiat%207.webp",
       "w": 1280,
       "h": 720,
       "group": "Joo Chiat",
@@ -89,7 +89,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%208.jpg",
+      "src": "assets/gallery/Joo%20Chiat%208.webp",
       "w": 1280,
       "h": 720,
       "group": "Joo Chiat",
@@ -99,7 +99,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%209.jpg",
+      "src": "assets/gallery/Joo%20Chiat%209.webp",
       "w": 1280,
       "h": 720,
       "group": "Joo Chiat",
@@ -109,7 +109,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%2010.jpg",
+      "src": "assets/gallery/Joo%20Chiat%2010.webp",
       "w": 1280,
       "h": 720,
       "group": "Joo Chiat",
@@ -119,7 +119,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/Joo%20Chiat%2011.jpg",
+      "src": "assets/gallery/Joo%20Chiat%2011.webp",
       "w": 1280,
       "h": 720,
       "group": "Joo Chiat",
@@ -129,7 +129,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/MSP%201.jpg",
+      "src": "assets/gallery/MSP%201.webp",
       "w": 1280,
       "h": 718,
       "group": "MSP",
@@ -139,7 +139,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/MSP%202.jpg",
+      "src": "assets/gallery/MSP%202.webp",
       "w": 1280,
       "h": 718,
       "group": "MSP",
@@ -149,7 +149,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/MSP%203.jpg",
+      "src": "assets/gallery/MSP%203.webp",
       "w": 1280,
       "h": 718,
       "group": "MSP",
@@ -159,7 +159,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/MSP%204.jpg",
+      "src": "assets/gallery/MSP%204.webp",
       "w": 1280,
       "h": 718,
       "group": "MSP",
@@ -169,7 +169,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/MSP%205.jpg",
+      "src": "assets/gallery/MSP%205.webp",
       "w": 718,
       "h": 1280,
       "group": "MSP",
@@ -179,7 +179,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/MSP%206.jpg",
+      "src": "assets/gallery/MSP%206.webp",
       "w": 1280,
       "h": 718,
       "group": "MSP",
@@ -189,7 +189,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/MSP%207.jpg",
+      "src": "assets/gallery/MSP%207.webp",
       "w": 1280,
       "h": 718,
       "group": "MSP",
@@ -199,7 +199,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/MSP%208.jpg",
+      "src": "assets/gallery/MSP%208.webp",
       "w": 1280,
       "h": 718,
       "group": "MSP",
@@ -209,7 +209,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/MSP%209.jpg",
+      "src": "assets/gallery/MSP%209.webp",
       "w": 1280,
       "h": 718,
       "group": "MSP",
@@ -219,7 +219,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%201.jpg",
+      "src": "assets/gallery/NE%20Tour%201.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -229,7 +229,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%202.jpg",
+      "src": "assets/gallery/NE%20Tour%202.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -239,7 +239,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%203.jpg",
+      "src": "assets/gallery/NE%20Tour%203.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -249,7 +249,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%204.jpg",
+      "src": "assets/gallery/NE%20Tour%204.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -259,7 +259,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%205.jpg",
+      "src": "assets/gallery/NE%20Tour%205.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -269,7 +269,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%206.jpg",
+      "src": "assets/gallery/NE%20Tour%206.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -279,7 +279,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%207.jpg",
+      "src": "assets/gallery/NE%20Tour%207.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -289,7 +289,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%208.jpg",
+      "src": "assets/gallery/NE%20Tour%208.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -299,7 +299,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%209.jpg",
+      "src": "assets/gallery/NE%20Tour%209.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -309,7 +309,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%2010.jpg",
+      "src": "assets/gallery/NE%20Tour%2010.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -319,7 +319,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/NE%20Tour%2011.jpg",
+      "src": "assets/gallery/NE%20Tour%2011.webp",
       "w": 1280,
       "h": 720,
       "group": "NE Tour",
@@ -340,7 +340,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/g1.jpg",
+      "src": "assets/gallery/g1.webp",
       "w": 1280,
       "h": 853,
       "group": "Earlier",
@@ -349,7 +349,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/g2.jpg",
+      "src": "assets/gallery/g2.webp",
       "w": 1280,
       "h": 960,
       "group": "Earlier",
@@ -358,7 +358,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/g3.jpg",
+      "src": "assets/gallery/g3.webp",
       "w": 900,
       "h": 1600,
       "group": "Earlier",
@@ -367,7 +367,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/g4.jpg",
+      "src": "assets/gallery/g4.webp",
       "w": 900,
       "h": 1600,
       "group": "Earlier",
@@ -376,7 +376,7 @@ window.GALLERY_DATA = {
     },
     {
       "type": "photo",
-      "src": "assets/gallery/g5.jpg",
+      "src": "assets/gallery/g5.webp",
       "w": 900,
       "h": 1600,
       "group": "Earlier",

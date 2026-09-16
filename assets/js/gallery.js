@@ -7,10 +7,9 @@
   var grid    = document.getElementById("grid");
   var filters = document.getElementById("filters");
   var counter = document.getElementById("count");
-  var preview = document.querySelector("[data-gallery-preview]");
-  /* The home page has neither grid nor preview any more — it has the photo
-     ring — but it still needs the lightbox this file owns. */
-  if (!grid && !preview && !document.getElementById("lightbox")) return;
+  /* The home page has no wall of its own — it has the photo ring — but it
+     still needs the lightbox this file owns. */
+  if (!grid && !document.getElementById("lightbox")) return;
 
   var DATA  = (window.GALLERY_DATA && window.GALLERY_DATA.items) || [];
   var view  = DATA.slice();   // what is currently rendered
@@ -18,7 +17,6 @@
 
   var CAM_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h3l1.6-2.2h8.8L18 7h3v12H3z"/><circle cx="12" cy="13" r="3.6"/></svg>';
   var ICON_PLAY  = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-  var ICON_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 19 19 5M9 5h10v10"/></svg>';
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -57,15 +55,6 @@
     return '<button class="tile reveal" type="button" data-tilt="4" data-i="' + i +
            '" aria-label="Open photograph' + (item.camera ? ", " + esc(item.camera) : "") +
            '">' + inner + "</button>";
-  }
-
-  /* The home page shows the same posters, but they lead to the gallery
-     rather than opening a viewer in place. */
-  function previewHtml(item, i) {
-    return '<a class="tile reveal" data-tilt="4" href="' +
-           (window.HASH_ROUTING ? "#gallery" : "gallery.html") + '">' +
-           tileHtml(item, i).replace(/^<(button|a)[^>]*>/, "").replace(/<\/(button|a)>$/, "") +
-           '</a>';
   }
 
   function emptyHtml(kind) {
@@ -122,12 +111,6 @@
   }
 
   /* ---------------- Filters ---------------- */
-
-  if (preview) {
-    var lim = parseInt(preview.dataset.limit, 10) || 4;
-    preview.innerHTML = DATA.slice(0, lim).map(previewHtml).join("");
-    if (window.siteRefresh) window.siteRefresh();
-  }
 
   if (filters) {
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
