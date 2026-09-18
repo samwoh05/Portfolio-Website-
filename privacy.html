@@ -12,10 +12,13 @@
 <meta property="og:image" content="assets/img/portrait.jpg">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23c4552c'/%3E%3Ctext x='32' y='46' font-family='Helvetica,Arial' font-size='40' font-weight='bold' fill='%23f7f0e5' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<script>/* the stored theme, before first paint, so the page never flashes the wrong one */
+try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/dmsans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css?v=20260918">
 <link rel="stylesheet" href="assets/css/site.css?v=20260918">
+<link rel="stylesheet" href="assets/css/print.css?v=20260918" media="print">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -74,9 +77,9 @@
   <div class="page-head__meta reveal" data-d="2">
     <p class="lede" style="margin:0">
       The short version: I collect nothing about you and do not know you were here.
-      The only third parties involved are Spotify, whose playlist player is
-      embedded on the home page, and Instagram, whose reel is embedded on one
-      project page.
+      Your theme choice is kept in your own browser and nowhere else. The only
+      third parties involved are Spotify, whose playlist player is embedded on the
+      home page, and Instagram, whose reel is embedded on one project page.
     </p>
   </div>
 </header>
@@ -85,11 +88,20 @@
   <div class="detail__body reveal" style="max-width:66ch;margin-top:0">
     <h2 class="path__name" style="font-size:clamp(17px,1.8vw,22px);margin:0 0 14px">What this site collects</h2>
     <p>
-      Nothing. There are no forms, no sign-ups, no comment boxes and no analytics.
-      I set no cookies of my own and write nothing to your browser's storage. There
-      is no server-side log of your visit that I have access to beyond whatever my
-      host keeps to serve the files. The one thing that does set cookies is
-      Spotify's embedded player &mdash; see below.
+      Nothing about you. There are no forms, no sign-ups, no comment boxes and no
+      analytics. I set no cookies of my own, and there is no server-side log of
+      your visit that I have access to beyond whatever my host keeps to serve the
+      files. The one thing that does set cookies is Spotify's embedded player
+      &mdash; see below.
+    </p>
+    <p>
+      Two small things are written to your own browser, both of them settings
+      rather than records of you, and neither ever leaves your device or reaches
+      me. If you switch the site between light and dark, that choice is saved so
+      the next page opens the way you left it. And while you move between pages, a
+      single flag is kept for a few hundred milliseconds so the arriving page knows
+      to sweep the terracotta panel away rather than run the loading screen again;
+      it is cleared on arrival and forgotten when you close the tab.
     </p>
 
     <h2 class="path__name" style="font-size:clamp(17px,1.8vw,22px);margin:34px 0 14px">Third parties</h2>
@@ -165,6 +177,8 @@
 
 <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
 <script src="data/projects.js?v=20260918"></script>
+<script src="assets/js/theme.js?v=20260918"></script>
+<script src="assets/js/transition.js?v=20260918"></script>
 <script src="assets/js/site.js?v=20260918"></script>
 <script src="assets/js/route.js?v=20260918"></script>
 

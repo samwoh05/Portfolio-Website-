@@ -11,13 +11,17 @@ gallery.html        Photos + videos, filterable, with a lightbox
 projects.html       Project list with a cover that follows the cursor
 project.html        One project, chosen by ?p=slug
 privacy.html        Privacy notice
+404.html            Where a wrong address lands
 
 data/gallery.js     ← the photos and videos you edit
 data/projects.js    ← the projects you edit
 
-assets/css/site.css   All styling
+assets/css/site.css   All styling, both themes
 assets/css/fonts.css  The three self-hosted faces
+assets/css/print.css  Paper only — loaded with media="print"
 assets/js/site.js     Preloader, cursor, menu, scroll reveals, parallax, tilt
+assets/js/theme.js    The light/dark switch
+assets/js/transition.js  The terracotta wipe between pages
 assets/js/lanyard.js  The staff pass swinging in the hero
 assets/js/ring.js     The turning ring of photographs on the home page
 assets/js/gallery.js  Builds the gallery wall + lightbox
@@ -44,7 +48,7 @@ source/               Full-size originals — never published
 
 ## Spec sheet
 
-Measured from the published site, September 2026. **90 files, 32.5 MB**, of
+Measured from the published site, September 2026. **94 files, 32.5 MB**, of
 which 27.5 MB is video.
 
 ### Pages
@@ -56,6 +60,7 @@ which 27.5 MB is video.
 | `gallery.html` | The full wall, grouped by set, with filters and a lightbox | 154 | 12 KB |
 | `projects.html` | Project list; the cover follows the cursor down the page | 139 | 11 KB |
 | `project.html` | One project, chosen by `?p=slug` | 110 | 10 KB |
+| `404.html` | Wrong address — a way back, and three frames from the gallery | 166 | 13 KB |
 
 ### Colour
 
@@ -114,12 +119,13 @@ social links — and drops to 0 under 900px, where content takes the full width.
 `--gutter` is clamp(20px, 5vw, 72px). Breakpoints: 980 · 900 · 860 · 700 · 620 ·
 560 · 420 px. Texture comes from checkerboard rules, a film-grain overlay
 stepping at 700 ms, and a pixel-arrow cursor drawn as inline SVG — no image
-files to manage. `site.css` is 2,833 lines / 149 KB, which GitHub Pages gzips
-to 25 KB.
+files to manage. `site.css` is 3,085 lines / 156 KB, which GitHub Pages gzips
+to about 26 KB. `print.css` (175 lines) is linked with `media="print"`, so a
+screen visitor never downloads it.
 
 ### Behaviour
 
-Eleven modules, 80 KB in total, no dependencies.
+Thirteen modules, 89 KB in total, no dependencies.
 
 | Module | What it does | Lines |
 |---|---|---:|
@@ -133,6 +139,8 @@ Eleven modules, 80 KB in total, no dependencies.
 | `folder.js` | The project folder that opens on the home page | 137 |
 | `projects.js` | Project list with a cover that follows the cursor | 114 |
 | `split.js` | Splits a line into letters so each rises out of its own mask | 110 |
+| `transition.js` | The terracotta wipe between pages | 128 |
+| `theme.js` | The light/dark switch | 87 |
 | `cutout.js` | The name as a magazine cut-out, each letter its own scrap | 67 |
 
 ### Photo ring
@@ -174,6 +182,39 @@ and no new bytes beyond the pass photo.
 The pass carries `assets/img/badge.webp` (53 KB), cropped from `portrait.jpg`,
 with the name set in Anton and the surname in terracotta.
 
+### Themes
+
+The same rooms after dark, not an inversion: the ground goes warm near-black,
+terracotta and cobalt lift so they still carry, the four hobby glazes are
+re-mixed as deep versions of themselves, and shadows deepen to black because a
+brown shadow on a brown ground is invisible. The staff pass keeps its own light
+colours — it is white plastic in any light — and becomes the brightest thing on
+the page.
+
+| | |
+|---|---|
+| Default | Follows the system setting |
+| Chosen | A switch in the side rail stamps `data-theme` on `<html>`, which wins over the system in both directions |
+| Storing it | The choice is kept in `localStorage` under `sy-theme`; picking the side your system is already on clears it and goes back to following |
+| No flash | A snippet in each `<head>` applies the stored choice before the first paint |
+| Contrast | Every text pairing measured on the dark ground clears 4.5:1 — body 14.8:1, secondary 9.3:1, small soft text 6.3:1, terracotta 6.4:1, links 8:1 |
+
+### Page transition
+
+A terracotta panel sweeps across, the next page loads behind it, and it sweeps
+off the other side — 200 ms out, 260 ms back, with the site's checkerboard on
+the leading edge. Arriving behind the wipe also drops the preloader, so moving
+around the site no longer runs the full count each time.
+
+| | |
+|---|---|
+| Handled | Same-origin links in the same tab |
+| Left alone | External links, `mailto:`, anchors on the current page, and anything opened with a modifier key — verified by test |
+| The handover | A flag in `sessionStorage` (`sy-wipe`) tells the arriving page to sweep off rather than run the curtain |
+| Never stuck | The sweep-off runs on a frame, a timer and the page becoming visible, whichever comes first — a tab that loads in the background fires no frames |
+| Back button | A page restored from the browser's cache clears the panel on `pageshow` |
+| Still | Under reduced motion the whole file returns early and links behave normally |
+
 ### Content
 
 | | |
@@ -198,9 +239,9 @@ arrives.
 
 ### Access
 
-- Reduced motion is honoured in 11 stylesheet blocks and 9 of the 11 modules —
-  the ring stops drifting, letters stop scrambling, the car stops driving, and
-  the pass hangs still.
+- Reduced motion is honoured in 13 stylesheet blocks and 10 of the 13 modules —
+  the ring stops drifting, letters stop scrambling, the car stops driving, the
+  pass hangs still, and pages change without the wipe.
 - Eight `:focus-visible` rules; the ring brings a focused card round to the
   front; the pass swings with <kbd>←</kbd> and <kbd>→</kbd>; the lightbox takes
   <kbd>Esc</kbd>, <kbd>←</kbd> and <kbd>→</kbd>.
@@ -215,6 +256,15 @@ GitHub Pages, branch `main` / root, no build. No CDN, analytics, tracker or
 cookies — every byte comes from the same origin. Needs custom properties, grid,
 3D transforms and `IntersectionObserver`; where the observer is missing the ring
 simply stays awake. See [Putting it online](#putting-it-online) for the details.
+
+**404.** GitHub Pages serves `404.html` for any address it doesn't have. Its
+links are relative, which is right for a wrong address one level deep — the
+only kind this site can produce.
+
+**Print.** `print.css` strips the fixed chrome, the car, the pass, the ring, the
+grain and the checkerboards, reveals anything waiting on a scroll, prints the
+address after any outgoing link, and signs the foot of the page with the site
+and the email.
 
 **Cache stamps.** Every page links its CSS and JS with `?v=YYYYMMDD` (37 links,
 currently `?v=20260918`). Pages serves assets with `max-age=600`, so without a

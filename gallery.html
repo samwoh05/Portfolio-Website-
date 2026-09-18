@@ -12,10 +12,13 @@
 <meta property="og:image" content="assets/video/joo-chiat.jpg">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23c4552c'/%3E%3Ctext x='32' y='46' font-family='Helvetica,Arial' font-size='40' font-weight='bold' fill='%23f7f0e5' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<script>/* the stored theme, before first paint, so the page never flashes the wrong one */
+try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/dmsans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css?v=20260918">
 <link rel="stylesheet" href="assets/css/site.css?v=20260918">
+<link rel="stylesheet" href="assets/css/print.css?v=20260918" media="print">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -73,11 +76,10 @@
   <h1 class="display h-xl rise in" data-d="1" style="max-width:11ch"><span>Gallery</span></h1>
   <div class="page-head__meta reveal" data-d="2">
     <p class="lede" style="margin:0">
-      Trying to romanticise life through photography. Here are some of my
-      favourite shots &#128248;
+      Streets, shophouses, travel. Mostly Singapore, mostly at eye level.
       <br>
       <br>
-      Support my IG photography account <a href="https://www.instagram.com/samvisualdiary.jpg?stkn=MXFsOGZicjNzOXhnNg%3D%3D&utm_source=qr">@samvisualdiary.jpg</a>
+      <a href="https://www.instagram.com/samvisualdiary.jpg?stkn=MXFsOGZicjNzOXhnNg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">@samvisualdiary.jpg</a>
     </p>
   </div>
 </header>
@@ -147,6 +149,8 @@
 
 <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
 <script src="data/gallery.js?v=20260918"></script>
+<script src="assets/js/theme.js?v=20260918"></script>
+<script src="assets/js/transition.js?v=20260918"></script>
 <script src="assets/js/site.js?v=20260918"></script>
 <script src="assets/js/route.js?v=20260918"></script>
 <script src="assets/js/gallery.js?v=20260918"></script>
