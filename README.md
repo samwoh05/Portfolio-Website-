@@ -18,6 +18,7 @@ data/projects.js    ← the projects you edit
 assets/css/site.css   All styling
 assets/css/fonts.css  The three self-hosted faces
 assets/js/site.js     Preloader, cursor, menu, scroll reveals, parallax, tilt
+assets/js/lanyard.js  The staff pass swinging in the hero
 assets/js/ring.js     The turning ring of photographs on the home page
 assets/js/gallery.js  Builds the gallery wall + lightbox
 assets/js/decrypt.js  The scrambling "Say Hello"
@@ -29,7 +30,7 @@ assets/js/split.js    Splits a line into letters so each rises on its own
 assets/js/cutout.js   The name as a magazine cut-out
 
 assets/gallery/       Your photos (WebP)
-assets/img/           Portrait, about photo, project covers
+assets/img/           Portrait, about photo, badge photo, project covers
 assets/video/         Web-encoded films + their poster frames
 assets/fonts/         Anton, DM Sans, Neucha
 
@@ -42,14 +43,14 @@ source/               Full-size originals — never published
 
 ## Spec sheet
 
-Measured from the published site, September 2026. **87 files, 32.4 MB**, of
+Measured from the published site, September 2026. **89 files, 32.5 MB**, of
 which 27.5 MB is video.
 
 ### Pages
 
 | File | What it holds | Lines | Size |
 |---|---|---:|---:|
-| `index.html` | Hero, about, four hobby tiles, the photo ring, project teaser, contact | 375 | 21 KB |
+| `index.html` | Hero pass, about, four hobby tiles, the photo ring, project teaser, contact | 376 | 21 KB |
 | `privacy.html` | Privacy notice | 172 | 13 KB |
 | `gallery.html` | The full wall, grouped by set, with filters and a lightbox | 154 | 12 KB |
 | `projects.html` | Project list; the cover follows the cursor down the page | 139 | 11 KB |
@@ -112,15 +113,16 @@ social links — and drops to 0 under 900px, where content takes the full width.
 `--gutter` is clamp(20px, 5vw, 72px). Breakpoints: 980 · 900 · 860 · 700 · 620 ·
 560 · 420 px. Texture comes from checkerboard rules, a film-grain overlay
 stepping at 700 ms, and a pixel-arrow cursor drawn as inline SVG — no image
-files to manage. `site.css` is 2,656 lines / 145 KB, which GitHub Pages gzips
-to 24 KB.
+files to manage. `site.css` is 2,833 lines / 149 KB, which GitHub Pages gzips
+to 25 KB.
 
 ### Behaviour
 
-Ten modules, 69 KB in total, no dependencies.
+Eleven modules, 80 KB in total, no dependencies.
 
 | Module | What it does | Lines |
 |---|---|---:|
+| `lanyard.js` | The staff pass hanging in the hero, on a simulated rope | 288 |
 | `site.js` | Preloader, custom cursor, overlay menu, scroll reveal, parallax, tilt | 285 |
 | `ring.js` | The photo ring on the home page | 265 |
 | `gallery.js` | Builds the wall from data, filters it, runs the lightbox | 240 |
@@ -147,6 +149,30 @@ pick one and it opens in the gallery lightbox.
 | Quiet swaps | Every 6 s one card past 150° — out of sight — loads another photograph |
 | Holds still | Under the pointer, during a drag, and while a card has keyboard focus |
 
+### Lanyard
+
+The hero's left column holds a staff pass on a lanyard instead of a flat
+portrait — the idea of the Framer/React Bits Lanyard component, which uses
+three.js and a WASM physics engine. With no framework here, the rope is
+simulated in `lanyard.js` instead and drawn as SVG: about 240 lines of physics
+and no new bytes beyond the pass photo.
+
+| Setting | Value |
+|---|---|
+| Rope | 13 points, Verlet integration, 14 constraint passes per step |
+| Step | Fixed at 1/120 s, so it moves the same on any screen |
+| Gravity / drag | 2100 px/s², 0.995 friction, extra air on the pass itself |
+| The pass | Two more points held a card apart — that rigid link is what gives it an angle to hang at |
+| Strands | Two, parted by 34% of the card at the top, meeting at the ring |
+| Print | The name repeats down the left strand on an SVG `textPath`, so it bends as the strap swings |
+| Drag | Grabs the nearer end, so you can swing it or spin it; it keeps the speed you let go at |
+| Keyboard | The pass takes focus; ← and → nudge it |
+| Idle | A slow breeze, so it never hangs dead |
+| Still | Under reduced motion it hangs straight and never moves |
+
+The pass carries `assets/img/badge.webp` (53 KB), cropped from `portrait.jpg`,
+with the name set in Anton and the surname in terracotta.
+
 ### Content
 
 | | |
@@ -165,16 +191,18 @@ pick one and it opens in the gallery lightbox.
 | Holy Land Trip '23 | 0:31 | 268.5 MB | 7.9 MB |
 
 Photographs: 36 WebP, 74 KB average, 163 KB largest, 1,119–1,600 px on the long
-edge. Project stills: 10 WebP, 1.7 MB. The first four frames load eagerly and
+edge. Project stills: 10 WebP, 1.7 MB. The hero pass photo: 1 WebP, 53 KB. The first four frames load eagerly and
 the rest lazily; every frame carries its own aspect ratio so nothing jumps as it
 arrives.
 
 ### Access
 
-- Reduced motion is honoured in 10 stylesheet blocks and 8 of the 10 modules —
-  the ring stops drifting, letters stop scrambling, the car stops driving.
-- Six `:focus-visible` rules; the ring brings a focused card round to the front;
-  the lightbox takes <kbd>Esc</kbd>, <kbd>←</kbd> and <kbd>→</kbd>.
+- Reduced motion is honoured in 11 stylesheet blocks and 9 of the 11 modules —
+  the ring stops drifting, letters stop scrambling, the car stops driving, and
+  the pass hangs still.
+- Eight `:focus-visible` rules; the ring brings a focused card round to the
+  front; the pass swings with <kbd>←</kbd> and <kbd>→</kbd>; the lightbox takes
+  <kbd>Esc</kbd>, <kbd>←</kbd> and <kbd>→</kbd>.
 - Scrambling letters are hidden from screen readers and the real words read out
   once. Every photograph carries alt text and every control a label.
 - Soft ink sits at the darkest point where 10px type still clears 4.5:1 on all
