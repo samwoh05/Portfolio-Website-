@@ -82,6 +82,24 @@ on cream. Terracotta leads and cobalt answers it.
 | `--ochre` / `--amber-deep` / `--amber-mat` | `#d9992b` / `#a8620f` / `#8f5209` | Warm signals and type-bearing mats |
 | `--glaze-blue/butter/rose/mint` | `#b4cbd8` `#efd9a1` `#e6b9ad` `#bcd6c1` | One vintage glaze per hobby tile |
 
+**Surfaces.** Ink and cream are *page* colours: they swap places between themes.
+Anything that stands for a physical surface keeps its own colour instead, or the
+text on it ends up cream on cream — which is exactly how the `e` in the hero
+name disappeared in dark mode.
+
+| Token | Light | Dark | Used by |
+|---|---|---|---|
+| `--sheet` / `--sheet-alt` | `#f7f0e5` / `#fbf6ec` | `#f2ebdf` / `#e7dece` | The staff pass, the folder strips, the card lifted from it, the pale gallery mat |
+| `--on-sheet` / `-mid` / `-soft` / `-accent` | `#241b14` `#5b4a3c` `#655749` `#9c3d1b` | same | The type printed on any of those |
+| `--stock` / `--on-stock` | `#241b14` / `#f7f0e5` | `#0f0b08` / `#f7f0e5` | The overlay menu, the skip link, dark chips, the dark scrap in the cut-out name |
+| `--stock-rust/cobalt/forest/amber` | `#a6421f` `#1f3fa8` `#2f6b45` `#8f5209` | same | The six gallery mounting boards and the coloured scraps in the cut-out name |
+| `--mat` | `#9c3d1b` | same | The default photo mat and the active filter pill |
+
+Anything painted with `--sheet` also re-binds `--ink`, `--ink-soft` and the
+accent to their on-sheet values, so type placed on it follows the surface
+rather than the page. That is what makes it impossible for this bug to come
+back by adding a new element inside one of them.
+
 ### Type
 
 Anton, DM Sans and Neucha are served from `assets/fonts/` as woff2 (98 KB, Latin
@@ -198,6 +216,7 @@ the page.
 | Storing it | The choice is kept in `localStorage` under `sy-theme`; picking the side your system is already on clears it and goes back to following |
 | No flash | A snippet in each `<head>` applies the stored choice before the first paint |
 | Contrast | Every text pairing measured on the dark ground clears 4.5:1 — body 14.8:1, secondary 9.3:1, small soft text 6.3:1, terracotta 6.4:1, links 8:1 |
+| Audited | Every text node on all six pages, in both themes, measured against the background actually behind it: zero failures. Two flags are false positives the method can't read — the logo uses `mix-blend-mode: difference`, and the photo-ring captions sit on a gradient |
 
 ### Page transition
 
