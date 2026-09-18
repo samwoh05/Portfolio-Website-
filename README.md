@@ -36,6 +36,7 @@ assets/fonts/         Anton, DM Sans, Neucha
 
 assets/img/car.png    The car on the scroll route (masked, transparent)
 tools/set-photos.py   Swaps the two portraits (see below)
+tools/bump-cache.py   Re-stamps the CSS and JS links after you change them
 source/               Full-size originals — never published
 ```
 
@@ -43,7 +44,7 @@ source/               Full-size originals — never published
 
 ## Spec sheet
 
-Measured from the published site, September 2026. **89 files, 32.5 MB**, of
+Measured from the published site, September 2026. **90 files, 32.5 MB**, of
 which 27.5 MB is video.
 
 ### Pages
@@ -214,6 +215,18 @@ GitHub Pages, branch `main` / root, no build. No CDN, analytics, tracker or
 cookies — every byte comes from the same origin. Needs custom properties, grid,
 3D transforms and `IntersectionObserver`; where the observer is missing the ring
 simply stays awake. See [Putting it online](#putting-it-online) for the details.
+
+**Cache stamps.** Every page links its CSS and JS with `?v=YYYYMMDD` (37 links,
+currently `?v=20260918`). Pages serves assets with `max-age=600`, so without a
+stamp a visitor can run new HTML against a stylesheet cached ten minutes
+earlier — which is not stale so much as broken. After changing anything in
+`assets/css/`, `assets/js/` or `data/`, run:
+
+```bash
+python3 tools/bump-cache.py
+```
+
+then commit. It rewrites the stamp in all five pages to today's date.
 
 ---
 
