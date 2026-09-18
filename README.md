@@ -285,17 +285,20 @@ grain and the checkerboards, reveals anything waiting on a scroll, prints the
 address after any outgoing link, and signs the foot of the page with the site
 and the email.
 
-**Cache stamps.** Every page links its CSS and JS with `?v=YYYYMMDD` (37 links,
-currently `?v=20260918`). Pages serves assets with `max-age=600`, so without a
-stamp a visitor can run new HTML against a stylesheet cached ten minutes
-earlier — which is not stale so much as broken. After changing anything in
-`assets/css/`, `assets/js/` or `data/`, run:
+**Cache stamps.** Every page links its CSS and JS with a `?v=` fingerprint —
+59 links, a short hash of everything in `assets/css/`, `assets/js/` and
+`data/`. Pages serves assets with `max-age=600`, so without a stamp a visitor
+can run new HTML against a stylesheet cached ten minutes earlier, which is not
+stale so much as broken. The stamp was a date at first, and that failed the
+first time the site was deployed twice in one day: the files changed, the date
+didn't, and browsers kept the old copy. A fingerprint cannot drift out of step
+with the files. After changing anything under those folders, run:
 
 ```bash
 python3 tools/bump-cache.py
 ```
 
-then commit. It rewrites the stamp in all five pages to today's date.
+then commit. It rewrites the stamp on all six pages, and does nothing if the files haven't changed.
 
 ---
 
