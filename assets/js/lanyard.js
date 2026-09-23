@@ -41,7 +41,7 @@
       ' aria-label="Samuel\'s pass, hanging on a lanyard. Drag it, or press the left and right arrow keys, to swing it.">' +
       '<div class="pass">' +
         '<span class="pass__hole" aria-hidden="true"></span>' +
-        '<p class="pass__issue">Portfolio pass &#183; 2026</p>' +
+        '<p class="pass__issue">My Portfolio  &#183; 2026</p>' +
         '<img class="pass__photo" src="assets/img/badge.webp" alt="Samuel crouching in a courtyard mirror" draggable="false">' +
         '<p class="pass__name">Samuel<b>Yee</b></p>' +
         '<p class="pass__role">Engineer &amp; Photographer</p>' +

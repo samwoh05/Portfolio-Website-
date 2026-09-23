@@ -1,0 +1,5 @@
+# Everything here is meant to be found.
+User-agent: *
+Allow: /
+
+Sitemap: https://samwoh05.github.io/Portfolio-Website-/sitemap.xml

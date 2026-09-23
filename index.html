@@ -10,17 +10,24 @@
 <meta property="og:title" content="Samuel Yee — Engineer &amp; Photographer">
 <meta property="og:description" content="Photography, projects and the things I'm building. Based in Singapore.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/img/portrait.jpg">
+<meta property="og:image" content="https://samwoh05.github.io/Portfolio-Website-/assets/img/share.jpg">
+<meta property="og:url" content="https://samwoh05.github.io/Portfolio-Website-/">
+<meta property="og:site_name" content="Samuel Yee">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A mural in central Singapore reading: in a room full of art I'd still stare at you">
+<meta name="twitter:card" content="summary_large_image">
 
+<link rel="canonical" href="https://samwoh05.github.io/Portfolio-Website-/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23c4552c'/%3E%3Ctext x='32' y='46' font-family='Helvetica,Arial' font-size='40' font-weight='bold' fill='%23f7f0e5' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
 
 <script>/* the stored theme, before first paint, so the page never flashes the wrong one */
 try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/dmsans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=f5786432">
-<link rel="stylesheet" href="assets/css/site.css?v=f5786432">
-<link rel="stylesheet" href="assets/css/print.css?v=f5786432" media="print">
+<link rel="stylesheet" href="assets/css/fonts.css?v=4d515edc">
+<link rel="stylesheet" href="assets/css/site.css?v=4d515edc">
+<link rel="stylesheet" href="assets/css/print.css?v=4d515edc" media="print">
 </head>
 <body class="is-home">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -106,6 +113,18 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
         things that matter.
       </p>
     </div>
+
+    <!-- Say what you're after, and give them one click to answer. EDIT THE
+         STATUS LINE: it should say what is actually true this month. To add a
+         CV, drop the PDF at assets/cv.pdf and uncomment the third button. -->
+    <div class="hero__act reveal" data-d="4">
+      <p class="hero__status"><i aria-hidden="true"></i>Based in Singapore &middot; open to opportunities</p>
+      <div class="hero__btns">
+        <a class="btn btn--solid" href="mailto:samuelyee4385@gmail.com">Email me</a>
+        <a class="btn" href="projects.html">See the work</a>
+        <!-- <a class="btn" href="assets/cv.pdf" download>Download CV</a> -->
+      </div>
+    </div>
   </div>
 </section>
 
@@ -119,11 +138,43 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
 
 <div class="checker checker--rust" aria-hidden="true" style="opacity:.55"></div>
 
+<!-- ============ Projects teaser ============ -->
+<section class="section section--tight shell">
+  <div class="section__head reveal">
+    <p class="label" style="margin:0">What I've been making</p><s></s>
+    <p class="label label--muted" style="margin:0">01</p>
+  </div>
+
+  <div class="reveal" data-folder
+       style="margin-bottom:clamp(30px,5vh,54px)"></div>
+
+  <a class="cta-link reveal" data-d="1" href="projects.html">
+    See more of my projects
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 19 19 5M9 5h10v10"/></svg>
+  </a>
+</section>
+
+<!-- ============ Gallery teaser ============ -->
+<section class="section shell">
+  <div class="section__head reveal">
+    <p class="label" style="margin:0">What I've captured</p><s></s>
+    <p class="label label--muted" style="margin:0">02</p>
+  </div>
+
+  <div class="ring-stage reveal" data-gallery-ring
+       style="margin-bottom:clamp(30px,5vh,54px)"></div>
+
+  <a class="cta-link reveal" data-d="1" href="gallery.html">
+    View Full Gallery
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 19 19 5M9 5h10v10"/></svg>
+  </a>
+</section>
+
 <!-- ============ About ============ -->
 <section class="section shell" id="about">
   <div class="section__head reveal">
     <p class="label" style="margin:0">Start here</p><s></s>
-    <p class="label label--muted" style="margin:0">01</p>
+    <p class="label label--muted" style="margin:0">03</p>
   </div>
 
   <div class="about">
@@ -174,17 +225,11 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
   </div>
 </section>
 
-<!-- ============ Statement ============ -->
-<section class="statement">
-  <p data-split><span>Wherever<br>you go,<br>There<br>you are.</span></p>
-</section>
-
 <!-- ============ Disciplines ============ -->
 <!-- ============ Education ============ -->
 <section class="section section--tight shell" id="education">
   <div class="section__head reveal">
     <p class="label" style="margin:0">Where I've been</p><s></s>
-    <p class="label label--muted" style="margin:0">02</p>
   </div>
 
   <ol class="path">
@@ -204,10 +249,15 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
   </ol>
 </section>
 
+<!-- ============ Statement ============ -->
+<section class="statement">
+  <p data-split><span>Wherever<br>you go,<br>There<br>you are.</span></p>
+</section>
+
 <section class="section section--tight shell">
   <div class="section__head reveal">
     <p class="label" style="margin:0">What I keep doing</p><s></s>
-    <p class="label label--muted" style="margin:0">03</p>
+    <p class="label label--muted" style="margin:0">04</p>
   </div>
 
   <div class="cards">
@@ -246,43 +296,11 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
   </div>
 </section>
 
-<!-- ============ Projects teaser ============ -->
-<section class="section section--tight shell">
-  <div class="section__head reveal">
-    <p class="label" style="margin:0">What I've been making</p><s></s>
-    <p class="label label--muted" style="margin:0">04</p>
-  </div>
-
-  <div class="reveal" data-folder
-       style="margin-bottom:clamp(30px,5vh,54px)"></div>
-
-  <a class="cta-link reveal" data-d="1" href="projects.html">
-    See more of my projects
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 19 19 5M9 5h10v10"/></svg>
-  </a>
-</section>
-
-<!-- ============ Gallery teaser ============ -->
-<section class="section shell">
-  <div class="section__head reveal">
-    <p class="label" style="margin:0">What I've captured</p><s></s>
-    <p class="label label--muted" style="margin:0">05</p>
-  </div>
-
-  <div class="ring-stage reveal" data-gallery-ring
-       style="margin-bottom:clamp(30px,5vh,54px)"></div>
-
-  <a class="cta-link reveal" data-d="1" href="gallery.html">
-    View Full Gallery
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 19 19 5M9 5h10v10"/></svg>
-  </a>
-</section>
-
 <!-- ============ Music ============ -->
 <section class="section shell">
   <div class="section__head reveal">
     <p class="label" style="margin:0">What's been playing</p><s></s>
-    <p class="label label--muted" style="margin:0">06</p>
+    <p class="label label--muted" style="margin:0">05</p>
   </div>
 
   <div class="music">
@@ -363,19 +381,19 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
 </footer>
 
 <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
-<script src="assets/js/theme.js?v=f5786432"></script>
-<script src="assets/js/transition.js?v=f5786432"></script>
-<script src="assets/js/site.js?v=f5786432"></script>
-<script src="assets/js/route.js?v=f5786432"></script>
-<script src="data/gallery.js?v=f5786432"></script>
-<script src="data/projects.js?v=f5786432"></script>
-<script src="assets/js/gallery.js?v=f5786432"></script>
-<script src="assets/js/ring.js?v=f5786432"></script>
-<script src="assets/js/split.js?v=f5786432"></script>
-<script src="assets/js/decrypt.js?v=f5786432"></script>
-<script src="assets/js/cutout.js?v=f5786432"></script>
-<script src="assets/js/lanyard.js?v=f5786432"></script>
-<script src="assets/js/folder.js?v=f5786432"></script>
-<script src="assets/js/projects.js?v=f5786432"></script>
+<script src="assets/js/theme.js?v=4d515edc"></script>
+<script src="assets/js/transition.js?v=4d515edc"></script>
+<script src="assets/js/site.js?v=4d515edc"></script>
+<script src="assets/js/route.js?v=4d515edc"></script>
+<script src="data/gallery.js?v=4d515edc"></script>
+<script src="data/projects.js?v=4d515edc"></script>
+<script src="assets/js/gallery.js?v=4d515edc"></script>
+<script src="assets/js/ring.js?v=4d515edc"></script>
+<script src="assets/js/split.js?v=4d515edc"></script>
+<script src="assets/js/decrypt.js?v=4d515edc"></script>
+<script src="assets/js/cutout.js?v=4d515edc"></script>
+<script src="assets/js/lanyard.js?v=4d515edc"></script>
+<script src="assets/js/folder.js?v=4d515edc"></script>
+<script src="assets/js/projects.js?v=4d515edc"></script>
 </body>
 </html>

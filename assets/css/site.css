@@ -3118,3 +3118,76 @@ main, .footer { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) {
   .wipe { display: none; }
 }
+
+
+/* ==========================================================================
+   Hero call to action — a line saying what you're after, and the two things
+   a visitor might want to do about it. Contact used to live ten screens down.
+   ========================================================================== */
+.hero__act {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+}
+/* A lit dot, the way a status light reads */
+.hero__status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--forest);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--forest) 24%, transparent);
+}
+
+.hero__btns { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;                /* a thumb's worth, on any screen */
+  padding: 11px 22px;
+  border: 1px solid var(--ink);
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background var(--dur-2) var(--ease-out),
+              color var(--dur-2) var(--ease-out),
+              border-color var(--dur-2) var(--ease-out);
+}
+.btn:hover { background: var(--ink); color: var(--bg); }
+
+.btn--solid {
+  background: var(--mat);
+  border-color: var(--mat);
+  color: var(--on-stock);
+}
+.btn--solid:hover {
+  background: var(--stock);
+  border-color: var(--stock);
+  color: var(--on-stock);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}

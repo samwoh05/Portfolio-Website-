@@ -38,7 +38,11 @@ assets/img/           Portrait, about photo, badge photo, project covers
 assets/video/         Web-encoded films + their poster frames
 assets/fonts/         Anton, DM Sans, Neucha
 
+assets/img/share.jpg  1200x630 link preview, used by every page
 assets/img/car.png    The car on the scroll route (masked, transparent)
+
+sitemap.xml           The five public pages, for crawlers
+robots.txt            Allows everything, points at the sitemap
 tools/set-photos.py   Swaps the two portraits (see below)
 tools/bump-cache.py   Re-stamps the CSS and JS links after you change them
 source/               Full-size originals — never published
@@ -48,14 +52,14 @@ source/               Full-size originals — never published
 
 ## Spec sheet
 
-Measured from the published site, September 2026. **94 files, 32.5 MB**, of
+Measured from the published site, September 2026. **97 files, 32.6 MB**, of
 which 27.5 MB is video.
 
 ### Pages
 
 | File | What it holds | Lines | Size |
 |---|---|---:|---:|
-| `index.html` | Hero pass, about, four hobby tiles, the photo ring, project teaser, contact | 376 | 21 KB |
+| `index.html` | Hero pass, projects, gallery ring, about, education, hobby tiles, music | 399 | 23 KB |
 | `privacy.html` | Privacy notice | 172 | 13 KB |
 | `gallery.html` | The full wall, grouped by set, with filters and a lightbox | 154 | 12 KB |
 | `projects.html` | Project list; the cover follows the cursor down the page | 139 | 11 KB |
@@ -154,7 +158,7 @@ Thirteen modules, 89 KB in total, no dependencies.
 | `decrypt.js` | "Say Hello" scrambles and settles on every load | 232 |
 | `project-detail.js` | Renders one project from the slug in the address | 195 |
 | `route.js` | A car that winds down the page behind everything as you scroll | 138 |
-| `folder.js` | The project folder that opens on the home page | 137 |
+| `folder.js` | The project folder on the home page — rests **open**, so the projects read without a click | 146 |
 | `projects.js` | Project list with a cover that follows the cursor | 114 |
 | `split.js` | Splits a line into letters so each rises out of its own mask | 110 |
 | `transition.js` | The terracotta wipe between pages | 128 |
@@ -175,6 +179,28 @@ pick one and it opens in the gallery lightbox.
 | Turn | 0.12° per pixel scrolled; 4°/s of drift otherwise |
 | Quiet swaps | Every 6 s one card past 150° — out of sight — loads another photograph |
 | Holds still | Under the pointer, during a drag, and while a card has keyboard focus |
+
+### The running order
+
+The home page leads with the work. It used to open with the hero and then run
+about → statement → education → hobby tiles before reaching a single project,
+which put the evidence 3,739px down — 4.6 screens on a phone. The same sections
+now read in this order, none removed:
+
+| | Section | Reaches |
+|---|---|---|
+| | Hero — pass, name, status line, two buttons | |
+| 01 | Projects — the folder, resting open | **900px** |
+| 02 | Gallery — the photo ring | 1,662px |
+| 03 | About — with education folded in under it | 2,454px |
+| | Statement — "Wherever you go, there you are." | |
+| 04 | What I keep doing — the four hobby tiles | |
+| 05 | What's been playing — the two playlists | |
+| | Contact | |
+
+The hero carries a status line (**edit it in `index.html` — it should say what
+is true this month**) and two buttons: *Email me* and *See the work*. A third,
+commented out, links `assets/cv.pdf` — uncomment it once that file exists.
 
 ### Lanyard
 
@@ -275,6 +301,14 @@ GitHub Pages, branch `main` / root, no build. No CDN, analytics, tracker or
 cookies — every byte comes from the same origin. Needs custom properties, grid,
 3D transforms and `IntersectionObserver`; where the observer is missing the ring
 simply stays awake. See [Putting it online](#putting-it-online) for the details.
+
+**Sharing and crawling.** Every page carries an absolute `og:image`
+(`assets/img/share.jpg`, 1200x630), `og:url`, `og:site_name`, image dimensions
+and alt, and `twitter:card`. The five public pages also carry a `canonical`.
+Relative `og:image` paths were invisible to every scraper, so the link arrived
+as bare text wherever it was pasted. `sitemap.xml` and `robots.txt` sit at the
+root. **All of these carry the full domain — if the site ever moves, they all
+need rewriting**; they are the only absolute URLs in the project.
 
 **404.** GitHub Pages serves `404.html` for any address it doesn't have. Its
 links are relative, which is right for a wrong address one level deep — the

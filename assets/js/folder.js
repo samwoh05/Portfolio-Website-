@@ -1,5 +1,6 @@
 /* ==========================================================================
    Project folder — the React Bits <Folder /> component, ported to plain JS.
+   It rests open, holding the projects out where they can be read.
 
    Two departures from the original, both forced:
      - it is React, and this site has no React and no build step, so the state
@@ -36,8 +37,12 @@
 
   /* Deliberately NOT shuffled. A recruiter opens this page once; a random
      order means the strongest work can land behind the weakest. data/projects.js
-     holds the intended order and this respects it. */
-  var papers = DATA.slice(0, 5);
+     holds the intended order and this respects it.
+
+     Reversed only for stacking: the last strip drawn sits highest in the
+     pocket, so reversing here puts the first project in the data at the top of
+     the pile, where it is read first. */
+  var papers = DATA.slice(0, 5).reverse();
   var n = papers.length;
 
   var html = papers.map(function (p, k) {
@@ -58,8 +63,8 @@
         '<div class="rb-folder__front" aria-hidden="true"></div>' +
         '<div class="rb-folder__front right" aria-hidden="true"></div>' +
       "</div>" +
-      '<button class="rb-folder__toggle" type="button" aria-expanded="false">' +
-        '<span class="rb-folder__hint">Open the folder</span>' +
+      '<button class="rb-folder__toggle" type="button" aria-expanded="true">' +
+        '<span class="rb-folder__hint">Close the folder</span>' +
       "</button>" +
     "</div>";
 
@@ -110,15 +115,14 @@
     pick(strip.classList.contains("is-picked") ? -1 : k);
   });
 
-  /* Anywhere off the card puts it back in the folder; anywhere off the folder
-     shuts the folder altogether. */
+  /* Anywhere off the card puts that card back in the folder. The folder itself
+     stays open: shutting it would hide the only thing this section is for. */
   document.addEventListener("click", function (e) {
     if (!folder.classList.contains("is-open")) return;
     if (e.target.closest(".rb-card")) return;           // inside the open card
     if (e.target.closest(".paper")) return;             // picking another strip
     if (e.target.closest(".rb-folder__toggle")) return; // the toggle handles itself
-    if (folder.classList.contains("has-out")) { pick(-1); return; }
-    if (!e.target.closest(".rb-folder")) open(false);
+    if (folder.classList.contains("has-out")) pick(-1);
   });
 
   folder.addEventListener("keydown", function (e) {
@@ -128,10 +132,15 @@
     if (!strip) return;
     e.preventDefault();
     var k = sheets.indexOf(strip);
-    var next = (k + (e.key === "ArrowDown" ? 1 : -1) + n) % n;
+    // The pile is drawn bottom-up, so down the screen is back through the array
+    var next = (k + (e.key === "ArrowDown" ? -1 : 1) + n) % n;
     sheets[next].focus();
   });
 
-  open(false);
+  /* Open from the start. It used to rest shut, which meant the projects
+     teaser showed a visitor no project names at all until they clicked — the
+     work was behind a door. The toggle still shuts it for anyone who wants
+     the folder closed. */
+  open(true);
   if (window.siteRefresh) window.siteRefresh();
 })();
