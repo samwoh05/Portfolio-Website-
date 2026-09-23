@@ -1,6 +1,7 @@
 /* ==========================================================================
    Project folder — the React Bits <Folder /> component, ported to plain JS.
-   It rests open, holding the projects out where they can be read.
+   It rests shut and opens under the pointer; touch and keyboard, which have
+   no hover, still use the toggle beneath it.
 
    Two departures from the original, both forced:
      - it is React, and this site has no React and no build step, so the state
@@ -63,8 +64,8 @@
         '<div class="rb-folder__front" aria-hidden="true"></div>' +
         '<div class="rb-folder__front right" aria-hidden="true"></div>' +
       "</div>" +
-      '<button class="rb-folder__toggle" type="button" aria-expanded="true">' +
-        '<span class="rb-folder__hint">Close the folder</span>' +
+      '<button class="rb-folder__toggle" type="button" aria-expanded="false">' +
+        '<span class="rb-folder__hint">Open the folder</span>' +
       "</button>" +
     "</div>";
 
@@ -137,10 +138,42 @@
     sheets[next].focus();
   });
 
-  /* Open from the start. It used to rest shut, which meant the projects
-     teaser showed a visitor no project names at all until they clicked — the
-     work was behind a door. The toggle still shuts it for anyone who wants
-     the folder closed. */
-  open(true);
+  open(false);
+
+  /* Hover opens it. Only where there is a real pointer: on a phone every
+     element is "hovered" the moment it is tapped, which would make the toggle
+     fight the touch. There the button is the way in. */
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    var shutTimer = null;
+
+    function shutSoon() {
+      clearTimeout(shutTimer);
+      // A moment's grace: crossing the gap between two strips shouldn't shut it,
+      // and neither should tabbing between them.
+      shutTimer = setTimeout(function () {
+        if (folder.matches(":hover")) return;
+        if (folder.contains(document.activeElement)) return;
+        open(false);
+      }, 240);
+    }
+
+    folder.addEventListener("pointerenter", function (e) {
+      if (e.pointerType && e.pointerType !== "mouse") return;
+      clearTimeout(shutTimer);
+      open(true);
+    });
+    folder.addEventListener("pointerleave", function (e) {
+      if (e.pointerType && e.pointerType !== "mouse") return;
+      shutSoon();
+    });
+
+    // Keyboard focus counts as being in the folder, or tabbing in would shut it
+    folder.addEventListener("focusin", function () {
+      clearTimeout(shutTimer);
+      open(true);
+    });
+    folder.addEventListener("focusout", shutSoon);
+  }
+
   if (window.siteRefresh) window.siteRefresh();
 })();

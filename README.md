@@ -158,7 +158,7 @@ Thirteen modules, 89 KB in total, no dependencies.
 | `decrypt.js` | "Say Hello" scrambles and settles on every load | 232 |
 | `project-detail.js` | Renders one project from the slug in the address | 195 |
 | `route.js` | A car that winds down the page behind everything as you scroll | 138 |
-| `folder.js` | The project folder on the home page — rests **open**, so the projects read without a click | 146 |
+| `folder.js` | The project folder on the home page — shut at rest, opens on hover; the toggle is the way in on touch and by keyboard | 179 |
 | `projects.js` | Project list with a cover that follows the cursor | 114 |
 | `split.js` | Splits a line into letters so each rises out of its own mask | 110 |
 | `transition.js` | The terracotta wipe between pages | 128 |
@@ -190,7 +190,7 @@ now read in this order, none removed:
 | | Section | Reaches |
 |---|---|---|
 | | Hero — pass, name, status line, two buttons | |
-| 01 | Projects — the folder, resting open | **900px** |
+| 01 | Projects — the folder, opening under the pointer | **900px** |
 | 02 | Gallery — the photo ring | 1,662px |
 | 03 | About — with education folded in under it | 2,454px |
 | | Statement — "Wherever you go, there you are." | |
