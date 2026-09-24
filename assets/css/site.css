@@ -2522,16 +2522,33 @@ main, .footer { position: relative; z-index: 1; }
   /* Shut: dropped to the bottom of the pocket, wholly behind the cover */
   transform: translateY(calc(var(--h) * 0.66));
   transition: transform 460ms var(--ease-out), background 220ms var(--ease-out),
-              opacity 300ms var(--ease-out);
+              opacity 300ms var(--ease-out), translate 190ms var(--ease-out),
+              box-shadow 190ms var(--ease-out);
   box-shadow: inset 0 1px 0 rgba(var(--shadow), 0.18),
               0 -3px 10px -4px rgba(var(--shadow), 0.3);
 }
 .paper:nth-child(2n) { background: var(--sheet-alt); }
 .rb-folder.is-open .paper { transform: translateY(0); }
-.paper:hover { background: #fff; }
+/* A file lifts a little as the pointer crosses it, the way one comes half
+   out of a drawer under a finger. */
+.rb-folder.is-open .paper:hover,
+.rb-folder.is-open .paper:focus-visible {
+  background: #fff;
+  translate: 0 -7px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5),
+              0 -7px 18px -7px rgba(var(--shadow), 0.45);
+}
 .paper:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: -3px; }
 .rb-folder.has-out .paper:not(.is-picked) { opacity: 0.5; }
-.rb-folder.has-out .paper.is-picked { background: #fff; }
+/* The one you picked stays out, so the pile shows where you are */
+.rb-folder.has-out .paper.is-picked {
+  background: #fff;
+  translate: 0 -7px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper { transition: background 220ms linear, opacity 300ms linear; }
+}
 
 .paper__name {
   font-family: var(--font-display);
