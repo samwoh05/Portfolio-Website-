@@ -70,7 +70,7 @@ window.PROJECTS_DATA = {
           "A game station that tests directional hearing. Three boards — left, right and centre — hit with shurikens, with nothing but where the sound comes from telling you which one is yours. Three rounds, each shorter than the last."
         ],
         [
-          "My Contribution",
+          "My Contributions",
           "The grandMA3 lightshow, the Raspberry Pi bridge between the lighting and the audio, part of the game logic, and the sensors that turned three plain boards into targets that know when they have been hit."
         ],
         [
@@ -157,7 +157,7 @@ window.PROJECTS_DATA = {
           "An LED tunnel leading visitors towards the lecture theatre hosting the drone show — the approach to the main event, and the first thing anyone walked through."
         ],
         [
-          "My Contribution",
+          "My Contributions",
           "Designed the tunnel and helped build it: the structure, patching the LED tubes, the haze and smoke machines, the power and DMX runs. Programmed one of the two light shows, and patched the lecture theatre rig for the drone show."
         ],
         [
