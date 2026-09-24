@@ -2340,7 +2340,7 @@ main, .footer { position: relative; z-index: 1; }
   --w: clamp(300px, 39vw, 540px);
   --h: calc(var(--w) * 0.76);
   --strip: clamp(34px, 3.6vw, 44px);
-  --step: calc(var(--strip) * 0.9);
+  --step: calc(var(--strip) * 0.74);   /* overlap deep enough to swallow the hover lift */
   --skin: var(--amber-mat);
   --skin-back: #74430a;
   position: relative;
@@ -2534,7 +2534,7 @@ main, .footer { position: relative; z-index: 1; }
 .rb-folder.is-open .paper:hover,
 .rb-folder.is-open .paper:focus-visible {
   background: #fff;
-  translate: 0 -7px;
+  translate: 0 -6px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5),
               0 -7px 18px -7px rgba(var(--shadow), 0.45);
 }
@@ -2543,7 +2543,7 @@ main, .footer { position: relative; z-index: 1; }
 /* The one you picked stays out, so the pile shows where you are */
 .rb-folder.has-out .paper.is-picked {
   background: #fff;
-  translate: 0 -7px;
+  translate: 0 -6px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2596,7 +2596,7 @@ main, .footer { position: relative; z-index: 1; }
 }
 
 /* A narrow folder gives the stack less room, so the strips sit closer */
-@media (max-width: 900px) { .rb-folder { --step: calc(var(--strip) * 0.8); } }
+@media (max-width: 900px) { .rb-folder { --step: calc(var(--strip) * 0.7); } }
 
 @media (prefers-reduced-motion: reduce) {
   .rb-folder__back, .rb-folder__front, .paper, .rb-card { transition: none; }

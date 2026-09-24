@@ -158,7 +158,7 @@ Thirteen modules, 89 KB in total, no dependencies.
 | `decrypt.js` | "Say Hello" scrambles and settles on every load | 232 |
 | `project-detail.js` | Renders one project from the slug in the address | 195 |
 | `route.js` | A car that winds down the page behind everything as you scroll | 138 |
-| `folder.js` | The project folder on the home page — shut at rest, opens on hover, and each file lifts 7px as the pointer crosses it; the toggle is the way in on touch and by keyboard | 179 |
+| `folder.js` | The project folder on the home page — shut at rest, opens on hover, and each file lifts 6px as the pointer crosses it; the files shingle with 9.6px of overlap so the lift never opens a slot onto the folder behind. The toggle is the way in on touch and by keyboard | 179 |
 | `projects.js` | Project list with a cover that follows the cursor | 114 |
 | `split.js` | Splits a line into letters so each rises out of its own mask | 110 |
 | `transition.js` | The terracotta wipe between pages | 128 |
