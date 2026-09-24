@@ -32,7 +32,7 @@ window.PROJECTS_DATA = {
       "detail": [
         "Game Station 1 of Project S.O.N.I.C is an interactive target practice game, built with two groupmates. There are three boards — left, right and centre — and players throw shurikens at them. The only thing telling you which board to hit is where the sound is coming from: a cue plays from one direction, and that target becomes yours. It runs over three rounds, each one giving you less time than the last.",
         "Everything talks over OSC — OpenSoundControl, a protocol for passing messages between music software and hardware. A Raspberry Pi sits in the middle of it, running the game logic while keeping the lighting and the audio in step with each other at the same time: grandMA3 for the lights, L-ISA Studio and Reaper DAW for the sound.",
-        "My part was the lighting and the plumbing between the two. I programmed the lightshow in grandMA3 so the lighting reacted to the game rather than just running alongside it, and I wrote the Pi's side of that communication — the bridge that kept grandMA3, L-ISA Studio and Reaper in sync while the game ran. I also helped program the game logic, and helped configure the sensors into the cardboard target boards that let the Pi know when a target had been hit. The shuriken were designed and 3D printed by our lecturer, Mr Fu Yong Wei; we built a Styrofoam placeholder to work against while they were being made."
+        "My contribution was the lighting and the plumbing between the two. I programmed the lightshow in grandMA3 so the lighting reacted to the game rather than just running alongside it, and I wrote the Pi's side of that communication — the bridge that kept grandMA3, L-ISA Studio and Reaper in sync while the game ran. I also helped program the game logic, and helped configure the sensors into the cardboard target boards that let the Pi know when a target had been hit. The shuriken were designed and 3D printed by our lecturer, Mr Fu Yong Wei; we built a Styrofoam placeholder to work against while they were being made."
       ],
       "shots": [
         {
@@ -70,7 +70,7 @@ window.PROJECTS_DATA = {
           "A game station that tests directional hearing. Three boards — left, right and centre — hit with shurikens, with nothing but where the sound comes from telling you which one is yours. Three rounds, each shorter than the last."
         ],
         [
-          "My part",
+          "My Contribution",
           "The grandMA3 lightshow, the Raspberry Pi bridge between the lighting and the audio, part of the game logic, and the sensors that turned three plain boards into targets that know when they have been hit."
         ],
         [
@@ -157,7 +157,7 @@ window.PROJECTS_DATA = {
           "An LED tunnel leading visitors towards the lecture theatre hosting the drone show — the approach to the main event, and the first thing anyone walked through."
         ],
         [
-          "My part",
+          "My Contribution",
           "Designed the tunnel and helped build it: the structure, patching the LED tubes, the haze and smoke machines, the power and DMX runs. Programmed one of the two light shows, and patched the lecture theatre rig for the drone show."
         ],
         [
