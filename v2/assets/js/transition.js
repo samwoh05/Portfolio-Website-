@@ -1,12 +1,17 @@
 /* ==========================================================================
-   Page transition — a terracotta panel sweeps across, the next page loads
-   behind it, and it sweeps off the other side.
+   Page transition — a panel crosses the screen, the next page loads behind
+   it, and it carries straight on out the other side.
 
    Two reasons it exists. One, a plain navigation flashes the browser's white
-   between two cream pages, which is the cheapest-looking moment on the site.
-   Two, the preloader was running its full count on every page, so moving
-   around felt slower than the site is; when you arrive behind the wipe, the
-   curtain is dropped and the page is simply there.
+   between two near-black pages, which is the cheapest-looking moment on the
+   site. Two, the preloader was running its full count on every page, so
+   moving around felt slower than the site is; when you arrive behind the
+   wipe, the curtain is dropped and the page is simply there.
+
+   The panel is painted in the page's own ground, so what a visitor actually
+   sees is the tungsten filament on its leading edge — a moving light crossing
+   a stage. A coloured panel would trade the browser's white flash for a flash
+   of its own. The look lives in site.css; this file only handles timing.
 
    The panel is the only thing that knows about timing. Everything else —
    links, the back button, a page restored from the browser's cache — is

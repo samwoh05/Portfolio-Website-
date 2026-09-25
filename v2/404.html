@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found — Samuel Yee</title>
-<meta name="description" content="That page isn't here. The way back to the photographs and the projects.">
+<meta name="description" content="That address isn't patched. The way back to the work, the courses and the photographs.">
 <meta name="theme-color" content="#f4f5f4">
 <meta name="robots" content="noindex">
 <meta property="og:title" content="Page not found — Samuel Yee">
@@ -23,9 +23,9 @@
 try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="preload" href="assets/fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/dmsans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=v20002">
-<link rel="stylesheet" href="assets/css/site.css?v=v20002">
-<link rel="stylesheet" href="assets/css/print.css?v=v20002" media="print">
+<link rel="stylesheet" href="assets/css/fonts.css?v=v20003">
+<link rel="stylesheet" href="assets/css/site.css?v=v20003">
+<link rel="stylesheet" href="assets/css/print.css?v=v20003" media="print">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -66,27 +66,34 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
 <header class="page-head shell lost">
   <div class="page-head__ghost" data-parallax="-0.09" aria-hidden="true">404</div>
   <p class="label rise in" style="margin:0 0 clamp(16px,3vh,28px)"><span>Nothing at this address</span></p>
-  <h1 class="display h-xl rise in" data-d="1" style="max-width:12ch"><span>This one<br>never<br>developed.</span></h1>
+  <h1 class="display h-xl rise in" data-d="1" style="max-width:14ch"><span>This channel<br>isn't patched.</span></h1>
   <div class="page-head__meta reveal" data-d="2">
     <p class="lede" style="margin:0">
-      The page you asked for has moved, been renamed, or never existed &mdash; the
-      web equivalent of a frame that didn't come out. Everything else is where you
-      left it.
+      The address you asked for has moved, been renamed, or never existed. On a
+      lighting desk that is an unpatched channel: the fader goes up and nothing
+      comes on. Everything else is still where you left it.
     </p>
   </div>
 
-  <nav class="lost__ways reveal" data-d="3" aria-label="Where to go instead">
+  <!-- What was pulled, and what came up. People mistype addresses, and the
+       fastest way to let someone spot their own typo is to hand it back. -->
+  <dl class="patch reveal" data-d="3">
+    <div><dt>Channel</dt><dd data-lost-path>&mdash;</dd></div>
+    <div><dt>Status</dt><dd class="is-off">Unpatched &middot; 404</dd></div>
+  </dl>
+
+  <nav class="lost__ways reveal" data-d="4" aria-label="Where to go instead">
     <a class="lost__way" href="index.html">
       <b>Home</b>
-      <span>The pass, the ring, the short version of me</span>
-    </a>
-    <a class="lost__way" href="gallery.html">
-      <b>Gallery</b>
-      <span>Singapore, mostly &mdash; streets, shophouses, travel</span>
+      <span>The work, the courses, and the short version of me</span>
     </a>
     <a class="lost__way" href="projects.html">
       <b>Projects</b>
       <span>A game you play by ear, and an LED tunnel</span>
+    </a>
+    <a class="lost__way" href="gallery.html">
+      <b>Gallery</b>
+      <span>Singapore, mostly &mdash; streets, shophouses, travel</span>
     </a>
     <a class="lost__way" href="mailto:samuelyee4385@gmail.com">
       <b>Email me</b>
@@ -111,7 +118,7 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
 <footer class="footer">
   <p class="label reveal" style="margin:0">Get in touch</p>
 
-  <h2 class="contact__title reveal" data-d="1">Want to build something together?</h2>
+  <h2 class="contact__title reveal" data-d="1">Not what you came for. Still glad to hear from you.</h2>
 
   <a class="contact__mail reveal" data-d="2" href="mailto:samuelyee4385@gmail.com">samuelyee4385@gmail.com</a>
 
@@ -125,11 +132,23 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
   </div>
 </footer>
 
-<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
-<script src="data/gallery.js?v=v20002"></script>
-<script src="assets/js/theme.js?v=v20002"></script>
-<script src="assets/js/transition.js?v=v20002"></script>
-<script src="assets/js/site.js?v=v20002"></script>
+<script>
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* The address the visitor asked for, written into the patch bay. textContent,
+   never innerHTML: this string comes from the URL bar, so it is the one piece
+   of content on the site that a stranger controls. */
+(function () {
+  var slot = document.querySelector("[data-lost-path]");
+  if (!slot) return;
+  var asked = (location.pathname + location.search).replace(/^\/v2/, "") || "/";
+  slot.textContent = asked.length > 64 ? asked.slice(0, 63) + "\u2026" : asked;
+})();
+</script>
+<script src="data/gallery.js?v=v20003"></script>
+<script src="assets/js/theme.js?v=v20003"></script>
+<script src="assets/js/transition.js?v=v20003"></script>
+<script src="assets/js/site.js?v=v20003"></script>
 <script>
 /* Three landscape frames, picked at random, linking back into the gallery.
    A dead end should still be worth landing on. */

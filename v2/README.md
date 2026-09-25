@@ -109,6 +109,53 @@ Total type weight: **176 KB** across eight woff2 files, latin and latin-ext.
 The film grain stayed. On a cream page it was paper texture; on this one it
 reads as sensor noise, which is more true.
 
+## The transition and the 404
+
+Both were inherited from the cream version and both have been rebuilt, because
+each was designed around an assumption this version no longer makes.
+
+**The page transition.** The old one was a terracotta panel you were meant to
+see. That works on a cream page; between two near-black ones it is a bright
+flash, which is the exact problem the panel exists to solve. So the panel is
+now painted in the page's own ground — `var(--bg)`, matching in either theme —
+and is effectively invisible. What crosses the screen is its leading edge:
+three pixels of tungsten with the glow they throw ahead, the way a moving light
+crosses a stage. The blackout does the hiding; the filament does the telling.
+
+It also travels now rather than growing. The old panel animated `scaleX`, which
+squashes anything drawn on its edge; a filament under `scaleX` is a hairline at
+the start and full width only at the end. It animates `translate` instead, so
+the edge keeps its three pixels the whole way across. Timings are unchanged —
+200ms in, 260ms out, nothing at all under reduced motion — so `transition.js`
+needed no logic change, only a new description of what it drives.
+
+**The 404.** "This one never developed" was a darkroom joke from the version
+where photography was half the headline. It is a hobby here, so the page runs
+on the trade Samuel actually practised: patching.
+
+> **This channel isn't patched.**
+> The address you asked for has moved, been renamed, or never existed. On a
+> lighting desk that is an unpatched channel: the fader goes up and nothing
+> comes on. Everything else is still where you left it.
+
+Under it is a patch bay — the one genuinely useful thing on the page. It hands
+back the address that was actually requested, in mono, next to an unlit lamp
+and the word `Unpatched`. People mistype URLs, and seeing the string returned to
+them is how they spot their own typo. It is written with `textContent`, never
+`innerHTML`: that string comes from the URL bar, so it is the only content on
+the site a stranger controls. It truncates at 64 characters and wraps anywhere,
+so a long mistyped address cannot push the layout sideways.
+
+The four ways out now run in the site's own order — Home, Projects, Gallery,
+Email — rather than the order they were written in. Hovering one lights it
+instead of washing it: the card goes to `--stock` with a tungsten heading, which
+is the pairing this version uses everywhere something is picked out. Flooding
+the card with tungsten, which is what the old rule did, would have put 13px type
+on a 3.3:1 ground.
+
+Three photographs still sit at the bottom. A dead end should be worth landing
+on.
+
 ## Contrast
 
 Audited on the live pages, every text node, both themes, six pages: **zero
@@ -116,7 +163,8 @@ failures**. The two hits the audit reports on `.ring__title` and `.ring__meta`
 are the long-standing false positive — those sit on a gradient the checker
 can't sample.
 
-Three fixes came out of that audit rather than out of taste:
+Re-audited after the 404 rebuild: still zero. Three fixes came out of that
+audit rather than out of taste:
 `.footer__nav a[aria-current]` was tungsten-on-paper printed on the dark footer
 band at 3.6:1; `--on-sheet-accent` was 4.37:1 on the pass and the folder tabs
 at 8.5px; the overlay menu's current-page marker had the same problem as the

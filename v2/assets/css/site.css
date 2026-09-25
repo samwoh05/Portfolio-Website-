@@ -2855,11 +2855,64 @@ a.label::before,
   letter-spacing: 0.01em;
 }
 .lost__way span { font-size: 13.5px; color: var(--ink-soft); }
-.lost__way:hover {
-  background: var(--rust);
-  color: var(--cream);
+/* Hovering lights the card rather than washing it: tungsten on a dark board
+   is the pairing this version uses everywhere a thing is picked out. Flooding
+   it with tungsten would put 13px type on a 3.3:1 ground. */
+.lost__way:hover,
+.lost__way:focus-visible {
+  background: var(--stock);
+  color: var(--on-stock);
 }
-.lost__way:hover span { color: var(--cream); }
+.lost__way:hover b,
+.lost__way:focus-visible b { color: var(--tungsten-on-band); }
+.lost__way:hover span,
+.lost__way:focus-visible span { color: rgba(236, 239, 239, 0.74); }
+
+/* The patch bay. A lighting desk tells you which channel you pulled and
+   whether anything is wired to it; this says the same about the address the
+   visitor typed. It is the one piece of the page that is actually useful —
+   people mistype URLs, and seeing the string back is how they spot it. */
+.patch {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px;
+  margin: clamp(26px, 4vh, 40px) 0 0;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.patch > div {
+  background: var(--panel);
+  padding: 14px clamp(14px, 1.8vw, 20px);
+  min-width: 0;
+}
+.patch dt {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 5px;
+}
+.patch dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.patch dd.is-off { color: var(--accent-deep); }
+/* A lamp that is not lit, drawn rather than described */
+.patch dd.is-off::before {
+  content: "";
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: 1px;
+  background: currentColor;
+  opacity: 0.45;
+}
 
 /* Three frames rather than a whole wall */
 .wall--lost {
@@ -3008,46 +3061,59 @@ a.label::before,
 
 
 /* ==========================================================================
-   Page transition — the terracotta panel that sweeps across between pages.
-   Driven by transition.js; the timings here and the ones there must agree.
+   Page transition — a lamp swept across the screen.
+
+   The old version of this was a terracotta panel: you were meant to see it.
+   That worked on a cream page. Here it would be a bright flash between two
+   near-black ones, which is the exact problem the panel was built to solve.
+
+   So the panel is painted in the page's own ground and is effectively
+   invisible. What you see is its leading edge: three pixels of tungsten and
+   the glow they throw ahead, crossing the screen the way a moving light
+   crosses a stage. The blackout does the hiding, the filament does the
+   telling.
+
+   It travels rather than growing — the old one scaled, which squashed
+   anything drawn on its edge. Driven by transition.js; the timings here and
+   the ones there must agree.
    ========================================================================== */
 .wipe {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--rust);
-  transform: scaleX(0);
-  transform-origin: left center;
+  background: var(--bg);
+  translate: -100% 0;
   pointer-events: none;
-  will-change: transform;
+  will-change: translate;
 }
 
-/* Leading edge, in the site's own checkerboard */
+/* The filament, riding whichever edge is leading */
 .wipe::after {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 0;
-  width: 14px;
-  background-image: repeating-conic-gradient(var(--cream) 0% 25%, transparent 0% 50%);
-  background-size: 14px 14px;
-  opacity: 0.9;
+  right: -1px;
+  width: 3px;
+  background: var(--tungsten);
+  box-shadow: 0 0 20px 5px rgba(242, 165, 68, 0.45),
+              0 0 64px 20px rgba(242, 165, 68, 0.16);
 }
 
 .wipe.is-covering {
-  transform: scaleX(1);
-  transition: transform 200ms var(--ease-in);
+  translate: 0 0;
+  transition: translate 200ms var(--ease-in);
   pointer-events: all;          /* nothing behind it can be clicked mid-sweep */
 }
 
-/* Off the other side, so the sweep reads as one continuous movement */
+/* Straight out the other side, so the sweep reads as one continuous movement
+   rather than a panel that arrives and then retreats the way it came. */
 .wipe.is-leaving {
-  transform-origin: right center;
-  transform: scaleX(0);
-  transition: transform 260ms var(--ease-out);
+  translate: 100% 0;
+  transition: translate 260ms var(--ease-out);
 }
-.wipe.is-leaving::after { right: auto; left: 0; }
+/* Leaving, it is the trailing edge that uncovers the page */
+.wipe.is-leaving::after { right: auto; left: -1px; }
 
 @media (prefers-reduced-motion: reduce) {
   .wipe { display: none; }

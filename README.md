@@ -260,6 +260,20 @@ around the site no longer runs the full count each time.
 | Back button | A page restored from the browser's cache clears the panel on `pageshow` |
 | Still | Under reduced motion the whole file returns early and links behave normally |
 
+### Transition and 404
+
+The wipe panel is painted in the page's own ground rather than a contrasting
+colour, so what crosses the screen is the tungsten filament on its leading edge
+— a coloured panel would trade the browser's white flash for one of its own. It
+travels (`translate`) instead of growing (`scaleX`), which is what keeps the
+filament three pixels wide the whole way across. Timings unchanged: 200ms in,
+260ms out, nothing under reduced motion.
+
+The 404 runs on patching rather than on darkroom developing: *"This channel
+isn't patched."* Under it a patch bay hands back the address that was actually
+requested, written with `textContent` because that string comes from the URL
+bar. The four ways out now follow the site's own order.
+
 ### Content
 
 | | |
