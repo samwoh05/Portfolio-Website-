@@ -79,7 +79,7 @@
   function paintChrome() {
     var meta = document.querySelector('meta[name="theme-color"]');
     if (!meta) return;
-    meta.setAttribute("content", current() === "dark" ? "#14100c" : "#f3ece0");
+    meta.setAttribute("content", current() === "dark" ? "#0c0e0f" : "#f4f5f4");
   }
   btn.addEventListener("click", paintChrome);
   if (system.addEventListener) system.addEventListener("change", paintChrome);

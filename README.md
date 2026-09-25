@@ -340,45 +340,61 @@ then commit. It rewrites the stamp on all six pages, and does nothing if the fil
 
 `v2/` holds a complete second version of the site, unpublished, that repositions
 it from *engineer & photographer* to an engineering graduate moving into
-marketing. The root site is untouched; the two run side by side at
-<http://localhost:4173> and <http://localhost:4173/v2/>.
+marketing — and dresses that claim in a different aesthetic. The root site is
+untouched; the two run side by side at <http://localhost:4173> and
+<http://localhost:4173/v2/>.
 
-**33 files, 508 KB.** It carries its own copy of everything small — six pages,
-the three stylesheets, fourteen scripts, the fonts and four data files — because
-it is a different version of them rather than a skin over this one. It borrows
-the heavy media unchanged from `../assets/img`, `../assets/gallery` and
-`../assets/video`, which is why it costs half a megabyte instead of 33.
+**34 files, 560 KB.** It carries its own copy of everything small — six pages,
+three stylesheets, twelve scripts, eight font files and four data files —
+because it is a different version of them rather than a skin over this one. It
+borrows the heavy media unchanged from `../assets/img`, `../assets/gallery` and
+`../assets/video`.
+
+### Tungsten & daylight
+
+The ground is a cool near-black, not warm cream. The accents are the two gels
+on any lighting desk — CTO, the orange that warms a lamp to tungsten, and CTB,
+the blue that cools it to daylight — which is Samuel's own trade borrowed as a
+palette. Tungsten lights what he has made; daylight lights what he is learning;
+the statement band is where the colour temperature changes. Nothing else is
+saturated, so the photographs are the only full colour on the page.
 
 | | Root | v2 |
-|---|---|---:|
-| Headline | Samuel / engineer & / photographer | Samuel / engineer, / learning / the market |
-| Home sections | 5 numbered, none about business | 5 numbered, two of them new |
-| `site.css` | 164 KB | 144 KB |
+|---|---|---|
+| Ground | `#f3ece0` warm cream | `#0c0e0f` cool near-black |
+| Accents | terracotta + cobalt | tungsten `#f2a544` + daylight `#7fc2e6` |
+| Display | Anton, condensed | Archivo 800, broad, −0.028em |
+| Labels & numbers | DM Sans 700, 0.42em | IBM Plex Mono 500 |
+| Gallery mounts | six coloured boards | one near-black, hairline-separated |
+| Type weight | 108 KB, 3 faces | 176 KB, 3 faces |
+| `site.css` | 164 KB | 140 KB |
 | Third-party requests | 2 (Spotify players) | 0 |
-| The word *marketing* | 0 times | in the title, the headline and two sections |
+| Contrast failures | 0 | 0 |
 
-**Added.** *Learning the market* (02) renders course cards from
-`v2/data/learning.js`; *Notes* (03) renders teardowns from `v2/data/notes.js`.
-Both are still placeholders, and say so: an item marked `draft: true` renders
-with a dashed edge and a "To fill in" chip, and a section whose data file is
-empty removes itself, heading and all. Projects gained a fourth beat, *What it
-was for*, on S.O.N.I.C and the NYP Open House tunnel — the same work described
-for someone hiring a marketer.
+Removed with the old look: the car that drove down the page, the ransom-note
+cut-out name, the checkerboard dividers (now a ruler — a hairline with a tick
+every 20px), `route.js`, `cutout.js`, Anton and Neucha. The manila folder is now
+a dark equipment case with one lit edge. The film grain stayed; on this ground
+it reads as sensor noise.
 
-**Colour.** Terracotta marks what was made, cobalt what is being learned, and
-the statement band is the hinge. `--cobalt` was already in the palette and
-barely spent; three aliases (`--market`, `--market-deep`, `--market-band`) give
-it a job and `.section--market` re-binds `--accent`, so every label, rule and
-arrow inside those sections follows. Small cobalt type takes a lighter mix
-after dark — `#9db4ff`, 9.4:1 on the night ground, where `--cobalt-deep` would
-vanish.
+### Content
 
-**Cut.** Both Spotify embeds and the section around them, the Cooking and
-Gaming tiles, primary and secondary school from the education ladder,
-*photographer* from the H1, and 20 KB of CSS that had nothing left to paint.
-The privacy notice was rewritten, because it described a Spotify player that
-version no longer loads. Kept on purpose: the lanyard, the folder, the photo
-ring, the cut-out name, the page wipe and both themes.
+Work still leads, because the strongest argument for the change of direction is
+work already done, described for a different reader. S.O.N.I.C and the NYP Open
+House tunnel each gained a fourth beat, *What it was for*: an open house is a
+competition for attention, and the tunnel existed to make one corridor more
+attractive to walk down than the one beside it.
+
+Two new sections render from their own data files — *Learning the market*
+(`v2/data/learning.js`) and *Notes* (`v2/data/notes.js`). Both still hold
+placeholders and say so on screen: an item marked `draft: true` renders with a
+dashed edge and a "To fill in" chip, and a section whose data file is empty
+removes itself, heading and all.
+
+Also cut: both Spotify embeds and their section, the Cooking and Gaming tiles,
+primary and secondary school from the education ladder, and *photographer* from
+the H1. The privacy notice was rewritten, because it described a Spotify player
+that version no longer loads.
 
 See `v2/README.md` for what still needs Samuel's own words.
 

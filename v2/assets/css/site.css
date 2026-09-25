@@ -3,68 +3,102 @@
    Design system + global styles
    ========================================================================== */
 
-/* ---------- Tokens ---------- */
+/* ---------- Tokens ----------
+
+   TUNGSTEN & DAYLIGHT.
+
+   Samuel programmed lighting rigs before he wanted to programme campaigns, so
+   the palette is borrowed from the gels in that trade: CTO, the orange that
+   warms a lamp to tungsten, and CTB, the blue that cools it to daylight.
+
+   The two run the argument. Tungsten lights what he has made; daylight lights
+   what he is learning; the statement band is the moment the colour temperature
+   changes. Nothing on the page is decorative colour — the only fully saturated
+   things here are the photographs, which is the point of putting them on a
+   near-black ground instead of a cream one.
+
+   The old terracotta names survive underneath as aliases, so every rule that
+   already asked for --rust or --cobalt keeps working and asks for the new
+   colour instead.
+   ---------------------------------------------------------------------- */
 :root {
-  /* Warm cream ground, the way those rooms are lit */
-  --bg:          #f3ece0;
-  --bg-warm:     #e8dcc9;
-  --panel:       #fbf6ec;
-  --cream:       #f7f0e5;
+  /* House lights up. Cool paper rather than warm — the photographs are the
+     only place warmth belongs now. */
+  --bg:          #f4f5f4;
+  --bg-warm:     #e9ebea;
+  --panel:       #ffffff;
+  --cream:       #f4f5f4;
 
-  /* Ink is brown-black, never neutral grey — it sits on cream without chill */
-  --ink:         #241b14;
-  --ink-mid:     #5b4a3c;
-  --ink-soft:    #6d5f52;   /* clears 4.5:1 at 10px on bg, panel, cream and bg-warm */
-  --ink-ghost:   #e3d6c2;
+  --ink:         #101314;
+  --ink-mid:     #454d50;
+  --ink-soft:    #5c6568;   /* clears 4.5:1 at 10px on bg, panel and cream */
+  --ink-ghost:   #e4e7e6;
 
-  /* The poster palette: terracotta leads, cobalt answers */
-  --rust:        #c4552c;
-  --rust-deep:   #a6421f;
-  --cobalt:      #1f3fa8;
-  --cobalt-deep: #182f77;
+  /* The two gels. `-deep` is always the mix small type can sit on: on white
+     that means darker, on the night ground it means brighter. */
+  --tungsten:       #c97a16;   /* 3.1:1 on paper — display marks only */
+  --tungsten-deep:  #95590a;   /* 5.2:1 — labels, links, anything at 11px */
+  --daylight:       #2c7fa8;
+  --daylight-band:  #123a4e;   /* the band a section is printed on */
+
+  --accent:      var(--tungsten);
+  --accent-deep: var(--tungsten-deep);
+
+  /* Tungsten printed on one of the dark bands — the footer, the overlay menu.
+     Those grounds are dark whichever theme is on, so this mix does not flip
+     with the page; the paper mix would read at 3.6:1 down there. */
+  --tungsten-on-band: #f2a544;
+
+  /* The market voice: everything below the statement band is lit daylight. */
+  --market:      var(--daylight);
+  --market-deep: #1b5e7e;      /* 6.5:1 — daylight small enough to read */
+  --market-band: var(--daylight-band);
+
+  /* Names the rest of the stylesheet still uses, pointed at the new palette */
+  --rust:        var(--tungsten);
+  --rust-deep:   var(--tungsten-deep);
+  --cobalt:      var(--daylight);
+  --cobalt-deep: var(--daylight-band);
   --forest:      #2f6b45;
-  --ochre:       #d9992b;
-  --amber-deep:  #a8620f;   /* ochre darkened until cream type holds on it */
-  --amber-mat:   #8f5209;   /* darker again, for type-bearing tile mats */
-  --accent:      var(--rust);
-  --accent-deep: var(--rust-deep);
-
-  /* The market voice. Terracotta marks what has been made; cobalt marks what
-     is being learned, so the page changes colour at the point the story turns.
-     Both hues were already in the palette — the aliases below just give them a
-     job, and only the small-type cobalt needs a lighter mix after dark. */
-  --market:      var(--cobalt);
-  --market-deep: var(--cobalt-deep);
-  --market-band: var(--cobalt-deep);
+  --ochre:       var(--tungsten);
+  --amber-deep:  var(--tungsten-deep);
+  --amber-mat:   var(--tungsten-deep);
 
   /* One shadow colour for the whole site; the dark theme deepens it */
-  --shadow:      36, 27, 20;
+  --shadow:      16, 19, 20;
 
   /* Two surfaces that carry their own colour into either theme, because the
-     thing they stand for has one: paper is pale in any light, and a scrap of
-     dark card stock is dark in any light. Ink and cream are page colours and
-     flip with the theme, so painting a surface with them is how a letter ends
-     up cream on cream. Anything using these also re-binds the ink tokens, so
-     the type on it follows the surface rather than the page. */
-  --sheet:        #f7f0e5;
-  --sheet-alt:    #fbf6ec;
-  --on-sheet:     #241b14;
-  --on-sheet-mid: #5b4a3c;
-  --on-sheet-soft:#655749;
-  --stock:        #241b14;
-  --on-stock:     #f7f0e5;
-  --stock-rust:   #a6421f;
-  --stock-cobalt: #1f3fa8;
+     thing they stand for has one. A sheet of paper is pale in any light and a
+     piece of dark stock is dark in any light, so they are painted with these
+     rather than with --ink and --cream, which swap places between themes.
+     Anything using them also re-binds the ink tokens, so type on the surface
+     follows the surface rather than the page. */
+  --sheet:        #f7f8f7;
+  --sheet-alt:    #ffffff;
+  --on-sheet:     #101314;
+  --on-sheet-mid: #454d50;
+  --on-sheet-soft:#5c6568;
+  --stock:        #0c0e0f;
+  --on-stock:     #ecefef;
+  --stock-rust:   var(--tungsten-deep);
+  --stock-cobalt: #1b5e7e;
   --stock-forest: #2f6b45;
-  --stock-amber:  #8f5209;
-  --mat:          #9c3d1b;   /* the terracotta a photograph is mounted on */
-  /* Terracotta dark enough to carry small type on pale paper */
-  --on-sheet-accent: #9c3d1b;
+  --stock-amber:  var(--tungsten-deep);
+  /* A photograph is mounted on the same near-black in either theme, so the
+     picture is the only colour in the frame */
+  --mat:          #16191b;
+  /* Tungsten printed on paper. Darker than the page's own, because the
+     dark theme's sheets are a shade deeper than the light theme's and this
+     one colour has to clear 4.5:1 on all four of them at 8.5px. */
+  --on-sheet-accent: #8a5108;
 
-  --line:        rgba(36, 27, 20, 0.15);
+  --line:        rgba(16, 19, 20, 0.16);
 
-  --font-display: "Anton", "Haettenschweiler", "Arial Narrow", Impact, sans-serif;
+  --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-body:    "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  /* Every label, number, date and caption. Mono is the whole difference
+     between a page that looks designed and one that looks instrumented. */
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --rail: 92px;          /* width of the fixed side chrome */
   --gutter: clamp(20px, 5vw, 72px);
@@ -85,15 +119,22 @@
   color-scheme: light;
 }
 
-/* Checkerboard — the tiled tables and cushions in the reference rooms */
+/* A measured rule. The checkerboard that used to divide the page was a
+   cushion pattern; this is a ruler — a hairline with a tick every 20px and a
+   taller one every fifth. It divides just as well and says something true
+   about the site it is on. */
 .checker {
-  height: 20px;
+  height: 13px;
   background-image:
-    repeating-conic-gradient(var(--ink) 0% 25%, transparent 0% 50%);
-  background-size: 20px 20px;
-  opacity: 0.9;
+    linear-gradient(to right, currentColor 1px, transparent 1px),
+    linear-gradient(to right, currentColor 1px, transparent 1px);
+  background-size: 20px 6px, 100px 13px;
+  background-repeat: repeat-x, repeat-x;
+  background-position: 0 100%, 0 100%;
+  color: var(--ink);
+  opacity: 0.3;
 }
-.checker--rust  { background-image: repeating-conic-gradient(var(--rust) 0% 25%, transparent 0% 50%); }
+.checker--rust { color: var(--accent); opacity: 0.85; }
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -170,22 +211,24 @@ p, li, blockquote { text-wrap: pretty; }
   z-index: 1000;
 }
 .skip-link:focus {
+  font-family: var(--font-mono);
   left: var(--gutter);
   top: 14px;
   padding: 12px 18px;
   background: var(--stock);
   color: var(--on-stock);
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   border-radius: 2px;
 }
 .label {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.42em;
+  font-weight: 500;
+  /* Mono is already wide, so the old 0.42em would pull a label apart */
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent-deep);
 }
@@ -209,17 +252,19 @@ p, li, blockquote { text-wrap: pretty; }
 
 .display {
   font-family: var(--font-display);
-  font-weight: 400;            /* Anton ships one weight, and it is heavy */
-  line-height: 0.87;
-  letter-spacing: 0.002em;
+  font-weight: 800;
+  line-height: 0.92;
+  /* Archivo is a broad grotesque, not a condensed one. At poster size it
+     needs pulling in rather than letting out — and it runs about a third
+     wider than Anton did, which is what sets the scale below. */
+  letter-spacing: -0.028em;
   text-transform: uppercase;
   margin: 0;
 }
 
-/* Anton is condensed, so it carries more size than a normal grotesque */
-.h-xl { font-size: clamp(3rem, 9.6vw, 8.5rem); }
-.h-lg { font-size: clamp(2.5rem, 7vw, 5.75rem); }
-.h-md { font-size: clamp(1.75rem, 3.9vw, 3.1rem); }
+.h-xl { font-size: clamp(2.3rem, 6.6vw, 5.9rem); }
+.h-lg { font-size: clamp(2rem, 5vw, 4.1rem); }
+.h-md { font-size: clamp(1.5rem, 3vw, 2.4rem); letter-spacing: -0.022em; }
 
 .lede {
   font-size: clamp(0.95rem, 1.15vw, 1.0625rem);
@@ -246,9 +291,9 @@ p, li, blockquote { text-wrap: pretty; }
 .preloader__name {
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-weight: 400;
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  font-size: clamp(1.27rem, 3.4vw, 2.55rem);
+  letter-spacing: -0.035em;
   overflow: hidden;
 }
 .preloader__name span {
@@ -259,10 +304,10 @@ p, li, blockquote { text-wrap: pretty; }
 @keyframes pl-rise { to { transform: translateY(0); } }
 
 .preloader__count {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.5rem, 9vw, 7rem);
-  letter-spacing: -0.05em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(2.1rem, 7vw, 5rem);
+  letter-spacing: -0.02em;
   line-height: 0.8;
   font-variant-numeric: tabular-nums;
 }
@@ -373,10 +418,10 @@ body.is-menu-open .menu-btn span:nth-child(3) { transform: translateY(-11px) rot
   gap: 26px;
 }
 .chrome__social a {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ink-mid);
   position: relative;
@@ -398,10 +443,10 @@ body.is-menu-open .menu-btn span:nth-child(3) { transform: translateY(-11px) rot
 .chrome__marker {
   top: var(--gutter);
   right: var(--gutter);
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ink-soft);
   display: flex;
@@ -466,10 +511,10 @@ body.is-menu-open .nav-overlay {
 .nav-overlay__list a {
   display: block;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(2.5rem, 8vw, 6.25rem);
-  letter-spacing: 0.002em;
+  font-size: clamp(1.8rem, 5.76vw, 4.5rem);
+  letter-spacing: -0.032em;
   line-height: 1.06;
   transform: translateY(110%);
   transition: transform 0.8s var(--ease), color 0.4s;
@@ -481,7 +526,7 @@ body.is-menu-open .nav-overlay__list li:nth-child(2) a { transition-delay: 0.22s
 body.is-menu-open .nav-overlay__list li:nth-child(3) a { transition-delay: 0.28s; }
 body.is-menu-open .nav-overlay__list li:nth-child(4) a { transition-delay: 0.34s; }
 .nav-overlay__list a:hover { color: var(--ochre); }
-.nav-overlay__list a[aria-current="page"] { color: var(--ochre); }
+.nav-overlay__list a[aria-current="page"] { color: var(--tungsten-on-band); }
 .nav-overlay__list a em {
   font-style: normal;
   font-size: 12px;
@@ -500,10 +545,10 @@ body.is-menu-open .nav-overlay__list li:nth-child(4) a { transition-delay: 0.34s
 }
 body.is-menu-open .nav-overlay__meta { opacity: 1; }
 .nav-overlay__meta a {
-  font-family: var(--font-body);
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-weight: 500;
   font-size: 11px;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-soft);
   transition: color 0.3s;
@@ -561,47 +606,6 @@ a.label::before,
 .footer__nav { gap: 24px; }
 
 /* ==========================================================================
-   Scroll route — the car's path down the page.
-   Layer 0, so it shows through the page's open ground and passes beneath
-   every solid block. Content is lifted to layer 1 to guarantee that.
-   ========================================================================== */
-.route {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  z-index: 0;
-  pointer-events: none;
-  will-change: transform;
-}
-.route svg { display: block; }
-.route__line {
-  stroke: var(--accent);
-  stroke-width: 2;
-  stroke-linecap: round;
-  opacity: 0.22;
-  stroke-dasharray: 10 14;
-}
-.route__done {
-  stroke: var(--accent);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  opacity: 0.5;
-}
-.route__car {
-  position: absolute;
-  top: 0; left: 0;
-  height: auto;
-  transform-origin: 50% 50%;
-  filter: drop-shadow(0 6px 10px rgba(var(--shadow), 0.28));
-  will-change: transform;
-}
-/* Only the flow content needs lifting. The fixed chrome and the menu overlay
-   already carry their own position and z-index — restating position here
-   would override their `fixed` and drop them into the flow. */
-main, .footer { position: relative; z-index: 1; }
-
-@media (prefers-reduced-motion: reduce) { .route { display: none; } }
-
-/* ==========================================================================
    Layout helpers
    ========================================================================== */
 .shell { padding-inline: max(var(--rail), var(--gutter)); }
@@ -616,9 +620,19 @@ main, .footer { position: relative; z-index: 1; }
 }
 .section__head s {
   flex: 1;
-  height: 1px;
-  background: var(--line);
+  height: 7px;
+  align-self: center;
   text-decoration: none;
+  /* A hairline with a tick every 16px: the same divider the page uses
+     between its bands, at the scale of a caption. */
+  background-image:
+    linear-gradient(to right, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 1px, transparent 1px);
+  background-size: 16px 4px, 100% 1px;
+  background-repeat: repeat-x, no-repeat;
+  background-position: 0 100%, 0 100%;
+  color: var(--ink);
+  opacity: 0.26;
 }
 
 /* Scroll reveal */
@@ -699,9 +713,9 @@ main, .footer { position: relative; z-index: 1; }
   transform: translateY(-50%);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(13rem, 27vw, 31rem);
+  font-size: clamp(10.4rem, 21.6vw, 24.8rem);
   line-height: 0.72;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.045em;
   color: var(--ink-ghost);
   z-index: 0;
   pointer-events: none;
@@ -714,9 +728,21 @@ main, .footer { position: relative; z-index: 1; }
    MARKET — so the type is set a step smaller to keep the hero on one
    screen. No line is longer than the old 'photographer', so nothing that
    fitted before overflows now. */
+/* The name used to be a ransom-note pile of scraps: every letter its own
+   face, colour and torn edge. That device belonged to the cream poster. Here
+   the name is simply set — one line of Archivo at its heaviest, with the
+   mono standing off it. Confidence is cheaper than collage. */
+.hero__name {
+  display: block;
+  font-size: 1.04em;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.06em;
+}
+
 .hero__title .h-xl {
-  font-size: clamp(2.25rem, 5.85vw, 5.5rem);
-  max-width: 13ch;
+  font-size: clamp(1.8rem, 4.68vw, 4.4rem);
+  max-width: 11ch;
 }
 
 .hero__intro {
@@ -766,8 +792,8 @@ main, .footer { position: relative; z-index: 1; }
 .marquee span {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.35rem, 3.4vw, 2.6rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(1.15rem, 2.89vw, 2.21rem);
+  letter-spacing: -0.03em;
   color: var(--ink);
   display: inline-flex;
   align-items: center;
@@ -813,10 +839,10 @@ main, .footer { position: relative; z-index: 1; }
   left: 0; bottom: 0;
   background: var(--bg);
   padding: 14px 20px 12px 0;
-  font-family: var(--font-body);
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-weight: 500;
   font-size: 10px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
@@ -829,10 +855,10 @@ main, .footer { position: relative; z-index: 1; }
   border-top: 1px solid var(--line);
 }
 .about__stats dt {
-  font-family: var(--font-body);
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-weight: 500;
   font-size: 10px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-soft);
   margin-bottom: 6px;
@@ -870,13 +896,13 @@ main, .footer { position: relative; z-index: 1; }
 .statement p {
   position: relative;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(2rem, 6vw, 5rem);
-  letter-spacing: 0.004em;
+  font-size: clamp(1.56rem, 4.68vw, 3.9rem);
+  letter-spacing: -0.032em;
   line-height: 0.92;
   margin: 0;
-  max-width: 18ch;
+  max-width: 15ch;
 }
 
 /* ==========================================================================
@@ -931,20 +957,20 @@ main, .footer { position: relative; z-index: 1; }
   flex-wrap: wrap;
   gap: 10px;
   margin: 0;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent-deep);
 }
 .course__title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(20px, 2.1vw, 27px);
+  font-weight: 700;
+  font-size: clamp(17.6px, 1.85vw, 23.76px);
   line-height: 1.06;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
 }
 /* The sentence that does the work. A list of course names proves attendance;
@@ -964,10 +990,10 @@ main, .footer { position: relative; z-index: 1; }
   margin: 0;
   padding-top: 13px;
   border-top: 1px solid var(--line);
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
@@ -1008,31 +1034,32 @@ main, .footer { position: relative; z-index: 1; }
   flex-wrap: wrap;
   gap: 10px;
   margin: 0 0 9px;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent-deep);
 }
 .note__title {
   margin: 0 0 12px;
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 700;
+  font-size: clamp(19.36px, 2.29vw, 28.16px);
   line-height: 1.04;
   text-transform: uppercase;
-  max-width: 18ch;
+  max-width: 16ch;
+  letter-spacing: -0.022em;
 }
 /* One note fills the whole rail, so the measure is set here rather than by
    the card — a 110-character line is a wall whatever it says. */
 .note__body { margin: 0; font-size: 15.5px; line-height: 1.62; color: var(--ink-mid); max-width: 68ch; }
 .note__meta {
   margin: 16px 0 0;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
@@ -1049,10 +1076,10 @@ main, .footer { position: relative; z-index: 1; }
 .is-draft .course__title,
 .is-draft .note__title { color: var(--ink-soft); }
 .draft-chip {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent-deep);
   border: 1px dashed currentColor;
@@ -1105,10 +1132,10 @@ main, .footer { position: relative; z-index: 1; }
   max-width: 100%;
   overflow-wrap: anywhere;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(1.75rem, 5vw, 3.75rem);
-  letter-spacing: 0.002em;
+  font-size: clamp(1.31rem, 3.75vw, 2.81rem);
+  letter-spacing: -0.03em;
   line-height: 1.05;
   position: relative;
 }
@@ -1141,17 +1168,17 @@ main, .footer { position: relative; z-index: 1; }
            clamp(24px, 4vh, 38px);
   text-align: center;
 }
-.footer .label { color: var(--ochre); }
+.footer .label { color: var(--tungsten-on-band); }
 
 .contact__title {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  letter-spacing: 0.004em;
+  font-size: clamp(1.32rem, 2.64vw, 1.94rem);
+  letter-spacing: -0.025em;
   line-height: 1.08;
   margin: 15px auto 0;
-  max-width: 22ch;
+  max-width: 19ch;
 }
 
 .contact__mail {
@@ -1215,17 +1242,17 @@ main, .footer { position: relative; z-index: 1; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   color: rgba(247, 240, 229, 0.62);
 }
 .footer__nav { display: flex; gap: 20px; }
 .footer__nav a { transition: color 0.3s; }
 .footer__nav a:hover,
-.footer__nav a[aria-current="page"] { color: var(--ochre); }
+.footer__nav a[aria-current="page"] { color: var(--tungsten-on-band); }
 
 .footer__back {
   display: inline-flex;
@@ -1252,9 +1279,9 @@ main, .footer { position: relative; z-index: 1; }
   bottom: -0.28em;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(8rem, 21vw, 23rem);
+  font-size: clamp(6.4rem, 16.8vw, 18.4rem);
   line-height: 0.72;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.045em;
   color: var(--ink-ghost);
   pointer-events: none;
   user-select: none;
@@ -1283,10 +1310,10 @@ main, .footer { position: relative; z-index: 1; }
   margin-bottom: clamp(28px, 5vh, 52px);
 }
 .filters button {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.24em;
+  font-weight: 500;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--ink-soft);
   padding: 9px 20px;
@@ -1302,10 +1329,10 @@ main, .footer { position: relative; z-index: 1; }
 }
 .filters__count {
   margin-left: auto;
-  font-family: var(--font-body);
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-weight: 500;
   font-size: 11px;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--ink-soft);
   font-variant-numeric: tabular-nums;
@@ -1330,10 +1357,10 @@ main, .footer { position: relative; z-index: 1; }
   align-items: center;
   gap: 20px;
   margin: clamp(30px, 5vh, 54px) 0 clamp(14px, 2vh, 22px);
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent-deep);
 }
@@ -1363,20 +1390,20 @@ main, .footer { position: relative; z-index: 1; }
   will-change: transform;
   transition: box-shadow 0.55s var(--ease), translate 0.5s var(--ease);
 }
-/* Six stocks, cycling — the mat around each print */
-/* Six mounting boards, printed stock rather than page colour, so the credit
-   printed on them reads the same in either theme */
-.tile:nth-child(6n + 1) { --poster: var(--stock-rust); }
-.tile:nth-child(6n + 2) { --poster: var(--stock-cobalt); }
-.tile:nth-child(6n + 3) { --poster: var(--stock-forest); }
-.tile:nth-child(6n + 4) { --poster: var(--stock-amber); }
-.tile:nth-child(6n + 5) { --poster: var(--stock); }
-.tile:nth-child(6n + 6) {
-  --poster: var(--sheet-alt);
-  color: var(--on-sheet);
-  --ink: var(--on-sheet);
-  --ink-soft: var(--on-sheet-soft);
-}
+/* One mount, not six.
+
+   The wall used to cycle through six coloured boards — terracotta, cobalt,
+   forest, amber, black, cream. On a cream page that was decoration; on this
+   one it would be competition. Every print is now mounted on the same
+   near-black card, separated by a hairline rather than by hue, so the only
+   colour on the wall belongs to the photographs. Which is the whole reason
+   for putting a gallery on a dark ground.
+
+   Every sixth board is a shade lighter. Not enough to read as a colour —
+   just enough that the wall has grain when you take it all in at once. */
+.tile { border: 1px solid var(--line); }
+.tile:nth-child(6n + 3),
+.tile:nth-child(6n + 6) { --poster: var(--stock); }
 
 .tile::before {
   content: "";
@@ -1456,10 +1483,11 @@ main, .footer { position: relative; z-index: 1; }
 /* Body reads first; the lens sits under it, quieter — the way a print
    credit is set, rather than one long string fighting the tile width. */
 .tile__cam b {
+  font-family: var(--font-mono);
   line-height: 15px;
   font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   opacity: 1;
 }
@@ -1483,6 +1511,7 @@ main, .footer { position: relative; z-index: 1; }
 }
 
 .tile__badge {
+  font-family: var(--font-mono);
   position: absolute;
   top: 10px; left: 10px;
   display: inline-flex;
@@ -1495,8 +1524,8 @@ main, .footer { position: relative; z-index: 1; }
   -webkit-backdrop-filter: blur(9px);
   color: var(--cream);
   font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
 }
 .tile__badge svg { width: 10px; height: 10px; }
@@ -1510,7 +1539,7 @@ main, .footer { position: relative; z-index: 1; }
 }
 .empty h3 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
   font-size: 1.6rem;
   letter-spacing: 0.004em;
@@ -1608,17 +1637,18 @@ main, .footer { position: relative; z-index: 1; }
 }
 .lightbox__foot h3 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(1.2rem, 2.3vw, 1.75rem);
-  letter-spacing: 0.004em;
+  font-size: clamp(1.08rem, 2.07vw, 1.57rem);
+  letter-spacing: -0.018em;
   margin: 0 0 6px;
   color: #fff;
 }
 .lightbox__foot p {
+  font-family: var(--font-mono);
   margin: 0;
   font-size: 11px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.5);
 }
@@ -1697,10 +1727,10 @@ main, .footer { position: relative; z-index: 1; }
 
 .proj__title {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  letter-spacing: 0.004em;
+  font-size: clamp(1.2rem, 3.2vw, 2.4rem);
+  letter-spacing: -0.028em;
   line-height: 1;
   margin: 0 0 8px;
   transition: color 0.4s;
@@ -1716,10 +1746,10 @@ main, .footer { position: relative; z-index: 1; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
 .tags span {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   color: var(--ink-soft);
   border: 1px solid var(--line);
@@ -1745,10 +1775,11 @@ main, .footer { position: relative; z-index: 1; }
   transform: rotate(45deg);
 }
 .proj__year {
-  font-family: var(--font-body);
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-weight: 500;
   font-size: 11px;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.13em;
+  font-variant-numeric: tabular-nums;
   color: var(--ink-soft);
   display: block;
   margin-bottom: 12px;
@@ -1823,10 +1854,10 @@ main, .footer { position: relative; z-index: 1; }
 
 .path__stage {
   margin: 0 0 8px;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
@@ -1834,9 +1865,9 @@ main, .footer { position: relative; z-index: 1; }
   margin: 0;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(19px, 2.1vw, 29px);
+  font-size: clamp(16.15px, 1.78vw, 24.65px);
   line-height: 1.06;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.022em;
   text-transform: uppercase;
 }
 .path__note {
@@ -1880,10 +1911,10 @@ main, .footer { position: relative; z-index: 1; }
   align-items: center;
   gap: 9px;
   position: relative;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ink-soft);
   transition: color 0.3s;
@@ -1913,10 +1944,10 @@ main, .footer { position: relative; z-index: 1; }
 }
 .detail__facts div { margin: 0; }
 .detail__facts dt {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-soft);
   margin: 0 0 5px;
@@ -1975,10 +2006,10 @@ main, .footer { position: relative; z-index: 1; }
   margin-top: 11px;
 }
 .detail__shot figcaption b {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--accent-deep);
 }
@@ -2003,10 +2034,10 @@ main, .footer { position: relative; z-index: 1; }
   gap: 12px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(22px, 3vw, 38px);
+  font-size: clamp(18.04px, 2.46vw, 31.16px);
   line-height: 1;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.026em;
   transition: color 0.3s;
 }
 .detail__nextlink:hover { color: var(--accent-deep); }
@@ -2217,185 +2248,6 @@ main, .footer { position: relative; z-index: 1; }
 }
 
 /* ==========================================================================
-   The name as a magazine cut-out — every letter a separate scrap: its own
-   face, its own colour, its own torn edge, its own angle. They fold down into
-   place one after the next, like pieces being laid on a page.
-   ========================================================================== */
-.hero__name {
-  display: block;
-  text-transform: none;
-  font-size: 1.02em;
-  line-height: 1;
-  margin-bottom: 0.12em;
-}
-.cuts {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 0.06em;
-  /* The camera the scraps fold in */
-  perspective: 900px;
-  perspective-origin: 50% 80%;
-}
-
-.cut {
-  --paper: var(--rust-deep);
-  --ink-on: var(--cream);
-  position: relative;
-  display: inline-block;
-  padding: 0.1em 0.12em 0.06em;
-  background: var(--paper);
-  color: var(--ink-on);
-  line-height: 0.94;
-  transform-origin: 50% 100%;
-  /* Cut paper sits off the page. The inset darkens the torn edges, the way
-     a scrap of old paper is dirtier where it was handled. */
-  box-shadow: 0 6px 14px -8px rgba(var(--shadow), 0.55),
-              inset 0 0 14px rgba(58, 38, 16, 0.24);
-  /* Aged stock rather than fresh print */
-  filter: sepia(0.16) saturate(0.94) contrast(1.03);
-  /* Before it is laid, the scrap is screwed up small and dark — the same
-     state the animation starts from, so nothing jumps when it begins. */
-  transform: rotate(calc(var(--rot, 0deg) * 3)) translateY(calc(var(--lift, 0px) - 26px))
-             rotateX(-84deg) rotateY(var(--yaw, 44deg)) scale(0.5);
-  filter: brightness(0.3);
-}
-.cut__ch { position: relative; z-index: 1; }
-
-/* The creases. Two turbulence-lit layers rather than gradient bands: broad
-   soft facets that read as folds, and a fine grain over them that reads as
-   the tooth of old paper. This is what makes the opening look crunched
-   rather than like a card being flipped. */
-.cut__crease {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  opacity: 1;
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22260%22%20height%3D%22260%22%3E%3Cfilter%20id%3D%22c%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.012%22%20numOctaves%3D%223%22%20seed%3D%2211%22%20result%3D%22n%22%2F%3E%3CfeDiffuseLighting%20in%3D%22n%22%20lighting-color%3D%22%23fff%22%20surfaceScale%3D%229%22%20diffuseConstant%3D%221.0%22%3E%3CfeDistantLight%20azimuth%3D%22118%22%20elevation%3D%2218%22%2F%3E%3C%2FfeDiffuseLighting%3E%3C%2Ffilter%3E%3Crect%20width%3D%22260%22%20height%3D%22260%22%20filter%3D%22url%28%23c%29%22%2F%3E%3C%2Fsvg%3E"), url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22140%22%20height%3D%22140%22%3E%3Cfilter%20id%3D%22c%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.62%22%20numOctaves%3D%222%22%20seed%3D%224%22%20result%3D%22n%22%2F%3E%3CfeDiffuseLighting%20in%3D%22n%22%20lighting-color%3D%22%23fff%22%20surfaceScale%3D%221.6%22%20diffuseConstant%3D%221.0%22%3E%3CfeDistantLight%20azimuth%3D%2280%22%20elevation%3D%2234%22%2F%3E%3C%2FfeDiffuseLighting%3E%3C%2Ffilter%3E%3Crect%20width%3D%22140%22%20height%3D%22140%22%20filter%3D%22url%28%23c%29%22%2F%3E%3C%2Fsvg%3E");
-  background-size: 260% 260%, 90% 90%;
-  background-position: var(--cx, 20%) var(--cy, 30%), 0 0;
-  background-repeat: no-repeat, repeat;
-}
-/* A warm second pass: the highlights go ivory rather than white, which is
-   what separates aged paper from new. */
-.cut__crease::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  mix-blend-mode: overlay;
-  opacity: 0.55;
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22260%22%20height%3D%22260%22%3E%3Cfilter%20id%3D%22c%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.012%22%20numOctaves%3D%223%22%20seed%3D%2211%22%20result%3D%22n%22%2F%3E%3CfeDiffuseLighting%20in%3D%22n%22%20lighting-color%3D%22%23fff%22%20surfaceScale%3D%229%22%20diffuseConstant%3D%221.0%22%3E%3CfeDistantLight%20azimuth%3D%22118%22%20elevation%3D%2218%22%2F%3E%3C%2FfeDiffuseLighting%3E%3C%2Ffilter%3E%3Crect%20width%3D%22260%22%20height%3D%22260%22%20filter%3D%22url%28%23c%29%22%2F%3E%3C%2Fsvg%3E");
-  background-size: 260% 260%;
-  background-position: var(--cx, 20%) var(--cy, 30%);
-  background-repeat: no-repeat;
-}
-
-/* Laid out: the scrap opens, flattens past level, and settles */
-.is-laid .cut {
-  animation: cut-unfold 900ms cubic-bezier(0.2, 1, 0.3, 1) both;
-  animation-delay: calc(var(--i) * 92ms);
-}
-.is-laid .cut__crease {
-  animation: cut-flatten 900ms var(--ease-out) both;
-  animation-delay: calc(var(--i) * 92ms);
-}
-
-@keyframes cut-unfold {
-  0% {
-    transform: rotate(calc(var(--rot) * 3)) translateY(calc(var(--lift) - 26px))
-               rotateX(-84deg) rotateY(var(--yaw)) scale(0.5);
-    filter: brightness(0.3) sepia(0.16) saturate(0.94) contrast(1.03);
-  }
-  46% {
-    transform: rotate(calc(var(--rot) * 1.7)) translateY(calc(var(--lift) - 11px))
-               rotateX(-40deg) rotateY(calc(var(--yaw) * 0.38)) scale(0.84);
-    filter: brightness(0.66) sepia(0.16) saturate(0.94) contrast(1.03);
-  }
-  78% {
-    transform: rotate(var(--rot)) translateY(var(--lift))
-               rotateX(7deg) rotateY(-5deg) scale(1.05);
-    filter: brightness(1.06) sepia(0.16) saturate(0.94) contrast(1.03);
-  }
-  100% {
-    transform: rotate(var(--rot)) translateY(var(--lift));
-    filter: none;
-  }
-}
-/* It flattens but never quite clears — paper that has been screwed up keeps
-   its creases, and that residue is what dates the scrap. */
-@keyframes cut-flatten {
-  0%   { opacity: 1; }
-  58%  { opacity: 0.62; }
-  100% { opacity: 0.26; }
-}
-
-/* ---- the stocks: each background with a letter colour that holds on it ---- */
-.cut--rust   { --paper: var(--stock-rust);   --ink-on: var(--on-stock); }
-.cut--cobalt { --paper: var(--stock-cobalt); --ink-on: var(--on-stock); }
-.cut--forest { --paper: var(--stock-forest); --ink-on: var(--on-stock); }
-.cut--amber  { --paper: var(--stock-amber);  --ink-on: var(--on-stock); }
-.cut--ink    { --paper: var(--stock);      --ink-on: var(--on-stock); }
-.cut--cream  { --paper: var(--sheet);      --ink-on: var(--on-sheet); }
-
-/* ---- the faces, cycled out of step with the colours ---- */
-.cut--display {
-  font-family: var(--font-display);
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-}
-.cut--hand {
-  font-family: "Neucha", "Segoe Script", cursive;
-  font-weight: 400;
-  font-size: 1.16em;
-}
-.cut--body {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 0.86em;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-}
-
-/* ---- three torn edges, so no two scraps are cut the same ---- */
-.cut--tear0 {
-  clip-path: polygon(0% 5%, 7% 0%, 38% 4%, 66% 0%, 95% 3%, 100% 9%,
-                     97% 48%, 100% 91%, 91% 100%, 60% 96%, 28% 100%,
-                     6% 97%, 0% 86%);
-}
-.cut--tear1 {
-  clip-path: polygon(2% 0%, 33% 5%, 61% 0%, 90% 4%, 100% 12%, 96% 52%,
-                     100% 88%, 86% 100%, 55% 95%, 24% 100%, 3% 94%,
-                     0% 55%, 4% 18%);
-}
-.cut--tear2 {
-  clip-path: polygon(0% 8%, 10% 2%, 41% 0%, 70% 5%, 97% 0%, 100% 44%,
-                     96% 84%, 100% 97%, 68% 100%, 36% 95%, 9% 100%,
-                     0% 90%, 3% 46%);
-}
-
-/* The accessible name, said once */
-.cuts__label {
-  position: absolute;
-  width: 1px; height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cut {
-    transform: rotate(var(--rot, 0deg)) translateY(var(--lift, 0px));
-    filter: none;
-    animation: none;
-  }
-  .is-laid .cut { animation: none; }
-  .cut__crease, .is-laid .cut__crease { opacity: 0; animation: none; }
-}
-
-/* ==========================================================================
    Project folder — a folder whose cover hinges open in 3D to reveal a stack of
    project strips. The strips live in a pocket that clips them, so nothing but
    their titles is ever visible; the card you pick is a separate panel above
@@ -2406,8 +2258,9 @@ main, .footer { position: relative; z-index: 1; }
   --h: calc(var(--w) * 0.76);
   --strip: clamp(34px, 3.6vw, 44px);
   --step: calc(var(--strip) * 0.74);   /* overlap deep enough to swallow the hover lift */
-  --skin: var(--amber-mat);
-  --skin-back: #74430a;
+  --skin: #2b3033;        /* the case, a neutral instrument grey */
+  --skin-back: #22262a;   /* its inside face, one step deeper */
+  --skin-lip: var(--tungsten);
   position: relative;
   display: grid;
   justify-items: center;
@@ -2453,21 +2306,21 @@ main, .footer { position: relative; z-index: 1; }
 }
 .rb-card__year {
   margin: 0 0 6px;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.24em;
+  font-weight: 500;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--accent-deep);
 }
 .rb-card__title {
   margin: 0 0 10px;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(19px, 2.1vw, 28px);
+  font-size: clamp(16.15px, 1.78vw, 23.8px);
   line-height: 1.04;
-  letter-spacing: 0.012em;
+  letter-spacing: -0.018em;
 }
 .rb-card__blurb {
   margin: 0 0 16px;
@@ -2484,10 +2337,10 @@ main, .footer { position: relative; z-index: 1; }
   border-radius: 100px;
   background: var(--stock);
   color: var(--on-stock);
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   transition: background 220ms var(--ease-out), transform var(--dur-2) var(--ease-press);
 }
@@ -2535,7 +2388,7 @@ main, .footer { position: relative; z-index: 1; }
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, var(--amber-deep), #c07a12);
+  background: linear-gradient(to top, #343a3e, #3d4448);
   border-radius: 6px 10px 10px 10px;
   transform-origin: bottom;
   transform: rotateX(0deg);
@@ -2544,7 +2397,7 @@ main, .footer { position: relative; z-index: 1; }
 }
 .rb-folder__front.right {
   z-index: 0;
-  background: linear-gradient(to top, #8a5009, #a0620d);
+  background: linear-gradient(to top, #262b2e, #2f3538);
   transform: none;
   height: 96%;
 }
@@ -2552,8 +2405,12 @@ main, .footer { position: relative; z-index: 1; }
   /* Further than the folder-lid look alone needs: every strip has to clear
      the lip, and cos(72deg) leaves nearly 70% of the pocket in view. */
   transform: rotateX(-72deg);
-  box-shadow: inset 0 20px 40px rgba(255, 214, 140, 0.32),
-              inset 0 -20px 40px rgba(140, 78, 8, 0.45);
+  /* One warm line where the lid folds down, as though the inside of the case
+     were lit. It is the only tungsten on the object, so the files stay the
+     brightest thing in it. */
+  box-shadow: inset 0 2px 0 rgba(242, 165, 68, 0.55),
+              inset 0 22px 44px rgba(242, 165, 68, 0.1),
+              inset 0 -20px 40px rgba(0, 0, 0, 0.5);
 }
 
 /* The strips. Shut, they sit stacked at the bottom of the pocket behind the
@@ -2617,11 +2474,11 @@ main, .footer { position: relative; z-index: 1; }
 
 .paper__name {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(10px, 1vw, 13px);
+  font-size: clamp(10px, 1vw, 12.5px);
   line-height: 1.06;
-  letter-spacing: 0.012em;
+  letter-spacing: 0.03em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2641,10 +2498,10 @@ main, .footer { position: relative; z-index: 1; }
   position: relative;
   padding: 10px 4px;
   cursor: pointer;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ink-soft);
   transition: color 200ms var(--ease-out);
@@ -2687,10 +2544,10 @@ main, .footer { position: relative; z-index: 1; }
   border-bottom: 1px solid var(--line);
 }
 .detail__beats dt {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.24em;
+  font-weight: 500;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--accent-deep);
   padding-top: 4px;
@@ -2772,12 +2629,13 @@ main, .footer { position: relative; z-index: 1; }
 }
 .detail__reel-card b {
   display: block;
-  font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
+  font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
   font-size: 1.1rem; letter-spacing: 0.01em;
 }
 .detail__reel-card i {
+  font-family: var(--font-mono);
   display: block; font-style: normal;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--ink-soft);
 }
 
@@ -2901,12 +2759,13 @@ main, .footer { position: relative; z-index: 1; }
 }
 
 .pass__issue {
+  font-family: var(--font-mono);
   margin: 0;
   font-size: calc(var(--card-w, 240px) * 0.043);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   color: var(--rust);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .pass__photo {
@@ -2922,7 +2781,7 @@ main, .footer { position: relative; z-index: 1; }
 .pass__name {
   margin: calc(var(--card-w, 240px) * 0.025) 0 0;
   font-family: var(--font-display);
-  font-size: calc(var(--card-w, 240px) * 0.155);
+  font-size: calc(var(--card-w, 240px) * 0.132);
   line-height: 0.88;
   letter-spacing: 0.005em;
   text-transform: uppercase;
@@ -2932,8 +2791,9 @@ main, .footer { position: relative; z-index: 1; }
 
 .pass__role {
   margin: 0;
-  font-size: calc(var(--card-w, 240px) * 0.046);
-  letter-spacing: 0.13em;
+  font-family: var(--font-mono);
+  font-size: calc(var(--card-w, 240px) * 0.044);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
@@ -3027,64 +2887,72 @@ main, .footer { position: relative; z-index: 1; }
    ========================================================================== */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:          #14100c;
-    --bg-warm:     #1c1610;
-    --panel:       #1f1811;
-    --cream:       #f4ede1;
+    /* Lights down. The ground goes to a cool near-black, not a warm one —
+       warmth on this site belongs to the photographs and to tungsten. */
+    --bg:          #0c0e0f;
+    --bg-warm:     #13171a;
+    --panel:       #171b1e;
+    --cream:       #ecefef;
 
-    --ink:         #ece2d4;
-    --ink-mid:     #c3b3a0;
-    --ink-soft:    #a2937f;
-    --ink-ghost:   #261e17;
+    --ink:         #ecefef;
+    --ink-mid:     #a3acb0;
+    --ink-soft:    #848e93;
+    --ink-ghost:   #16191b;
 
-    --rust:        #e07b4e;
-    --rust-deep:   #d0663c;   /* labels at 11px must still clear 4.5:1 on the night ground */
-    --cobalt:      #8ba4ff;
-    --cobalt-deep: #2a3a80;
-    --market-deep: #9db4ff;   /* 9.4:1 on the night ground; #2a3a80 would vanish */
+    /* Both gels lift so they still carry on the night ground; `-deep` goes
+       brighter here rather than darker, because it is the small-type mix. */
+    --tungsten:       #f2a544;
+    --tungsten-deep:  #e8912e;   /* 7.9:1 — labels at 11px still clear it */
+    --daylight:       #7fc2e6;
+    --daylight-band:  #14303d;
+
+    --market-deep:    #9ccfec;   /* 11.6:1; the band colour would vanish */
+
     --forest:      #63ac7e;
-    --ochre:       #e5aa47;
-    --amber-deep:  #d08c22;
-    --amber-mat:   #a8620f;
 
     --shadow:      0, 0, 0;
-    --line:        rgba(236, 226, 212, 0.17);
+    --line:        rgba(236, 239, 239, 0.16);
 
-    --sheet:       #f2ebdf;
-    --sheet-alt:   #e7dece;
-    --stock:       #0f0b08;
+    --sheet:       #eceeed;
+    --sheet-alt:   #dfe3e2;
+    --stock:       #07090a;
+    --mat:         #101314;
 
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg:          #14100c;
-  --bg-warm:     #1c1610;
-  --panel:       #1f1811;
-  --cream:       #f4ede1;
+  /* Lights down. The ground goes to a cool near-black, not a warm one —
+     warmth on this site belongs to the photographs and to tungsten. */
+  --bg:          #0c0e0f;
+  --bg-warm:     #13171a;
+  --panel:       #171b1e;
+  --cream:       #ecefef;
 
-  --ink:         #ece2d4;
-  --ink-mid:     #c3b3a0;
-  --ink-soft:    #a2937f;
-  --ink-ghost:   #261e17;
+  --ink:         #ecefef;
+  --ink-mid:     #a3acb0;
+  --ink-soft:    #848e93;
+  --ink-ghost:   #16191b;
 
-  --rust:        #e07b4e;
-  --rust-deep:   #d0663c;   /* labels at 11px must still clear 4.5:1 on the night ground */
-  --cobalt:      #8ba4ff;
-  --cobalt-deep: #2a3a80;
-  --market-deep: #9db4ff;   /* 9.4:1 on the night ground; #2a3a80 would vanish */
+  /* Both gels lift so they still carry on the night ground; `-deep` goes
+     brighter here rather than darker, because it is the small-type mix. */
+  --tungsten:       #f2a544;
+  --tungsten-deep:  #e8912e;   /* 7.9:1 — labels at 11px still clear it */
+  --daylight:       #7fc2e6;
+  --daylight-band:  #14303d;
+
+  --market-deep:    #9ccfec;   /* 11.6:1; the band colour would vanish */
+
   --forest:      #63ac7e;
-  --ochre:       #e5aa47;
-  --amber-deep:  #d08c22;
-  --amber-mat:   #a8620f;
 
   --shadow:      0, 0, 0;
-  --line:        rgba(236, 226, 212, 0.17);
+  --line:        rgba(236, 239, 239, 0.16);
 
-  --sheet:       #f2ebdf;
-  --sheet-alt:   #e7dece;
-  --stock:       #0f0b08;
+  --sheet:       #eceeed;
+  --sheet-alt:   #dfe3e2;
+  --stock:       #07090a;
+  --mat:         #101314;
 
   color-scheme: dark;
 }
@@ -3204,10 +3072,10 @@ main, .footer { position: relative; z-index: 1; }
   align-items: center;
   gap: 9px;
   margin: 0;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--ink-mid);
 }
@@ -3230,10 +3098,10 @@ main, .footer { position: relative; z-index: 1; }
   padding: 11px 22px;
   border: 1px solid var(--ink);
   border-radius: 100px;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink);
   text-decoration: none;
