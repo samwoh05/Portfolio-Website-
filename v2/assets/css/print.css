@@ -1,0 +1,175 @@
+/* ==========================================================================
+   Print — for the person who saves a project page as a PDF, or prints one to
+   read on the train. Paper has no hover, no scroll and no colour budget, so
+   the poster layer comes off: the fixed chrome, the car, the ring, the pass,
+   the grain and the checkerboards all go, and what is left is the writing,
+   the photographs and a way to get back to the site.
+
+   Linked with media="print", so a screen visitor never downloads it.
+   ========================================================================== */
+
+@page {
+  margin: 18mm 16mm;
+}
+
+/* ---------- ground ---------- */
+html, body {
+  background: #fff !important;
+  color: #16120e !important;
+  font-size: 11pt;
+  line-height: 1.5;
+}
+
+body {
+  /* The fixed rail leaves a gutter that means nothing on paper */
+  --rail: 0px;
+  --gutter: 0px;
+}
+
+* {
+  /* Ink is expensive and shadows print as mud */
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ---------- what paper doesn't need ---------- */
+.preloader,
+.chrome,
+.menu-btn,
+.nav-overlay,
+.scroll-rail,
+.skip-link,
+.marquee,
+.checker,
+.route,
+.lanyard,
+.ring-stage,
+.hero__ghost,
+.page-head__ghost,
+.filters,
+.lightbox,
+.footer__back,
+.socials,
+.cuts,
+[data-lost-frames],
+[data-gallery-ring] {
+  display: none !important;
+}
+
+/* The film grain lives on body::after, and has no business on paper */
+body::after { display: none !important; }
+
+/* The cut-out name is a picture of a word; print the word */
+.cuts__label {
+  position: static !important;
+  clip: auto !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Anything that was waiting to be revealed by a scroll must simply be here */
+.reveal, .rise, .rise > span, [data-d] {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+  visibility: visible !important;
+}
+
+/* ---------- layout ---------- */
+main, .shell, .section, .hero, .detail, .page-head {
+  display: block !important;
+  width: auto !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 0 14mm !important;
+  overflow: visible !important;
+}
+
+.hero { border-bottom: 1pt solid #16120e; padding-bottom: 8mm !important; }
+.hero__media { display: none !important; }
+
+/* ---------- type ---------- */
+.display, h1, h2, h3 {
+  color: #16120e !important;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+.h-xl, .hero__title .h-xl { font-size: 30pt !important; line-height: 1.02 !important; }
+.h-lg { font-size: 22pt !important; line-height: 1.05 !important; }
+.h-md { font-size: 15pt !important; }
+
+.lede, p, li, dd, dt {
+  color: #16120e !important;
+  orphans: 3;
+  widows: 3;
+}
+.lede { font-size: 11.5pt !important; max-width: none !important; }
+
+.label, .grid__group, .detail__facts dt {
+  color: #5b4a3c !important;
+  font-size: 8pt !important;
+  letter-spacing: 0.2em !important;
+}
+
+/* ---------- photographs ---------- */
+.wall {
+  columns: 2 !important;
+  column-gap: 8mm !important;
+}
+.tile, figure, .detail__shot {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 0 6mm !important;
+}
+img {
+  max-width: 100% !important;
+  height: auto !important;
+  break-inside: avoid;
+}
+.tile__cam, figcaption {
+  font-size: 8pt !important;
+  color: #5b4a3c !important;
+}
+.tile__badge { display: none !important; }
+
+/* ---------- links ---------- */
+a { color: #16120e !important; text-decoration: none !important; }
+
+/* Print the address of anything that leaves the page, since paper can't click.
+   Internal anchors and mail links read fine as they are. */
+main a[href^="http"]::after {
+  content: " (" attr(href) ")";
+  font-size: 8pt;
+  color: #5b4a3c;
+  word-break: break-all;
+}
+.detail__links a::after { content: ""; }
+
+/* ---------- a footer that says where this came from ---------- */
+.footer {
+  border-top: 1pt solid #16120e !important;
+  padding: 6mm 0 0 !important;
+  margin-top: 8mm !important;
+  background: none !important;
+  color: #16120e !important;
+  display: block !important;
+}
+.contact__title { font-size: 14pt !important; margin: 0 0 3mm !important; }
+.contact__mail { font-size: 11pt !important; }
+.footer__base, .footer__nav { display: none !important; }
+
+.footer::after {
+  content: "samwoh05.github.io/Portfolio-Website- · samuelyee4385@gmail.com";
+  display: block;
+  margin-top: 4mm;
+  font-size: 8.5pt;
+  letter-spacing: 0.06em;
+  color: #5b4a3c;
+}
