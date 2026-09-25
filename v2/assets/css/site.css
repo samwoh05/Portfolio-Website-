@@ -682,9 +682,12 @@ main, .footer { position: relative; z-index: 1; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(28px, 6vh, 68px);
-  padding: calc(var(--gutter) * 2.2) clamp(72px, 8.5vw, 132px)
-           calc(var(--gutter) * 2.2) clamp(28px, 5vw, 86px);
+  gap: clamp(24px, 4.6vh, 52px);
+  /* 1.9 rather than 2.2: the extra headline line has to be paid for, and a
+     shorter top and bottom margin costs less than shrinking the type. This
+     keeps the two buttons above the fold on a 700px-tall laptop window. */
+  padding: calc(var(--gutter) * 1.9) clamp(72px, 8.5vw, 132px)
+           calc(var(--gutter) * 1.9) clamp(28px, 5vw, 86px);
 }
 
 /* Giant ghost letterform behind the type */
@@ -712,7 +715,7 @@ main, .footer { position: relative; z-index: 1; }
    screen. No line is longer than the old 'photographer', so nothing that
    fitted before overflows now. */
 .hero__title .h-xl {
-  font-size: clamp(2.3rem, 6.1vw, 5.7rem);
+  font-size: clamp(2.25rem, 5.85vw, 5.5rem);
   max-width: 13ch;
 }
 
