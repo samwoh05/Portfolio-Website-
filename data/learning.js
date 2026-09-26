@@ -1,19 +1,23 @@
 /* LEARNING — the marketing side, stated in the open.
 
    This is the section that carries the career change, so it has to be true.
-   Every card below is a DRAFT: it renders with a dashed edge and a "To fill
-   in" chip so it can never be mistaken for a real credential. Replace the
-   fields and delete `draft` and the card becomes a real one.
+   Everything here is a real credential; there are no placeholders left. Add
+   the next course by copying the block below.
 
    Fields
-     issuer   required. Who ran it — Google, Meta, HubSpot Academy, NYP, a book.
+     issuer   required. Who ran it — Simplilearn, Google, Meta, HubSpot, NYP.
      title    required. The course as it is actually named on the certificate.
-     done     the month you finished it, e.g. "August 2026".
+     done     the month you finished it, e.g. "June 2026".
+     code     the certificate number, if it carries one. Printed in the foot.
      href     link to the certificate. Leave it out and no link is shown.
+     cover    a picture of the certificate itself. Crop the viewer's chrome
+              off first — the page shows it at about 520px wide.
+     alt      required with `cover`. Describe what the certificate says.
      took     THE IMPORTANT ONE. Not what the syllabus covered — one sentence
               on what it changed about how you read a shop window, an ad, a
               menu, a checkout. A list of course names proves attendance.
-              This line is the only part that proves thinking.
+              This line is the only part that proves thinking. Leave it out
+              and the card simply doesn't show one.
      draft    true while the card is a placeholder. Delete it when it's real.
 
    Order them newest first; the section shows them in the order given.
@@ -21,25 +25,13 @@
 window.LEARNING_DATA = {
   "items": [
     {
-      "draft": true,
-      "issuer": "Issuer",
-      "title": "Course name",
-      "done": "Month 2026",
-      "took": "One sentence on what this changed about the way you look at something ordinary — a shop window, an ad before a video, a menu, a checkout queue."
-    },
-    {
-      "draft": true,
-      "issuer": "Issuer",
-      "title": "Course name",
-      "done": "Month 2026",
-      "took": "Not the syllabus. The thing you now notice that you walked past before."
-    },
-    {
-      "draft": true,
-      "issuer": "Issuer",
-      "title": "Course name",
-      "done": "Month 2026",
-      "took": "If a course didn't change anything, leave it off. Three that changed something beat six that didn't."
+      "issuer": "Simplilearn SkillUp",
+      "title": "Digital Marketing Tools and Techniques",
+      "done": "June 2026",
+      "code": "10333384",
+      "href": "https://www.linkedin.com/in/samuel-yee-573164284/recent-activity/documents/",
+      "cover": "assets/img/certs/digital-marketing-simplilearn.webp",
+      "alt": "Simplilearn SkillUp certificate of completion: Digital Marketing Tools and Techniques, awarded to Yee Zheng Xi Samuel on 11 June 2026, certificate code 10333384"
     }
   ]
 };

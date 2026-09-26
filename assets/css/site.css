@@ -4011,3 +4011,32 @@ body.is-home .chrome__social { bottom: calc(var(--gutter) + 58px); }
 @media (min-width: 861px) {
   .chrome__marker { top: calc(var(--gutter) + 33px); }
 }
+
+/* ---------- the certificate on a course card ----------
+   A credential you can read beats a line claiming one. The picture is the
+   same link as the foot of the card, so the obvious thing to click is
+   clickable — and it is hidden from screen readers and from the tab order,
+   because the "Certificate" link underneath already says where it goes. */
+.course__shot {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--bg-warm);
+  line-height: 0;
+}
+.course__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform var(--dur-3) var(--ease-out);
+}
+.course:hover .course__shot img { transform: scale(1.015); }
+@media (prefers-reduced-motion: reduce) {
+  .course__shot img { transition: none; }
+  .course:hover .course__shot img { transform: none; }
+}
+
+/* One course should not be stretched the width of the page by a grid built
+   for several. It takes a column and stops. */
+.rail--one { grid-template-columns: minmax(0, 560px); }
