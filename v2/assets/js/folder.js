@@ -61,7 +61,16 @@
       '<div class="rb-card" id="rb-card" role="region" aria-live="polite"></div>' +
       '<div class="rb-folder__back">' +
         '<div class="rb-folder__pocket">' + html + "</div>" +
-        '<div class="rb-folder__front" aria-hidden="true"></div>' +
+        '<div class="rb-folder__front" aria-hidden="true">' +
+          /* A flight-case plate, so the shut case reads as a case with
+             something in it rather than a grey rectangle. Decorative:
+             the cover is aria-hidden and the button says what it does. */
+          '<span class="case-plate">' +
+            '<i class="case-plate__lamp"></i>' +
+            '<b>Project files</b>' +
+            '<em>' + n + ' inside</em>' +
+          '</span>' +
+        '</div>' +
         '<div class="rb-folder__front right" aria-hidden="true"></div>' +
       "</div>" +
       '<button class="rb-folder__toggle" type="button" aria-expanded="false">' +

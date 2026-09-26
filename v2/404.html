@@ -23,9 +23,9 @@
 try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="preload" href="assets/fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/dmsans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=v20003">
-<link rel="stylesheet" href="assets/css/site.css?v=v20003">
-<link rel="stylesheet" href="assets/css/print.css?v=v20003" media="print">
+<link rel="stylesheet" href="assets/css/fonts.css?v=v20004">
+<link rel="stylesheet" href="assets/css/site.css?v=v20004">
+<link rel="stylesheet" href="assets/css/print.css?v=v20004" media="print">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -43,6 +43,7 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
   <a href="https://www.instagram.com/eattohrepeat/" target="_blank" rel="noopener noreferrer">Instagram</a>
   <a href="https://github.com/samwoh05" target="_blank" rel="noopener noreferrer">GitHub</a>
   <a href="https://www.tiktok.com/@sam_yzx" target="_blank" rel="noopener noreferrer">TikTok</a>
+    <a href="https://open.spotify.com/user/samuelyee4385" target="_blank" rel="noopener noreferrer">Spotify</a>
 </nav>
 
 <nav class="nav-overlay" id="nav" aria-hidden="true" aria-label="Main">
@@ -57,11 +58,20 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
     <a href="https://www.instagram.com/eattohrepeat/" target="_blank" rel="noopener noreferrer">Instagram</a>
     <a href="https://github.com/samwoh05" target="_blank" rel="noopener noreferrer">GitHub</a>
     <a href="https://www.tiktok.com/@sam_yzx" target="_blank" rel="noopener noreferrer">TikTok</a>
+    <a href="https://open.spotify.com/user/samuelyee4385" target="_blank" rel="noopener noreferrer">Spotify</a>
     <a href="mailto:samuelyee4385@gmail.com">Email</a>
   </div>
 </nav>
 
-<main id="main">
+<!-- The desk: what this page is lit at, top to bottom. desk.js fills it in
+     and un-hides it, so it never reads as a broken instrument. -->
+<div class="chrome desk" data-desk hidden>
+  <i class="desk__lamp" aria-hidden="true"></i>
+  <span class="desk__k" data-desk-k>3200K</span>
+  <span class="desk__fader" aria-hidden="true"><i></i></span>
+</div>
+
+<main id="main" data-cue="Unpatched">
 
 <header class="page-head shell lost">
   <div class="page-head__ghost" data-parallax="-0.09" aria-hidden="true">404</div>
@@ -145,10 +155,11 @@ document.getElementById("yr").textContent = new Date().getFullYear();
   slot.textContent = asked.length > 64 ? asked.slice(0, 63) + "\u2026" : asked;
 })();
 </script>
-<script src="data/gallery.js?v=v20003"></script>
-<script src="assets/js/theme.js?v=v20003"></script>
-<script src="assets/js/transition.js?v=v20003"></script>
-<script src="assets/js/site.js?v=v20003"></script>
+<script src="data/gallery.js?v=v20004"></script>
+<script src="assets/js/theme.js?v=v20004"></script>
+<script src="assets/js/transition.js?v=v20004"></script>
+<script src="assets/js/site.js?v=v20004"></script>
+<script src="assets/js/desk.js?v=v20004"></script>
 <script>
 /* Three landscape frames, picked at random, linking back into the gallery.
    A dead end should still be worth landing on. */

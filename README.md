@@ -358,11 +358,12 @@ marketing — and dresses that claim in a different aesthetic. The root site is
 untouched; the two run side by side at <http://localhost:4173> and
 <http://localhost:4173/v2/>.
 
-**34 files, 560 KB.** It carries its own copy of everything small — six pages,
-three stylesheets, twelve scripts, eight font files and four data files —
+**37 files, 940 KB.** It carries its own copy of everything small — six pages,
+three stylesheets, thirteen scripts, eight font files and four data files —
 because it is a different version of them rather than a skin over this one. It
 borrows the heavy media unchanged from `../assets/img`, `../assets/gallery` and
-`../assets/video`.
+`../assets/video`, and keeps one piece of its own: a 3.85-second, 179 KB hero
+loop cut from the Joo Chiat film.
 
 ### Tungsten & daylight
 
@@ -381,9 +382,17 @@ saturated, so the photographs are the only full colour on the page.
 | Labels & numbers | DM Sans 700, 0.42em | IBM Plex Mono 500 |
 | Gallery mounts | six coloured boards | one near-black, hairline-separated |
 | Type weight | 108 KB, 3 faces | 176 KB, 3 faces |
-| `site.css` | 164 KB | 140 KB |
+| `site.css` | 164 KB | 162 KB |
 | Third-party requests | 2 (Spotify players) | 0 |
 | Contrast failures | 0 | 0 |
+
+**The desk.** Since September 2026 the palette is not just a palette: the page
+runs a colour-temperature scale from 3200K at the hero to 5600K at the footer,
+a readout in the top-right corner says what it is currently lit at, the ground
+itself is mixed 6% with that colour so the change is felt rather than read,
+every accent comes from the same number, and each section is stamped as a cue. The hero is a
+silent loop of Samuel's own Joo Chiat footage. See `v2/README.md` for the full
+account, including the two contrast fixes that audit turned up.
 
 Removed with the old look: the car that drove down the page, the ransom-note
 cut-out name, the checkerboard dividers (now a ruler — a hairline with a tick

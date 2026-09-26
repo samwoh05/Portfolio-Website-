@@ -3191,3 +3191,823 @@ a.label::before,
 @media (prefers-reduced-motion: reduce) {
   .btn { transition: none; }
 }
+
+/* ==========================================================================
+   THE DESK
+   --------------------------------------------------------------------------
+   The page is lit, and it says what it is lit at.
+
+   A lighting desk measures lamps in kelvin: tungsten sits low and warm,
+   daylight sits high and cool. This page runs that scale from top to bottom
+   — 3200K where the work already made is shown, 5600K where the learning is
+   — and `desk.js` moves the fader as you scroll. Every accent on the page is
+   mixed live between the two gels from one number, so the colour doesn't
+   switch at a line; it warms and cools the way a room does.
+   ========================================================================== */
+:root {
+  --k-mix: 0;      /* desk.js writes both of these: 0 at the top, 1 at the end */
+  --k-pct: 0%;
+  /* Fallback for anything without color-mix(): the tungsten end, which is
+     where the page starts anyway. */
+  --accent-live: var(--tungsten);
+  --accent-live-deep: var(--tungsten-deep);
+}
+@supports (color: color-mix(in oklab, red, blue)) {
+  :root {
+    --accent-live:
+      color-mix(in oklab, var(--daylight) var(--k-pct), var(--tungsten));
+    --accent-live-deep:
+      color-mix(in oklab, var(--market-deep) var(--k-pct), var(--tungsten-deep));
+  }
+}
+
+/* ---------- the readout ----------
+   Bottom-left, the one corner nothing else uses, and the only chrome that
+   stays for the whole page: it is an instrument, not a link. */
+.desk {
+  bottom: var(--gutter);
+  left: clamp(14px, 1.6vw, 26px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  pointer-events: none;
+}
+/* The filament. It carries the live mix, so the dot is the colour the page
+   is currently lit — the legend for everything else. */
+.desk__lamp {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent-live);
+  box-shadow: 0 0 0 1px rgba(var(--shadow), 0.25), 0 0 12px -1px var(--accent-live);
+  flex: none;
+}
+.desk__k {
+  color: var(--ink);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  min-width: 5.2ch;      /* 3200K → 5600K without the row shifting */
+}
+/* The fader travel. The track is the whole gel range; the thumb is where the
+   page currently sits in it. */
+.desk__fader {
+  position: relative;
+  width: clamp(54px, 7vw, 92px);
+  height: 3px;
+  background: linear-gradient(to right, var(--tungsten), var(--daylight));
+  opacity: 0.55;
+  flex: none;
+}
+.desk__fader i {
+  position: absolute;
+  top: 50%;
+  left: var(--k-pct);
+  width: 2px;
+  height: 13px;
+  background: var(--ink);
+  transform: translate(-1px, -50%);
+}
+.desk__cue {
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 22ch;
+  text-overflow: ellipsis;
+}
+@media (max-width: 860px) {
+  /* On a phone the footer links and the readout would share the bottom
+     edge, so the readout keeps the kelvin and drops the commentary. */
+  .desk { gap: 9px; }
+  .desk__cue { display: none; }
+  .desk__fader { width: 44px; }
+}
+@media (max-width: 520px) {
+  .desk { bottom: 12px; }
+}
+
+/* ---------- cue stamps ----------
+   Every section is a cue on the desk: a number, the kelvin it is lit at, and
+   the rule that carries the eye across to it. */
+.cue {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 clamp(14px, 2.2vh, 24px);
+}
+.cue b {
+  font-weight: 500;
+  color: var(--accent-deep);
+}
+.cue s {
+  flex: 1;
+  height: 7px;
+  max-width: 340px;
+  align-self: center;
+  text-decoration: none;
+  color: var(--line);
+  background-image:
+    linear-gradient(to right, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 1px, transparent 1px);
+  background-size: 16px 4px, 100% 1px;
+  background-repeat: repeat-x, no-repeat;
+  background-position: 0 0, 0 50%;
+}
+
+/* ---------- the section name, at poster scale ----------
+   The old head set the section name at 11px in the margin. The same words
+   now open the section at the size the photographs are printed, which is
+   the difference between a contents page and a magazine. */
+.section__word {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(2.5rem, 9.6vw, 7.4rem);
+  line-height: 0.84;
+  letter-spacing: -0.042em;
+  margin: 0 0 clamp(18px, 3vh, 34px);
+  color: var(--ink);
+  display: block;
+}
+/* The trailing mark takes the live colour, so the page's temperature shows
+   up in the type itself once per section. */
+.section__word i {
+  font-style: normal;
+  color: var(--accent-live);
+}
+.section__sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 clamp(26px, 4vh, 52px);
+}
+
+/* ==========================================================================
+   THE HERO, AS A REEL
+   --------------------------------------------------------------------------
+   The old hero put a photograph in a column beside the type. This one puts
+   Samuel's own film underneath all of it: seven seconds of Joo Chiat from
+   "Sam's Visual Diary", the street he actually shoots, running silently
+   behind his name.
+
+   The scrim is the page's own ground rather than black, so the type sits on
+   the same colour the rest of the site is printed on and the contrast holds
+   in both themes. Under reduced motion the film never plays: `site.js`
+   leaves the poster frame in place.
+   ========================================================================== */
+:root {
+  --scrim-full: rgba(244, 245, 244, 0.95);
+  --scrim-half: rgba(244, 245, 244, 0.62);
+  --scrim-none: rgba(244, 245, 244, 0);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --scrim-full: rgba(12, 14, 15, 0.94);
+    --scrim-half: rgba(12, 14, 15, 0.66);
+    --scrim-none: rgba(12, 14, 15, 0);
+  }
+}
+:root[data-theme="dark"] {
+  --scrim-full: rgba(12, 14, 15, 0.94);
+  --scrim-half: rgba(12, 14, 15, 0.66);
+  --scrim-none: rgba(12, 14, 15, 0);
+}
+
+.hero--reel {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  align-items: end;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.hero__film {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--bg-warm);
+}
+.hero__film video,
+.hero__film img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 54%;
+  /* Pulled back so the page's own two colours stay the loudest thing on it */
+  filter: saturate(0.78) contrast(1.05);
+}
+/* Two washes: one across, so the type has ground under it, and one up from
+   the bottom, so the film ends in the page instead of being cut off. */
+.hero__film::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(95deg,
+      var(--scrim-full) 0%,
+      var(--scrim-full) 26%,
+      var(--scrim-half) 52%,
+      var(--scrim-none) 88%),
+    linear-gradient(to top,
+      var(--bg) 0%,
+      var(--scrim-half) 22%,
+      var(--scrim-none) 52%);
+}
+
+.hero--reel .hero__body {
+  position: relative;
+  z-index: 2;
+  grid-row: 1;
+  justify-content: flex-end;
+  padding: calc(var(--gutter) * 2.4) var(--gutter)
+           clamp(26px, 4vh, 48px) clamp(58px, 7vw, 116px);
+  gap: clamp(20px, 3.4vh, 40px);
+  max-width: min(100%, 1080px);
+}
+.hero--reel .hero__ghost { display: none; }
+
+/* The kicker: his own label for the work, and where he is. */
+.hero__kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  margin: 0;
+}
+.hero__kicker i {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent-live);
+  box-shadow: 0 0 10px -1px var(--accent-live);
+  flex: none;
+}
+.hero__kicker s { width: 26px; height: 1px; background: var(--line); text-decoration: none; }
+
+/* The name runs at poster scale; the role lines under it stay readable. */
+.hero--reel .hero__name {
+  font-size: clamp(3.2rem, 13.4vw, 10.4rem);
+  line-height: 0.84;
+  letter-spacing: -0.055em;
+  margin-bottom: 0.1em;
+}
+.hero--reel .hero__title .h-xl {
+  font-size: clamp(1.45rem, 3.5vw, 3.1rem);
+  max-width: 16ch;
+  line-height: 1.02;
+  color: var(--ink-mid);
+  font-weight: 700;
+}
+.hero--reel .hero__title .h-xl em {
+  font-style: normal;
+  color: var(--ink);
+}
+
+.hero--reel .hero__intro { max-width: 560px; }
+.hero--reel .hero__intro .lede { max-width: 52ch; }
+
+/* The film's own credit line, sitting on the bottom edge of the hero where a
+   caption belongs. It names the footage, because it is his. */
+.hero__strip {
+  position: relative;
+  z-index: 2;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 14px clamp(18px, 3vw, 34px) 14px clamp(58px, 7vw, 116px);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--bg);
+}
+.hero__strip b { color: var(--ink-mid); font-weight: 500; }
+.hero__strip .hero__now {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.hero__strip .hero__now i {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent-live);
+  flex: none;
+}
+
+@media (max-width: 980px) {
+  .hero--reel {
+    grid-template-rows: 1fr auto;
+    min-height: 92svh;
+  }
+  .hero--reel .hero__body {
+    padding: calc(var(--gutter) * 3) var(--gutter) clamp(20px, 3vh, 34px) var(--gutter);
+  }
+  .hero__strip { padding-left: var(--gutter); padding-right: var(--gutter); }
+  .hero__film::after {
+    background:
+      linear-gradient(to top,
+        var(--bg) 0%,
+        var(--scrim-full) 34%,
+        var(--scrim-half) 62%,
+        var(--scrim-none) 100%);
+  }
+}
+@media (max-width: 560px) {
+  .hero__strip { font-size: 9px; letter-spacing: 0.14em; gap: 10px; }
+  .hero--reel .hero__title .h-xl { font-size: clamp(1.25rem, 6vw, 1.7rem); }
+}
+
+/* The staff pass keeps swinging, but over the film now rather than beside
+   it — a lanyard on a shoot, which is where it came from. */
+.hero__side {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: clamp(10px, 4vw, 92px);
+  width: clamp(190px, 24vw, 330px);
+  height: clamp(320px, 62vh, 620px);
+}
+@media (max-width: 980px) {
+  .hero__side { right: -6vw; width: 42vw; height: 40svh; opacity: 0.85; }
+}
+@media (max-width: 560px) {
+  .hero__side { display: none; }
+}
+
+/* ---------- the head is a stack now, not a row ----------
+   Number and gel on one line, the section's name under it at poster scale,
+   the old label text under that as the caption it always was. */
+.section__head {
+  display: block;
+  gap: 0;
+}
+.section__word--sm { font-size: clamp(1.7rem, 4.6vw, 3.2rem); }
+
+/* The sentence that used to be the section's only heading. It is now the
+   deck under the name — same type, one rank down in the outline. */
+.deck {
+  color: var(--ink);
+  max-width: 22ch;
+}
+
+/* ---------- the gel change ----------
+   The band where the page stops being lit tungsten and starts being lit
+   daylight. It is painted as the change itself: warm at the left edge,
+   cool by the right, which is what swapping a gel actually looks like. */
+.statement--turn {
+  background:
+    linear-gradient(101deg,
+      var(--tungsten-deep) 0%,
+      #7a4a12 22%,
+      #3d4a45 52%,
+      var(--daylight-band) 82%);
+}
+.statement .statement__gel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  max-width: none;
+  line-height: 1.6;
+  margin: 0 0 clamp(18px, 3vh, 30px);
+}
+/* A lamp that is itself mid-change: tungsten core, daylight rim */
+.statement .statement__gel i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--tungsten-on-band);
+  box-shadow: 0 0 0 2px rgba(127, 194, 230, 0.55), 0 0 14px -2px var(--tungsten-on-band);
+}
+
+/* ---------- hero fit ----------
+   Measured at 1440x900: the name was inheriting the headline's measure and
+   breaking as SAM / UEL, and the stack ran 119px past the fold, which put
+   the film credit below it. The name sets its own width and never breaks;
+   only the role lines keep a measure. */
+.hero--reel .hero__body {
+  padding-top: calc(var(--gutter) * 1.5);
+  gap: clamp(14px, 2.4vh, 28px);
+}
+.hero--reel .hero__name {
+  font-size: clamp(2.7rem, 10.6vw, 8.4rem);
+  white-space: nowrap;
+  max-width: none;
+}
+.hero--reel .hero__title .h-xl { max-width: none; }
+.hero--reel .hero__title .h-xl .rise {
+  display: block;
+  max-width: 18ch;
+}
+.hero--reel .hero__intro { gap: 12px 20px; }
+
+/* The readout sits in the credit strip on the first screen, so the strip
+   keeps its left end clear rather than printing underneath it. */
+.hero__strip { padding-left: clamp(150px, 21vw, 300px); }
+.desk { bottom: clamp(12px, 1.4vw, 15px); }
+@media (max-width: 980px) {
+  .hero__strip { padding-left: clamp(120px, 40vw, 190px); }
+}
+@media (max-width: 560px) {
+  .hero__strip { padding-left: 92px; }
+}
+
+/* ---------- the diary credit ----------
+   The photographs already have a name and a line — both his, both already
+   on the account they come from. Printed as a caption rather than a slogan,
+   because that is what it is. */
+.diary-credit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 clamp(22px, 3.4vh, 38px);
+}
+.diary-credit i {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--accent-live);
+  box-shadow: 0 0 10px -1px var(--accent-live);
+}
+.diary-credit a {
+  color: var(--accent-deep);
+  position: relative;
+  padding-bottom: 2px;
+}
+.diary-credit a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease);
+}
+.diary-credit a:hover::after { transform: scaleX(1); transform-origin: left; }
+.diary-credit s {
+  width: 30px; height: 1px;
+  background: var(--line);
+  text-decoration: none;
+  flex: none;
+}
+.diary-credit span { color: var(--ink-mid); text-transform: none; letter-spacing: 0.04em; font-size: 12px; }
+@media (max-width: 560px) {
+  .diary-credit s { display: none; }
+}
+
+/* ---------- the scrim, measured ----------
+   At 94% the dark theme was hiding the film completely: the hero read as a
+   plain black page with a photograph nobody could see. The wash is now
+   opaque only where type actually sits — the left quarter — and clears by
+   the right edge, in both themes. The dark theme also lifts the footage a
+   little, because a near-black ground eats midtones the paper one keeps. */
+.hero__film::after {
+  background:
+    linear-gradient(95deg,
+      var(--scrim-full) 0%,
+      var(--scrim-full) 24%,
+      var(--scrim-half) 48%,
+      var(--scrim-none) 82%),
+    linear-gradient(to top,
+      var(--bg) 0%,
+      var(--scrim-half) 20%,
+      var(--scrim-none) 46%);
+}
+:root[data-theme="dark"] .hero__film video,
+:root[data-theme="dark"] .hero__film img { filter: saturate(0.82) contrast(1.02) brightness(1.06); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero__film video,
+  :root:not([data-theme="light"]) .hero__film img { filter: saturate(0.82) contrast(1.02) brightness(1.06); }
+  :root:not([data-theme="light"]) {
+    --scrim-full: rgba(12, 14, 15, 0.9);
+    --scrim-half: rgba(12, 14, 15, 0.5);
+  }
+}
+:root[data-theme="dark"] {
+  --scrim-full: rgba(12, 14, 15, 0.9);
+  --scrim-half: rgba(12, 14, 15, 0.5);
+}
+
+/* ---------- the overlay menu's own ink ----------
+   The overlay is printed on dark stock in either theme, but it was reading
+   --ink-soft from the page, which in the light theme is a dark grey: the
+   numbers beside each link and the social row underneath came out at
+   3.24:1 on near-black. Measured with the menu open, light theme.
+
+   Same rule the sheets and the stock surfaces already follow in this file:
+   a surface that carries its own colour re-binds the ink tokens, so
+   everything printed on it follows the surface rather than the page. */
+.nav-overlay {
+  --ink:      var(--on-stock);
+  --ink-mid:  #b9c0c1;   /* 9.6:1 on --stock */
+  --ink-soft: #9aa3a5;   /* 6.8:1 on --stock, which is what 11px needs */
+  --accent-deep: var(--tungsten-on-band);
+}
+
+/* ---------- the hero on a phone ----------
+   Order matters here: the measured scrim above replaced the wash for every
+   width, including the narrow one it was never drawn for. On a 375px screen
+   a 95deg wash clears by 90px, which left the intro and both buttons sitting
+   on a sunlit yellow shophouse, invisible. Measured at 375x812.
+
+   So the phone gets the other arrangement: the film keeps the top of the
+   screen, the page's own ground comes up solid under everything there is to
+   read, and the name sits on the seam between them. */
+@media (max-width: 980px) {
+  .hero__film::after {
+    background:
+      linear-gradient(to top,
+        var(--bg) 0%,
+        var(--bg) 34%,
+        var(--scrim-full) 56%,
+        var(--scrim-half) 78%,
+        var(--scrim-none) 100%);
+  }
+  .hero--reel .hero__body { justify-content: flex-end; }
+}
+
+/* The credit strip stacks rather than wrapping into four ragged rows. */
+@media (max-width: 560px) {
+  .hero__strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 13px var(--gutter);
+    line-height: 1.5;
+  }
+  /* The fader in the corner already shows the daylight coming up; the
+     sentence that explains it costs a third of the strip on a phone. */
+  .hero__strip > span:last-child { display: none; }
+}
+
+/* The readout is fixed, so on a short screen it lands on whatever happens to
+   be at the bottom — the ticker, a photograph. It carries its own ground
+   there rather than printing over the top of them. */
+@media (max-width: 860px) {
+  .desk {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 5px 9px;
+    gap: 8px;
+  }
+}
+
+/* ---------- the case, shut ----------
+   Closed, the folder was a plain grey slab: nothing said it opened, and
+   nothing said what was in it. It is an equipment case, so it now carries
+   what a case carries — a stencilled plate, and a warm seam along the lid
+   where the light inside gets out. The seam is the only tungsten on the
+   object while it is shut, and it widens when you point at it. */
+.rb-folder__front {
+  box-shadow:
+    inset 0 1px 0 rgba(242, 165, 68, 0.38),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+    0 18px 38px -22px rgba(0, 0, 0, 0.75);
+  transition: transform 520ms var(--ease-out), box-shadow 320ms var(--ease-out);
+}
+.rb-folder:not(.is-open):hover .rb-folder__front {
+  box-shadow:
+    inset 0 2px 0 rgba(242, 165, 68, 0.75),
+    inset 0 18px 30px -18px rgba(242, 165, 68, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+    0 22px 44px -22px rgba(0, 0, 0, 0.8);
+}
+
+.case-plate {
+  position: absolute;
+  top: clamp(16px, 2.4vw, 26px);
+  left: clamp(16px, 2.4vw, 26px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  border: 1px solid rgba(236, 239, 239, 0.16);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(236, 239, 239, 0.74);   /* 6.1:1 on the cover's #343a3e */
+  transition: opacity 240ms var(--ease-out);
+}
+.case-plate b { font-weight: 500; color: rgba(236, 239, 239, 0.92); }
+.case-plate em {
+  font-style: normal;
+  color: var(--tungsten-on-band);
+  letter-spacing: 0.16em;
+}
+.case-plate__lamp {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--tungsten-on-band);
+  box-shadow: 0 0 9px -1px var(--tungsten-on-band);
+  flex: none;
+}
+/* Open, the lid is tipped away from the reader and the plate with it */
+.rb-folder.is-open .case-plate { opacity: 0; }
+@media (max-width: 560px) {
+  .case-plate em { display: none; }
+}
+
+/* ---------- the bottom edge, at every width ----------
+   Three things want the bottom of the first screen: the readout, the film
+   credit and the fixed social links. At 1440x900 the gutter keeps them
+   apart; at 800x600 it does not, and all three printed over each other.
+   Measured at 800x600.
+
+   The readout drops its commentary before it can reach the credit's first
+   word, and the social links stand off the strip rather than on it. */
+@media (max-width: 1120px) {
+  .desk__cue { display: none; }
+}
+body.is-home .chrome__social { bottom: calc(var(--gutter) + 58px); }
+@media (max-width: 560px) {
+  /* Below this the strip stacks and the links are the footer's job */
+  body.is-home .chrome__social { display: none; }
+}
+
+/* ==========================================================================
+   THE READOUT MOVES TO THE CORNER, AND THE ROOM TAKES THE LIGHT
+   ========================================================================== */
+
+/* ---------- top right, above the page marker ----------
+   Where a timecode lives. The marker drops to the second line: it fades out
+   as soon as you scroll, and the readout does not, so the instrument has to
+   be the one on top or it would be left hanging under a gap.
+
+   It carries a bezel, because the top right of the hero is the brightest
+   corner of the film — the one place the scrim deliberately clears — and
+   11px mono on a sunlit roof is not a readout, it is a rumour. */
+@media (min-width: 861px) {
+  .desk {
+    top: var(--gutter);
+    right: var(--gutter);
+    bottom: auto;
+    left: auto;
+    gap: 11px;
+    padding: 6px 11px;
+    background: color-mix(in oklab, var(--bg) 86%, transparent);
+    border: 1px solid var(--line);
+  }
+  .desk__cue { display: block; }
+  .chrome__marker { top: calc(var(--gutter) + 24px); }
+  /* the bottom-left corner is free again */
+  .hero__strip { padding-left: clamp(58px, 7vw, 116px); }
+}
+@supports not (color: color-mix(in oklab, red, blue)) {
+  @media (min-width: 861px) { .desk { background: var(--bg); } }
+}
+
+/* ---------- the room takes the light ----------
+   Reading the number is not the same as feeling it. The page's own ground is
+   now mixed with whatever the desk is currently putting out, so the whole
+   room warms towards the work and cools towards the market — the accents
+   were only ever the filament, this is the light it throws.
+
+   6% is deliberate: enough that scrolling the length of the page is a visible
+   change of temperature, little enough that no text loses contrast against
+   it. Audited at both ends, both themes. */
+:root { --lit-strength: 6%; }
+@supports (color: color-mix(in oklab, red, blue)) {
+  body {
+    background-color: color-mix(in oklab, var(--accent-live) var(--lit-strength), var(--bg));
+  }
+  /* The film sits in its own light too, so the hero does not look like a
+     photograph pasted onto a warm page. */
+  .hero__film::after { transition: opacity 200ms linear; }
+}
+
+/* Measured: the bezel makes the readout 34px tall, so 24px of offset left the
+   marker printing through it. */
+@media (min-width: 861px) {
+  .chrome__marker { top: calc(var(--gutter) + 44px); }
+}
+
+/* ---------- the lamp ----------
+   A flat 6% tint moved the ground's hue but not its light: at the top and the
+   bottom of the page the two grounds measured the same lightness, which is
+   read rather than felt. So the room also has a lamp in it — a wash down from
+   the top of the viewport in whatever the desk is currently putting out,
+   fixed, so it stays overhead while the page moves underneath it.
+
+   It is part of the body's own background, which means it paints behind every
+   word on the page and can't cost a single point of contrast. */
+@supports (color: color-mix(in oklab, red, blue)) {
+  body {
+    background-image:
+      linear-gradient(to bottom,
+        color-mix(in oklab, var(--accent-live) 16%, transparent) 0%,
+        color-mix(in oklab, var(--accent-live) 5%, transparent) 22%,
+        transparent 46%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+/* The pass used to hang from the very top of the hero, which is now where the
+   readout lives — the cord ran straight through it. It hangs from just below
+   the corner instead. */
+@media (min-width: 861px) {
+  .hero__side { top: clamp(96px, 13vh, 132px); }
+}
+
+/* ---------- the readout, quieter ----------
+   It was a bezelled instrument with a glowing lamp and the section's name
+   spelled out beside it, which is a lot of furniture for a number. What is
+   worth reading is the number, so the rest steps back: no border, a softer
+   ground, a smaller lamp with no glow, a shorter fader, and the whole thing
+   set in --ink-soft rather than --ink. The section name is gone entirely —
+   the page already says which section you are in, in type the size of a
+   poster. */
+.desk {
+  gap: 9px;
+  font-size: 9px;
+}
+.desk__k {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  min-width: 4.8ch;
+}
+.desk__lamp {
+  width: 5px;
+  height: 5px;
+  box-shadow: none;
+  opacity: 0.9;
+}
+.desk__fader {
+  width: clamp(34px, 3.6vw, 52px);
+  height: 2px;
+  opacity: 0.38;
+}
+.desk__fader i {
+  width: 1px;
+  height: 9px;
+  background: var(--ink-soft);
+}
+@media (min-width: 861px) {
+  .desk {
+    padding: 4px 9px;
+    border: 0;
+    /* enough ground to stay legible over the bright corner of the film,
+       little enough that it is not a badge */
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+  }
+}
+@media (max-width: 860px) {
+  .desk {
+    border: 0;
+    padding: 4px 8px;
+    background: color-mix(in oklab, var(--bg) 82%, transparent);
+  }
+}
+@supports not (color: color-mix(in oklab, red, blue)) {
+  .desk { background: var(--bg); }
+}
+
+/* The readout is 25px tall now, not 34 — the marker closes the gap. */
+@media (min-width: 861px) {
+  .chrome__marker { top: calc(var(--gutter) + 33px); }
+}

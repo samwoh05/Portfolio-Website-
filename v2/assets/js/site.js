@@ -213,6 +213,19 @@
     document.querySelectorAll(".marquee").forEach(function (m) {
       var row = m.querySelector(".marquee__row");
       if (!row) return;
+
+      /* The row wraps at its own width, so anything narrower than the window
+         would show a gap crossing the screen before the copy behind it
+         arrives. Short word lists therefore repeat until one row covers the
+         viewport — which keeps the list itself free to be as short as it
+         wants. The guard stops a zero-width row (fonts still loading) from
+         spinning this forever. */
+      var once = row.innerHTML;
+      var guard = 0;
+      while (row.getBoundingClientRect().width < window.innerWidth && guard++ < 12) {
+        row.insertAdjacentHTML("beforeend", once);
+      }
+
       var clone = row.cloneNode(true);
       clone.setAttribute("aria-hidden", "true");
       m.appendChild(clone);
@@ -263,9 +276,47 @@
   /* ----------------------------------------------------------------
      Boot
      ---------------------------------------------------------------- */
+  /* ----------------------------------------------------------------
+     The hero film.
+
+     It is Samuel's own footage, so it is worth loading — but only for a
+     reader who has not asked for less motion and is not on a metered
+     connection. Everyone else keeps the poster frame, which is a still from
+     the same film, so nothing is missing from the page. It also stops
+     playing whenever it scrolls off screen: there is no reason to decode
+     video nobody is looking at.
+     ---------------------------------------------------------------- */
+  function film() {
+    var v = document.querySelector("[data-film]");
+    if (!v) return;
+
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var conn = navigator.connection || {};
+    if (reduced.matches || conn.saveData) return;   // the poster is the hero
+
+    v.preload = "auto";
+    v.load();
+    var tryPlay = function () {
+      var p = v.play();
+      // Autoplay can be refused; the poster is already the fallback
+      if (p && p.catch) p.catch(function () {});
+    };
+    tryPlay();
+
+    if (!("IntersectionObserver" in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { tryPlay(); }
+        else if (!v.paused) { v.pause(); }
+      });
+    }, { threshold: 0.01 });
+    io.observe(v);
+  }
+
   function init() {
     preloader();
     menu();
+    film();
     marquee();
     sheen();
     reveal();
