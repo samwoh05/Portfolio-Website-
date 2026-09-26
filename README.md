@@ -11,7 +11,7 @@ leads, because work already done is the strongest argument for a change of
 direction.
 
 ```
-index.html          Home — hero reel, the work, the turn, learning, notes, gallery, about
+index.html          Home — hero reel, the work, the turn, learning, gallery, about
 projects.html       Project list with a cover that follows the cursor
 project.html        One project, chosen by ?p=slug
 gallery.html        Photos + videos, filterable, with a lightbox
@@ -20,8 +20,7 @@ privacy.html        Privacy notice
 
 data/gallery.js     ← the photos and videos you edit
 data/projects.js    ← the projects you edit
-data/learning.js    ← the courses (placeholders until you fill them in)
-data/notes.js       ← the teardowns (placeholders until you write one)
+data/learning.js    ← the courses and their certificates
 
 assets/css/site.css   All styling, both themes
 assets/css/fonts.css  The three self-hosted faces
@@ -37,12 +36,13 @@ assets/js/folder.js   The project case that opens on the home page
 assets/js/gallery.js  Builds the gallery wall + lightbox
 assets/js/projects.js Builds the project list
 assets/js/project-detail.js  Builds one project page
-assets/js/learning.js Builds the courses and the notes
+assets/js/learning.js Builds the courses
 assets/js/split.js    Splits a line into letters so each rises on its own
 assets/js/decrypt.js  The scrambling "Say Hello"
 
 assets/gallery/       Your photos (WebP)
 assets/img/           About photo, badge photo, project shots, covers
+assets/img/certs/     The certificates themselves
 assets/video/         Web-encoded films + posters, and the hero loop
 assets/fonts/         Archivo, DM Sans, IBM Plex Mono
 
@@ -65,7 +65,7 @@ which 27.4 MB is video.
 
 | File | What it holds | Lines | Size |
 |---|---|---:|---:|
-| `index.html` | Hero reel, the work, the gel change, learning, notes, gallery, about, education | 443 | 24 KB |
+| `index.html` | Hero reel, the work, the gel change, learning, gallery, about, education | 414 | 23 KB |
 | `privacy.html` | Privacy notice | 201 | 14 KB |
 | `404.html` | Wrong address — a patch bay, four ways out, three frames | 201 | 9 KB |
 | `gallery.html` | The full wall, grouped by set, with filters and a lightbox | 174 | 13 KB |
@@ -174,8 +174,8 @@ rail, social links — and drops to 0 under 860px, where content takes the full
 width. `--gutter` is clamp(20px, 5vw, 72px). Breakpoints: 1120 · 980 · 900 ·
 861 · 860 · 700 · 560 · 520 px. Texture comes from a measured rule (a hairline
 with a tick every 16px), a film-grain overlay, and a pixel-arrow cursor drawn
-as inline SVG — no image files to manage. `site.css` is **4,013 lines /
-164 KB**, which GitHub Pages gzips to 32 KB. `print.css` (175 lines) is
+as inline SVG — no image files to manage. `site.css` is **4,042 lines /
+165 KB**, which GitHub Pages gzips to 32 KB. `print.css` (175 lines) is
 linked with `media="print"`, so a screen visitor never downloads it.
 
 The first screen is verified at **375×812, 800×600, 1024×768, 1440×900 and
@@ -185,7 +185,7 @@ and the fixed social links — share it at none of them.
 
 ### Behaviour
 
-Thirteen modules, **2,398 lines**, no dependencies.
+Thirteen modules, **2,385 lines**, no dependencies.
 
 | Module | What it does | Lines |
 |---|---|---:|
@@ -200,7 +200,7 @@ Thirteen modules, **2,398 lines**, no dependencies.
 | `desk.js` | The colour temperature: the readout, the live mix, the cue stamps | 119 |
 | `projects.js` | Project list with a cover that follows the cursor | 114 |
 | `split.js` | Splits a line into letters so each rises out of its own mask | 110 |
-| `learning.js` | Builds the courses and the notes, and removes an empty section | 91 |
+| `learning.js` | Builds the courses, and removes the section if there are none | 78 |
 | `theme.js` | The light/dark switch | 87 |
 
 ### The running order
@@ -212,13 +212,12 @@ to say so.
 | | Section | Lit at |
 |---|---|---|
 | | Hero — the reel, the name, the status line, two buttons | 3200K |
-| 01 | **The work** — the case, opening to four projects | 3450K |
+| 01 | **The work** — the case, opening to four projects | 3500K |
 | | *The gel change* — "People buy what it says about them." | CTO → CTB |
-| 02 | **The market** — the courses | 4000K |
-| 03 | **Notes** — the teardowns | 4250K |
-| 04 | **Gallery** — the photo ring, and Sam's Visual Diary | 4550K |
-| 05 | **Start here** — the biography | 5000K |
-| 06 | **How I got here** — two stops, not four | 5500K |
+| 02 | **The market** — the courses, with the certificate itself | 4100K |
+| 03 | **Gallery** — the photo ring, and Sam's Visual Diary | 4400K |
+| 04 | **Start here** — the biography | 4950K |
+| 05 | **How I got here** — two stops, not four | 5450K |
 | | Contact — "Say Hello", the address, the socials | 5600K |
 
 Section names are set at poster scale with the old label underneath as the
@@ -324,7 +323,8 @@ bottom, because a dead end should be worth landing on.
 | Cameras | Sony A7 III 23 · Canon R50 9 · iPhone 17 Pro Max 4 · Digital Camera 2 · iPhone 12 Pro 1 |
 | Item fields | `type, group, src, poster, w, h, camera, lens, edit, alt` |
 | Projects | S.O.N.I.C (2024) · NYP Open House (2024) · Mini Python Games (2025) · This Portfolio (2026) |
-| Placeholders | `data/learning.js` and `data/notes.js` still hold examples. An item marked `draft: true` renders with a dashed edge and a "To fill in" chip; a section whose data file is empty removes itself, heading and all |
+| Courses | One, real: *Digital Marketing Tools and Techniques*, Simplilearn SkillUp, June 2026, certificate 10333384. The card shows the certificate itself and links to it |
+| Still to write | The `took` line on that card — one sentence on what the course changed about how you read something ordinary. The card renders without it; a placeholder marked `draft: true` would render with a dashed edge and a "To fill in" chip |
 
 ### Media
 
@@ -333,6 +333,10 @@ bottom, because a dead end should be worth landing on.
 | Joo Chiat Mini Vlog | 3:24 | 497.6 MB | 19.3 MB |
 | Holy Land Trip '23 | 0:31 | 268.5 MB | 7.5 MB |
 | Hero loop (cut from Joo Chiat) | 0:04 | — | 179 KB |
+
+The certificate is `assets/img/certs/digital-marketing-simplilearn.webp`, 900×627,
+**31 KB** — cropped out of a PDF-viewer screenshot, with the viewer's title chip
+and its fullscreen button painted out against the flat areas they covered.
 
 Photographs: 37 WebP in `assets/gallery/`, 2.6 MB in total. `assets/img/`
 holds 22 files, 2.3 MB — the About photo, the pass, the share card, four
@@ -377,7 +381,7 @@ grain, reveals anything waiting on a scroll, prints the address after any
 outgoing link, and signs the foot of the page.
 
 **Cache stamps.** Every page links its CSS and JS with a `?v=` fingerprint —
-**62 links**, a short hash of everything in `assets/css/`, `assets/js/` and
+**61 links**, a short hash of everything in `assets/css/`, `assets/js/` and
 `data/`. Pages serves assets with `max-age=600`, so without a stamp a visitor
 can run new HTML against a stylesheet cached ten minutes earlier. After
 changing anything under those folders, run:
@@ -487,21 +491,36 @@ Edit `data/projects.js`:
 with a `detail` array gets its own page at `project.html?p=slug`; one without
 links straight to its `href`.
 
-## The courses and the notes
+## The courses
 
-Two sections render from their own data files and both still hold placeholders,
-which they say on screen.
+`data/learning.js` holds them, newest first. A card carries the issuer, the
+title as the certificate names it, the month, the certificate number and a
+picture of the certificate itself:
 
-- **`data/learning.js`** — the real course names, issuers, months and
-  certificate links. The field that matters is `took`: one sentence on what the
-  course changed about the way you look at something ordinary. A list of course
-  names proves attendance; that line proves thinking.
-- **`data/notes.js`** — one teardown, 300 words, on something you watched work.
-  Worth more than every certificate above it. Start with one.
+```js
+{
+  "issuer": "Simplilearn SkillUp",
+  "title":  "Digital Marketing Tools and Techniques",
+  "done":   "June 2026",
+  "code":   "10333384",
+  "href":   "https://www.linkedin.com/in/…/recent-activity/documents/",
+  "cover":  "assets/img/certs/digital-marketing-simplilearn.webp",
+  "alt":    "What the certificate says, for anyone who can't see it",
+  "took":   "One sentence on what it changed about how you read something ordinary."
+}
+```
+
+`took` is the field that matters and the one that is still empty. A list of
+course names proves attendance; that line proves thinking. The card renders
+fine without it, so it can wait until the sentence is true.
 
 An item marked `draft: true` renders with a dashed edge and a "To fill in"
 chip, so nothing here can quietly ship looking like a qualification. Empty the
 file and the section removes itself, heading and all.
+
+**Adding a certificate picture.** Crop the viewer's chrome off first — a
+screenshot with a fullscreen button in the corner reads as a screenshot, not a
+credential. Save it to `assets/img/certs/` as WebP at about 900px wide.
 
 ## Changing the hero film
 
