@@ -24,9 +24,9 @@
 try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="preload" href="assets/fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/dmsans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=ebbb4b3a">
-<link rel="stylesheet" href="assets/css/site.css?v=ebbb4b3a">
-<link rel="stylesheet" href="assets/css/print.css?v=ebbb4b3a" media="print">
+<link rel="stylesheet" href="assets/css/fonts.css?v=4b526f51">
+<link rel="stylesheet" href="assets/css/site.css?v=4b526f51">
+<link rel="stylesheet" href="assets/css/print.css?v=4b526f51" media="print">
 </head>
 <body class="is-home">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -151,6 +151,9 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
 
   <div class="hero__strip">
     <span class="hero__now"><i aria-hidden="true"></i>Now playing &mdash; <b>Joo Chiat</b> &middot; Sam&rsquo;s Visual Diary</span>
+    <!-- site.js un-hides this, so a reader without JavaScript is never shown
+         a control that can't do anything. -->
+    <button class="hero__film-btn" type="button" data-film-toggle hidden>Pause film</button>
     <span>Lit at <b>3200K</b> &middot; tungsten</span>
     <span>Scroll to bring the daylight up</span>
   </div>
@@ -395,20 +398,20 @@ try{var t=localStorage.getItem("sy-theme");if(t)document.documentElement.setAttr
 </footer>
 
 <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
-<script src="assets/js/theme.js?v=ebbb4b3a"></script>
-<script src="assets/js/transition.js?v=ebbb4b3a"></script>
-<script src="assets/js/site.js?v=ebbb4b3a"></script>
-<script src="data/gallery.js?v=ebbb4b3a"></script>
-<script src="data/projects.js?v=ebbb4b3a"></script>
-<script src="data/learning.js?v=ebbb4b3a"></script>
-<script src="assets/js/gallery.js?v=ebbb4b3a"></script>
-<script src="assets/js/ring.js?v=ebbb4b3a"></script>
-<script src="assets/js/split.js?v=ebbb4b3a"></script>
-<script src="assets/js/decrypt.js?v=ebbb4b3a"></script>
-<script src="assets/js/lanyard.js?v=ebbb4b3a"></script>
-<script src="assets/js/folder.js?v=ebbb4b3a"></script>
-<script src="assets/js/projects.js?v=ebbb4b3a"></script>
-<script src="assets/js/learning.js?v=ebbb4b3a"></script>
-<script src="assets/js/desk.js?v=ebbb4b3a"></script>
+<script src="assets/js/theme.js?v=4b526f51"></script>
+<script src="assets/js/transition.js?v=4b526f51"></script>
+<script src="assets/js/site.js?v=4b526f51"></script>
+<script src="data/gallery.js?v=4b526f51"></script>
+<script src="data/projects.js?v=4b526f51"></script>
+<script src="data/learning.js?v=4b526f51"></script>
+<script src="assets/js/gallery.js?v=4b526f51"></script>
+<script src="assets/js/ring.js?v=4b526f51"></script>
+<script src="assets/js/split.js?v=4b526f51"></script>
+<script src="assets/js/decrypt.js?v=4b526f51"></script>
+<script src="assets/js/lanyard.js?v=4b526f51"></script>
+<script src="assets/js/folder.js?v=4b526f51"></script>
+<script src="assets/js/projects.js?v=4b526f51"></script>
+<script src="assets/js/learning.js?v=4b526f51"></script>
+<script src="assets/js/desk.js?v=4b526f51"></script>
 </body>
 </html>

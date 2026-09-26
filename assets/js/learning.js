@@ -53,7 +53,12 @@
            link as the foot, so the obvious thing to click is clickable. */
         var shot = "";
         if (c.cover) {
-          var img = '<img src="' + esc(c.cover) + '" alt="' + esc(c.alt || "") + '" loading="lazy" decoding="async">';
+          /* width/height are what reserve the space while a lazy image is
+             still coming. Without them the card is 2px tall on a phone and
+             jumps the page when the certificate arrives. */
+          var img = '<img src="' + esc(c.cover) + '" alt="' + esc(c.alt || "") + '"' +
+            (c.w && c.h ? ' width="' + esc(c.w) + '" height="' + esc(c.h) + '"' : "") +
+            ' loading="lazy" decoding="async">';
           shot = c.href
             ? '<a class="course__shot" href="' + esc(c.href) + '" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">' + img + "</a>"
             : '<span class="course__shot">' + img + "</span>";

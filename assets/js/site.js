@@ -292,21 +292,41 @@
 
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     var conn = navigator.connection || {};
-    if (reduced.matches || conn.saveData) return;   // the poster is the hero
+    var btn = document.querySelector("[data-film-toggle]");
 
-    v.preload = "auto";
-    v.load();
+    /* Motion nobody can stop is the complaint people actually have about
+       background video, so the film has a control — and it is the same
+       control whether the film is running or was never started. */
+    var held = reduced.matches || !!conn.saveData;   // held back, not broken
+
     var tryPlay = function () {
+      if (v.preload !== "auto") { v.preload = "auto"; v.load(); }
       var p = v.play();
-      // Autoplay can be refused; the poster is already the fallback
-      if (p && p.catch) p.catch(function () {});
+      if (p && p.catch) p.catch(function () {});     // refusal keeps the poster
     };
-    tryPlay();
 
+    if (btn) {
+      var sync = function () {
+        btn.textContent = v.paused ? "Play film" : "Pause film";
+      };
+      v.addEventListener("play", sync);
+      v.addEventListener("pause", sync);
+      btn.addEventListener("click", function () {
+        if (v.paused) { held = false; tryPlay(); }
+        else { held = true; v.pause(); }
+      });
+      sync();
+      btn.removeAttribute("hidden");
+    }
+
+    if (!held) tryPlay();
+
+    /* Off-screen video is decoding for nobody — but a film the reader paused
+       stays paused when it comes back. */
     if (!("IntersectionObserver" in window)) return;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { tryPlay(); }
+        if (e.isIntersecting) { if (!held) tryPlay(); }
         else if (!v.paused) { v.pause(); }
       });
     }, { threshold: 0.01 });

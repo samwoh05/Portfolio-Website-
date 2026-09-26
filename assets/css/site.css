@@ -4040,3 +4040,69 @@ body.is-home .chrome__social { bottom: calc(var(--gutter) + 58px); }
 /* One course should not be stretched the width of the page by a grid built
    for several. It takes a column and stops. */
 .rail--one { grid-template-columns: minmax(0, 560px); }
+
+/* ---------- the film's own control ----------
+   Set as one more stamp in the credit strip rather than a player button,
+   because that is what it is: the strip says what is playing, and this says
+   whether it is. */
+.hero__film-btn {
+  appearance: none;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 4px 9px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  cursor: pointer;
+  transition: color var(--dur-1) var(--ease-out),
+              border-color var(--dur-1) var(--ease-out);
+}
+.hero__film-btn:hover { color: var(--ink); border-color: var(--ink-soft); }
+.hero__film-btn:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 3px; }
+
+/* ---------- hit areas on a touch screen ----------
+   Measured at 375px: the menu links came to 31px tall, the footer's icons to
+   40, its text links to 17, and the certificate link to 17. A finger is
+   about 44px wide, so on a pointer that isn't a mouse every one of them
+   grows — by padding, not by type size, so nothing about the page looks
+   different. Where growing the box would move its neighbours, the padding is
+   taken back as a negative margin. */
+@media (pointer: coarse) {
+  .nav-overlay__list a { padding-block: 9px; }
+  .nav-overlay__meta a { padding-block: 13px; }
+  .socials a { width: 44px; height: 44px; }
+  .footer__nav a,
+  .footer__back,
+  .footer__base span { padding-block: 14px; }
+  .theme-btn { width: 44px; height: 44px; }
+  .menu-btn {
+    padding: 10px;
+    margin: -10px;
+    width: 54px;
+    height: 44px;
+    box-sizing: content-box;
+  }
+  .chrome__logo { padding: 10px; margin: -10px; }
+  .course__cert,
+  .cta-link,
+  .diary-credit a,
+  .detail__links a,
+  .hero__film-btn { padding-block: 13px; }
+  .hero__film-btn { padding-inline: 12px; }
+}
+
+/* Measured after the first pass: padding alone left three of these at 43px,
+   and two more were never covered. A minimum height says it outright. */
+@media (pointer: coarse) {
+  .hero__film-btn,
+  .course__cert,
+  .rb-folder__toggle,
+  a.label,
+  .footer__back { min-height: 44px; display: inline-flex; align-items: center; }
+  a.label { padding-block: 12px; }
+  .rb-folder__toggle { padding-block: 10px; }
+}

@@ -65,7 +65,7 @@ which 27.4 MB is video.
 
 | File | What it holds | Lines | Size |
 |---|---|---:|---:|
-| `index.html` | Hero reel, the work, the gel change, learning, gallery, about, education | 414 | 23 KB |
+| `index.html` | Hero reel, the work, the gel change, learning, gallery, about, education | 417 | 24 KB |
 | `privacy.html` | Privacy notice | 201 | 14 KB |
 | `404.html` | Wrong address — a patch bay, four ways out, three frames | 201 | 9 KB |
 | `gallery.html` | The full wall, grouped by set, with filters and a lightbox | 174 | 13 KB |
@@ -150,6 +150,7 @@ run to clamp(2.5rem, 9.6vw, 7.4rem). Running text 15px / 1.7.
 | Cut from | `assets/video/joo-chiat.mp4`, 16.95s–20.80s |
 | The scrim | The page's own ground, not black, so type keeps its contrast in both themes. Drawn twice: a 95deg wash on wide screens, and on narrow ones the film keeps the top while the ground comes up solid under everything readable |
 | Playback | No `autoplay` attribute — `site.js` starts it, and only when the reader has not asked for less motion and is not on a metered connection. It pauses off-screen |
+| The control | A **Play film / Pause film** button in the credit strip, labelled by what the film is actually doing — so a reader who simply doesn't want motion can stop it without changing an OS setting, and one whose browser refused autoplay can start it. A film the reader paused stays paused when it scrolls back |
 | Without JS | The poster frame, which is a still from the same shot |
 
 ### Motion
@@ -174,8 +175,8 @@ rail, social links — and drops to 0 under 860px, where content takes the full
 width. `--gutter` is clamp(20px, 5vw, 72px). Breakpoints: 1120 · 980 · 900 ·
 861 · 860 · 700 · 560 · 520 px. Texture comes from a measured rule (a hairline
 with a tick every 16px), a film-grain overlay, and a pixel-arrow cursor drawn
-as inline SVG — no image files to manage. `site.css` is **4,042 lines /
-165 KB**, which GitHub Pages gzips to 32 KB. `print.css` (175 lines) is
+as inline SVG — no image files to manage. `site.css` is **4,108 lines /
+168 KB**, which GitHub Pages gzips to 32 KB. `print.css` (175 lines) is
 linked with `media="print"`, so a screen visitor never downloads it.
 
 The first screen is verified at **375×812, 800×600, 1024×768, 1440×900 and
@@ -185,11 +186,11 @@ and the fixed social links — share it at none of them.
 
 ### Behaviour
 
-Thirteen modules, **2,385 lines**, no dependencies.
+Thirteen modules, **2,410 lines**, no dependencies.
 
 | Module | What it does | Lines |
 |---|---|---:|
-| `site.js` | Preloader, cursor, overlay menu, reveals, parallax, tilt, ticker, hero film | 336 |
+| `site.js` | Preloader, cursor, overlay menu, reveals, parallax, tilt, ticker, hero film | 356 |
 | `lanyard.js` | The staff pass hanging in the hero, on a simulated rope | 288 |
 | `ring.js` | The photo ring on the home page | 265 |
 | `gallery.js` | Builds the wall from data, filters it, runs the lightbox | 240 |
@@ -200,7 +201,7 @@ Thirteen modules, **2,385 lines**, no dependencies.
 | `desk.js` | The colour temperature: the readout, the live mix, the cue stamps | 119 |
 | `projects.js` | Project list with a cover that follows the cursor | 114 |
 | `split.js` | Splits a line into letters so each rises out of its own mask | 110 |
-| `learning.js` | Builds the courses, and removes the section if there are none | 78 |
+| `learning.js` | Builds the courses, and removes the section if there are none | 83 |
 | `theme.js` | The light/dark switch | 87 |
 
 ### The running order
@@ -345,16 +346,26 @@ lazily; every frame carries its own aspect ratio so nothing jumps as it arrives.
 
 ### Access
 
-- Reduced motion is honoured in **13 stylesheet blocks** and in every module
+- Reduced motion is honoured in **14 stylesheet blocks** and in every module
   that moves: the ring stops drifting, letters stop scrambling, the pass hangs
   still, the hero film never starts, the fader is set rather than eased, and
   pages change without the wipe.
-- **13 `:focus-visible` rules**; the ring brings a focused card round to the
+- **14 `:focus-visible` rules**; the ring brings a focused card round to the
   front; the pass swings with <kbd>←</kbd> and <kbd>→</kbd>; the lightbox takes
   <kbd>Esc</kbd>, <kbd>←</kbd> and <kbd>→</kbd>.
 - Scrambling and split letters are hidden from screen readers and the real
   words read out once. Every photograph carries alt text and every control a
   label.
+- **Touch targets.** On a coarse pointer every control clears 44px: the menu
+  links grew from 31 to 49, the footer's icons from 40 to 44, its text links
+  from 17 to 45, the theme switch from 34 to 44, the certificate link from 17
+  to 44. The growth is padding, not type, so nothing looks different on a
+  mouse. Two knowingly stay under: the folder's file strips (34px — the
+  stacked geometry is what makes it a folder) and the skip link, which only
+  ever appears under a keyboard.
+- **Nothing shifts as it loads.** Every image carries its own width and
+  height. The certificate was the one that didn't: its card measured 293×2 on
+  a phone until the picture arrived, and then jumped.
 - **Contrast: zero failures.** Audited on the live pages, every text node, both
   themes, six pages — including with the overlay menu open, and at both ends of
   the scroll now that the ground itself moves. Two known false positives: the
