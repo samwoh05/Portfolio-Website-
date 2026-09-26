@@ -44,7 +44,7 @@
         '<p class="pass__issue">My Portfolio  &#183; 2026</p>' +
         '<img class="pass__photo" src="assets/img/badge.webp" alt="Samuel crouching in a courtyard mirror" draggable="false">' +
         '<p class="pass__name">Samuel<b>Yee</b></p>' +
-        '<p class="pass__role">Engineer &amp; Photographer</p>' +
+        '<p class="pass__role">Engineer &#183; Marketing</p>' +
         '<span class="pass__bars" aria-hidden="true"></span>' +
         '<p class="pass__no">SG &#183; NO. 05</p>' +
       "</div>" +

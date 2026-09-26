@@ -1,49 +1,55 @@
 # Samuel Yee — Portfolio Website
 
-A five-page portfolio site, live at
+A six-page portfolio site, live at
 <https://samwoh05.github.io/Portfolio-Website-/>. No build step, no framework,
 no `npm install`. Plain HTML, CSS and JavaScript, and nothing fetched from a
 third party at run time.
 
+It says one thing: an Infocomm & Media Engineering graduate who built things
+that had to work in front of a crowd, and is moving into marketing. The work
+leads, because work already done is the strongest argument for a change of
+direction.
+
 ```
-index.html          Home — hero, about, hobby tiles, photo ring, projects, contact
-gallery.html        Photos + videos, filterable, with a lightbox
+index.html          Home — hero reel, the work, the turn, learning, notes, gallery, about
 projects.html       Project list with a cover that follows the cursor
 project.html        One project, chosen by ?p=slug
+gallery.html        Photos + videos, filterable, with a lightbox
 privacy.html        Privacy notice
-404.html            Where a wrong address lands
+404.html            Where a wrong address lands — a patch bay
 
 data/gallery.js     ← the photos and videos you edit
 data/projects.js    ← the projects you edit
+data/learning.js    ← the courses (placeholders until you fill them in)
+data/notes.js       ← the teardowns (placeholders until you write one)
 
 assets/css/site.css   All styling, both themes
 assets/css/fonts.css  The three self-hosted faces
 assets/css/print.css  Paper only — loaded with media="print"
-assets/js/site.js     Preloader, cursor, menu, scroll reveals, parallax, tilt
+
+assets/js/site.js     Preloader, cursor, menu, reveals, parallax, tilt, hero film
+assets/js/desk.js     The colour temperature — the readout and the live mix
 assets/js/theme.js    The light/dark switch
-assets/js/transition.js  The terracotta wipe between pages
+assets/js/transition.js  The filament wipe between pages
 assets/js/lanyard.js  The staff pass swinging in the hero
 assets/js/ring.js     The turning ring of photographs on the home page
+assets/js/folder.js   The project case that opens on the home page
 assets/js/gallery.js  Builds the gallery wall + lightbox
-assets/js/decrypt.js  The scrambling "Say Hello"
-assets/js/route.js    The car that drives down the page as you scroll
-assets/js/folder.js   The project folder that opens on the home page
 assets/js/projects.js Builds the project list
 assets/js/project-detail.js  Builds one project page
+assets/js/learning.js Builds the courses and the notes
 assets/js/split.js    Splits a line into letters so each rises on its own
-assets/js/cutout.js   The name as a magazine cut-out
+assets/js/decrypt.js  The scrambling "Say Hello"
 
 assets/gallery/       Your photos (WebP)
-assets/img/           Portrait, about photo, badge photo, project covers
-assets/video/         Web-encoded films + their poster frames
-assets/fonts/         Anton, DM Sans, Neucha
+assets/img/           About photo, badge photo, project shots, covers
+assets/video/         Web-encoded films + posters, and the hero loop
+assets/fonts/         Archivo, DM Sans, IBM Plex Mono
 
 assets/img/share.jpg  1200x630 link preview, used by every page
-assets/img/car.png    The car on the scroll route (masked, transparent)
-
 sitemap.xml           The five public pages, for crawlers
 robots.txt            Allows everything, points at the sitemap
-tools/set-photos.py   Swaps the two portraits (see below)
+tools/set-photos.py   Swaps the portraits (see below)
 tools/bump-cache.py   Re-stamps the CSS and JS links after you change them
 source/               Full-size originals — never published
 ```
@@ -52,72 +58,99 @@ source/               Full-size originals — never published
 
 ## Spec sheet
 
-Measured from the published site, September 2026. **97 files, 32.6 MB**, of
-which 27.5 MB is video.
+Measured from this folder, September 2026. **103 tracked files, 32.9 MB**, of
+which 27.4 MB is video.
 
 ### Pages
 
 | File | What it holds | Lines | Size |
 |---|---|---:|---:|
-| `index.html` | Hero pass, projects, gallery ring, about, education, hobby tiles, music | 399 | 23 KB |
-| `privacy.html` | Privacy notice | 172 | 13 KB |
-| `gallery.html` | The full wall, grouped by set, with filters and a lightbox | 154 | 12 KB |
-| `projects.html` | Project list; the cover follows the cursor down the page | 139 | 11 KB |
-| `project.html` | One project, chosen by `?p=slug` | 110 | 10 KB |
-| `404.html` | Wrong address — a way back, and three frames from the gallery | 166 | 13 KB |
+| `index.html` | Hero reel, the work, the gel change, learning, notes, gallery, about, education | 443 | 24 KB |
+| `privacy.html` | Privacy notice | 201 | 14 KB |
+| `404.html` | Wrong address — a patch bay, four ways out, three frames | 201 | 9 KB |
+| `gallery.html` | The full wall, grouped by set, with filters and a lightbox | 174 | 13 KB |
+| `projects.html` | Project list; the cover follows the cursor down the page | 160 | 12 KB |
+| `project.html` | One project, chosen by `?p=slug` | 131 | 11 KB |
+
+### The desk — colour temperature
+
+The whole site runs on one number. A lighting desk measures lamps in kelvin:
+tungsten sits low and warm, daylight sits high and cool. Samuel patched and
+programmed rigs before he wanted to programme campaigns, so the page is lit on
+that scale and says what it is lit at.
+
+| | |
+|---|---|
+| Range | **3200K** at the top of a page → **5600K** at the bottom |
+| Readout | Top right, above the page marker; bottom-left as a chip under 861px |
+| What moves it | Scroll position, eased at 0.14 per frame; set instantly under reduced motion |
+| What it drives | `--k-mix` and `--k-pct` on `:root`, from which every accent is mixed in `oklab` |
+| The ground | Mixed 6% with the live colour, plus a fixed wash (16% at the top of the viewport, gone by 46%) — so the change is felt, not only read |
+| Measured, dark | `#171613` warm charcoal at the top, `#121719` cool charcoal at the bottom |
+| Cue stamps | Each section prints the kelvin **its own position** works out to, from the same sum, recomputed on resize |
+| Cost | `desk.js`, 119 lines, one rAF loop, writing two custom properties only when the rounded value changes |
+| Without JS | The readout carries `hidden` in the markup and `desk.js` removes it, so it never reads as a broken instrument |
 
 ### Colour
 
-A warm cream ground with brown-black ink — never neutral grey, which reads cold
-on cream. Terracotta leads and cobalt answers it.
+A cool near-white ground with near-black ink. The accents are the two gels
+every lighting desk keeps: **CTO**, the orange that warms a lamp to tungsten,
+and **CTB**, the blue that cools it to daylight. Tungsten lights what he has
+made; daylight lights what he is learning. Nothing else is saturated, so the
+photographs are the only full colour in the building.
 
 | Token | Hex | Role |
 |---|---|---|
-| `--bg` | `#f3ece0` | Page ground |
-| `--bg-warm` | `#e8dcc9` | Warmer ground |
-| `--panel` | `#fbf6ec` | Raised panels |
-| `--cream` | `#f7f0e5` | Type on dark |
-| `--ink` | `#241b14` | Body text |
-| `--ink-mid` | `#5b4a3c` | Secondary text |
-| `--ink-soft` | `#6d5f52` | Clears 4.5:1 at 10px on all four grounds |
-| `--rust` / `--rust-deep` | `#c4552c` / `#a6421f` | Accent, leads |
-| `--cobalt` / `--cobalt-deep` | `#1f3fa8` / `#182f77` | Links, second voice |
-| `--forest` | `#2f6b45` | Third accent |
-| `--ochre` / `--amber-deep` / `--amber-mat` | `#d9992b` / `#a8620f` / `#8f5209` | Warm signals and type-bearing mats |
-| `--glaze-blue/butter/rose/mint` | `#b4cbd8` `#efd9a1` `#e6b9ad` `#bcd6c1` | One vintage glaze per hobby tile |
+| `--bg` | `#f4f5f4` | Page ground (then mixed 6% with the live gel) |
+| `--bg-warm` | `#e9ebea` | Warmer ground |
+| `--panel` | `#ffffff` | Raised panels |
+| `--ink` | `#101314` | Body text |
+| `--ink-mid` | `#454d50` | Secondary text |
+| `--ink-soft` | `#5c6568` | Clears 4.5:1 at 10px on every ground |
+| `--tungsten` / `--tungsten-deep` | `#c97a16` / `#95590a` | Display marks / anything at 11px |
+| `--daylight` / `--market-deep` | `#2c7fa8` / `#1b5e7e` | Everything below the gel change |
+| `--tungsten-on-band` | `#f2a544` | Tungsten printed on a dark band, which doesn't flip |
+| `--daylight-band` | `#123a4e` | The band a cool section is printed on |
+| `--on-sheet-accent` | `#8a5108` | Tungsten on paper — clears 4.5:1 on all four sheet colours at 8.5px |
 
-**Surfaces.** Ink and cream are *page* colours: they swap places between themes.
-Anything that stands for a physical surface keeps its own colour instead, or the
-text on it ends up cream on cream — which is exactly how the `e` in the hero
-name disappeared in dark mode.
-
-| Token | Light | Dark | Used by |
-|---|---|---|---|
-| `--sheet` / `--sheet-alt` | `#f7f0e5` / `#fbf6ec` | `#f2ebdf` / `#e7dece` | The staff pass, the folder strips, the card lifted from it, the pale gallery mat |
-| `--on-sheet` / `-mid` / `-soft` / `-accent` | `#241b14` `#5b4a3c` `#655749` `#9c3d1b` | same | The type printed on any of those |
-| `--stock` / `--on-stock` | `#241b14` / `#f7f0e5` | `#0f0b08` / `#f7f0e5` | The overlay menu, the skip link, dark chips, the dark scrap in the cut-out name |
-| `--stock-rust/cobalt/forest/amber` | `#a6421f` `#1f3fa8` `#2f6b45` `#8f5209` | same | The six gallery mounting boards and the coloured scraps in the cut-out name |
-| `--mat` | `#9c3d1b` | same | The default photo mat and the active filter pill |
-
-Anything painted with `--sheet` also re-binds `--ink`, `--ink-soft` and the
-accent to their on-sheet values, so type placed on it follows the surface
-rather than the page. That is what makes it impossible for this bug to come
-back by adding a new element inside one of them.
+**Surfaces.** Ink and page colours swap between themes. Anything standing for a
+physical surface keeps its own colour and **re-binds the ink tokens**, so type
+on it follows the surface rather than the page — `--sheet` (the pass, the
+folder strips, the lifted card), `--stock` (the overlay menu, dark chips),
+`--mat` (the near-black every photograph is mounted on). The overlay menu is
+the case that proves it: printed on dark stock in either theme, it was reading
+the page's `--ink-soft` and coming out at 3.24:1 in the light theme.
 
 ### Type
 
-Anton, DM Sans and Neucha are served from `assets/fonts/` as woff2 (98 KB, Latin
-and Latin-Extended split, two files preloaded per page). No font CDN, so the
-type is right offline and the site makes no third-party requests.
+Archivo, DM Sans and IBM Plex Mono are served from `assets/fonts/` as woff2
+(**176 KB across 8 files**, Latin and Latin-Extended split, two preloaded per
+page). No font CDN, so the type is right offline and the site makes no
+third-party request.
 
 | Role | Face | Where |
 |---|---|---|
-| Display | Anton 400 | Headlines, section heads, the marquee |
+| Display | Archivo variable 400–800 | Headlines, section names, the ticker |
 | Body | DM Sans variable 400–700 | Everything read as text |
-| Hand | Neucha 400 | The cut-out name in the preloader |
+| Instrument | IBM Plex Mono 400/500 | Every label, number, date, caption, credit |
 
-Heading scale: `h-xl` clamp(3rem, 9.6vw, 8.5rem) · `h-lg` clamp(2.5rem, 7vw,
-5.75rem) · `h-md` clamp(1.75rem, 3.9vw, 3.1rem). Running text 15px / 1.7.
+Mono in the margins is what makes a layout read as *instrumented* rather than
+decorated, which is the right voice for a portfolio arguing that its author
+counts things. Heading scale: `h-xl` clamp(2.3rem, 6.6vw, 5.9rem) · `h-lg`
+clamp(2rem, 5vw, 4.1rem) · `h-md` clamp(1.5rem, 3vw, 2.4rem). Section names
+run to clamp(2.5rem, 9.6vw, 7.4rem). Running text 15px / 1.7.
+
+### The hero reel
+
+| | |
+|---|---|
+| The film | 3.85s of the Joo Chiat film — the shophouse row, people crossing |
+| Why that shot | One continuous take. A 7s cut had a camera change behind the headline; an earlier start caught the film's own title card, which read as a watermark |
+| Weight | `street-loop.mp4` **179 KB**, 1280×720, 24fps, silent · poster 134 KB |
+| Cut from | `assets/video/joo-chiat.mp4`, 16.95s–20.80s |
+| The scrim | The page's own ground, not black, so type keeps its contrast in both themes. Drawn twice: a 95deg wash on wide screens, and on narrow ones the film keeps the top while the ground comes up solid under everything readable |
+| Playback | No `autoplay` attribute — `site.js` starts it, and only when the reader has not asked for less motion and is not on a metered connection. It pauses off-screen |
+| Without JS | The poster frame, which is a still from the same shot |
 
 ### Motion
 
@@ -136,34 +169,74 @@ releasing springs past its mark.
 
 ### Layout
 
-`--rail` is 92px of fixed chrome — logo, menu, section marker, scroll rail,
-social links — and drops to 0 under 900px, where content takes the full width.
-`--gutter` is clamp(20px, 5vw, 72px). Breakpoints: 980 · 900 · 860 · 700 · 620 ·
-560 · 420 px. Texture comes from checkerboard rules, a film-grain overlay
-stepping at 700 ms, and a pixel-arrow cursor drawn as inline SVG — no image
-files to manage. `site.css` is 3,085 lines / 156 KB, which GitHub Pages gzips
-to about 26 KB. `print.css` (175 lines) is linked with `media="print"`, so a
-screen visitor never downloads it.
+`--rail` is 92px of fixed chrome — logo, menu, readout, page marker, scroll
+rail, social links — and drops to 0 under 860px, where content takes the full
+width. `--gutter` is clamp(20px, 5vw, 72px). Breakpoints: 1120 · 980 · 900 ·
+861 · 860 · 700 · 560 · 520 px. Texture comes from a measured rule (a hairline
+with a tick every 16px), a film-grain overlay, and a pixel-arrow cursor drawn
+as inline SVG — no image files to manage. `site.css` is **4,013 lines /
+164 KB**, which GitHub Pages gzips to 32 KB. `print.css` (175 lines) is
+linked with `media="print"`, so a screen visitor never downloads it.
+
+The first screen is verified at **375×812, 800×600, 1024×768, 1440×900 and
+1920×1080**: the hero fits the viewport at each, no horizontal scroll at any,
+and the three things that want the bottom edge — the readout, the film credit
+and the fixed social links — share it at none of them.
 
 ### Behaviour
 
-Thirteen modules, 89 KB in total, no dependencies.
+Thirteen modules, **2,398 lines**, no dependencies.
 
 | Module | What it does | Lines |
 |---|---|---:|
+| `site.js` | Preloader, cursor, overlay menu, reveals, parallax, tilt, ticker, hero film | 336 |
 | `lanyard.js` | The staff pass hanging in the hero, on a simulated rope | 288 |
-| `site.js` | Preloader, custom cursor, overlay menu, scroll reveal, parallax, tilt | 285 |
 | `ring.js` | The photo ring on the home page | 265 |
 | `gallery.js` | Builds the wall from data, filters it, runs the lightbox | 240 |
-| `decrypt.js` | "Say Hello" scrambles and settles on every load | 232 |
+| `decrypt.js` | "Say Hello" scrambles and settles | 232 |
 | `project-detail.js` | Renders one project from the slug in the address | 195 |
-| `route.js` | A car that winds down the page behind everything as you scroll | 138 |
-| `folder.js` | The project folder on the home page — shut at rest, opens on hover, and each file lifts 6px as the pointer crosses it; the files shingle with 9.6px of overlap so the lift never opens a slot onto the folder behind. The toggle is the way in on touch and by keyboard | 179 |
+| `folder.js` | The project case — shut at rest, opens on click, each file lifts out as a card | 188 |
+| `transition.js` | The filament wipe between pages | 133 |
+| `desk.js` | The colour temperature: the readout, the live mix, the cue stamps | 119 |
 | `projects.js` | Project list with a cover that follows the cursor | 114 |
 | `split.js` | Splits a line into letters so each rises out of its own mask | 110 |
-| `transition.js` | The terracotta wipe between pages | 128 |
+| `learning.js` | Builds the courses and the notes, and removes an empty section | 91 |
 | `theme.js` | The light/dark switch | 87 |
-| `cutout.js` | The name as a magazine cut-out, each letter its own scrap | 67 |
+
+### The running order
+
+The home page leads with the work, then turns. Everything above the gel change
+is what he made; everything below is what he is learning, and the page is lit
+to say so.
+
+| | Section | Lit at |
+|---|---|---|
+| | Hero — the reel, the name, the status line, two buttons | 3200K |
+| 01 | **The work** — the case, opening to four projects | 3450K |
+| | *The gel change* — "People buy what it says about them." | CTO → CTB |
+| 02 | **The market** — the courses | 4000K |
+| 03 | **Notes** — the teardowns | 4250K |
+| 04 | **Gallery** — the photo ring, and Sam's Visual Diary | 4550K |
+| 05 | **Start here** — the biography | 5000K |
+| 06 | **How I got here** — two stops, not four | 5500K |
+| | Contact — "Say Hello", the address, the socials | 5600K |
+
+Section names are set at poster scale with the old label underneath as the
+caption, and one `h2` per section, so the outline reads `h1 → h2 → h3`.
+
+The hero carries a status line (**edit it in `index.html` — it should say what
+is true this month**) and two buttons: *Email me* and *See the work*. A third,
+commented out, links `assets/cv.pdf` — uncomment it once that file exists.
+
+### The project case
+
+Shut, it is an equipment case with a stencilled plate (`PROJECT FILES · 4
+INSIDE`) and a warm seam along the lid where the light inside gets out, which
+widens when you point at it. Open, the lid tips 72° toward you and four files
+step up out of the pocket; click one and it lifts out as a card with the brief
+and a link to the full page. Click anywhere off the card and it goes back.
+The plate is decorative — the cover is `aria-hidden` and the button says what
+it does.
 
 ### Photo ring
 
@@ -173,253 +246,148 @@ pick one and it opens in the gallery lightbox.
 
 | Setting | Value |
 |---|---|
-| Cards | 8, drawn from the 31 landscape frames only |
+| Cards | 8, drawn from the landscape frames only |
 | Card width | clamp(220px, 30% of the stage, 400px) |
 | Perspective | 3.3 × radius — magnifies the front card by 1.43× |
 | Turn | 0.12° per pixel scrolled; 4°/s of drift otherwise |
 | Quiet swaps | Every 6 s one card past 150° — out of sight — loads another photograph |
 | Holds still | Under the pointer, during a drag, and while a card has keyboard focus |
 
-### The running order
-
-The home page leads with the work. It used to open with the hero and then run
-about → statement → education → hobby tiles before reaching a single project,
-which put the evidence 3,739px down — 4.6 screens on a phone. The same sections
-now read in this order, none removed:
-
-| | Section | Reaches |
-|---|---|---|
-| | Hero — pass, name, status line, two buttons | |
-| 01 | Projects — the folder, opening under the pointer | **900px** |
-| 02 | Gallery — the photo ring | 1,662px |
-| 03 | About — with education folded in under it | 2,454px |
-| | Statement — "Wherever you go, there you are." | |
-| 04 | What I keep doing — the four hobby tiles | |
-| 05 | What's been playing — the two playlists | |
-| | Contact | |
-
-The hero carries a status line (**edit it in `index.html` — it should say what
-is true this month**) and two buttons: *Email me* and *See the work*. A third,
-commented out, links `assets/cv.pdf` — uncomment it once that file exists.
-
 ### Lanyard
 
-The hero's left column holds a staff pass on a lanyard instead of a flat
-portrait — the idea of the Framer/React Bits Lanyard component, which uses
-three.js and a WASM physics engine. With no framework here, the rope is
-simulated in `lanyard.js` instead and drawn as SVG: about 240 lines of physics
-and no new bytes beyond the pass photo.
+The hero carries a staff pass on a lanyard, hanging over the film — the idea of
+the Framer/React Bits Lanyard component, which uses three.js and a WASM physics
+engine. With no framework here the rope is simulated in `lanyard.js` and drawn
+as SVG: about 240 lines of physics and no new bytes beyond the pass photo.
 
 | Setting | Value |
 |---|---|
 | Rope | 13 points, Verlet integration, 14 constraint passes per step |
 | Step | Fixed at 1/120 s, so it moves the same on any screen |
 | Gravity / drag | 2100 px/s², 0.995 friction, extra air on the pass itself |
-| The pass | Two more points held a card apart — that rigid link is what gives it an angle to hang at |
-| Strands | Two, parted by 34% of the card at the top, meeting at the ring |
+| The pass | Two more points held a card apart — that rigid link gives it an angle to hang at |
 | Print | The name repeats down the left strand on an SVG `textPath`, so it bends as the strap swings |
-| Drag | Grabs the nearer end, so you can swing it or spin it; it keeps the speed you let go at |
+| Drag | Grabs the nearer end; it keeps the speed you let go at |
 | Keyboard | The pass takes focus; ← and → nudge it |
-| Idle | A slow breeze, so it never hangs dead |
+| Hangs from | 96–132px down, so its cord clears the readout in the corner |
 | Still | Under reduced motion it hangs straight and never moves |
 
-The pass carries `assets/img/badge.webp` (53 KB), cropped from `portrait.jpg`,
-with the name set in Anton and the surname in terracotta.
+The pass carries `assets/img/badge.webp` (53 KB), cropped from `portrait.jpg`.
 
 ### Themes
 
-The same rooms after dark, not an inversion: the ground goes warm near-black,
-terracotta and cobalt lift so they still carry, the four hobby glazes are
-re-mixed as deep versions of themselves, and shadows deepen to black because a
-brown shadow on a brown ground is invisible. The staff pass keeps its own light
-colours — it is white plastic in any light — and becomes the brightest thing on
-the page.
+The same rooms after dark, not an inversion: the ground goes near-black, the
+two gels lift so they still carry, and shadows deepen. The staff pass keeps its
+own light colours — it is white plastic in any light.
 
 | | |
 |---|---|
 | Default | Follows the system setting |
 | Chosen | A switch in the side rail stamps `data-theme` on `<html>`, which wins over the system in both directions |
-| Storing it | The choice is kept in `localStorage` under `sy-theme`; picking the side your system is already on clears it and goes back to following |
+| Storing it | Kept in `localStorage` under `sy-theme`; picking the side your system is already on clears it and goes back to following |
 | No flash | A snippet in each `<head>` applies the stored choice before the first paint |
-| Contrast | Every text pairing measured on the dark ground clears 4.5:1 — body 14.8:1, secondary 9.3:1, small soft text 6.3:1, terracotta 6.4:1, links 8:1 |
-| Audited | Every text node on all six pages, in both themes, measured against the background actually behind it: zero failures. Two flags are false positives the method can't read — the logo uses `mix-blend-mode: difference`, and the photo-ring captions sit on a gradient |
 
 ### Page transition
 
-A terracotta panel sweeps across, the next page loads behind it, and it sweeps
-off the other side — 200 ms out, 260 ms back, with the site's checkerboard on
-the leading edge. Arriving behind the wipe also drops the preloader, so moving
-around the site no longer runs the full count each time.
+The panel is painted in the page's own ground rather than a contrasting colour,
+so what crosses the screen is three pixels of tungsten on its leading edge, with
+the glow they throw ahead — a coloured panel would trade the browser's white
+flash for one of its own. It travels (`translate`) instead of growing
+(`scaleX`), which is what keeps the filament three pixels wide the whole way.
 
 | | |
 |---|---|
+| Timings | 200 ms out, 260 ms back, nothing at all under reduced motion |
 | Handled | Same-origin links in the same tab |
-| Left alone | External links, `mailto:`, anchors on the current page, and anything opened with a modifier key — verified by test |
+| Left alone | External links, `mailto:`, anchors on the current page, and anything opened with a modifier key |
 | The handover | A flag in `sessionStorage` (`sy-wipe`) tells the arriving page to sweep off rather than run the curtain |
-| Never stuck | The sweep-off runs on a frame, a timer and the page becoming visible, whichever comes first — a tab that loads in the background fires no frames |
+| Never stuck | The sweep-off runs on a frame, a timer and the page becoming visible, whichever comes first |
 | Back button | A page restored from the browser's cache clears the panel on `pageshow` |
-| Still | Under reduced motion the whole file returns early and links behave normally |
 
-### Transition and 404
+### The 404
 
-The wipe panel is painted in the page's own ground rather than a contrasting
-colour, so what crosses the screen is the tungsten filament on its leading edge
-— a coloured panel would trade the browser's white flash for one of its own. It
-travels (`translate`) instead of growing (`scaleX`), which is what keeps the
-filament three pixels wide the whole way across. Timings unchanged: 200ms in,
-260ms out, nothing under reduced motion.
-
-The 404 runs on patching rather than on darkroom developing: *"This channel
-isn't patched."* Under it a patch bay hands back the address that was actually
-requested, written with `textContent` because that string comes from the URL
-bar. The four ways out now follow the site's own order.
+It runs on the trade Samuel actually practised: patching. *"This channel isn't
+patched."* Under it a patch bay hands back the address that was actually
+requested, in mono, next to an unlit lamp and the word `Unpatched` — people
+mistype URLs, and seeing the string returned is how they spot their own typo.
+It is written with `textContent`, never `innerHTML`: that string comes from the
+URL bar, so it is the only content on the site a stranger controls. It
+truncates at 64 characters and wraps anywhere. Three photographs sit at the
+bottom, because a dead end should be worth landing on.
 
 ### Content
 
 | | |
 |---|---|
-| Gallery | 39 items — 37 photographs (31 landscape, 6 portrait) and 2 films |
+| Gallery | 39 items — 37 photographs and 2 films |
 | Sets | Joo Chiat 12 · NE Tour 11 · MSP 9 · Earlier 6 · Holy Land 1 |
 | Cameras | Sony A7 III 23 · Canon R50 9 · iPhone 17 Pro Max 4 · Digital Camera 2 · iPhone 12 Pro 1 |
 | Item fields | `type, group, src, poster, w, h, camera, lens, edit, alt` |
 | Projects | S.O.N.I.C (2024) · NYP Open House (2024) · Mini Python Games (2025) · This Portfolio (2026) |
+| Placeholders | `data/learning.js` and `data/notes.js` still hold examples. An item marked `draft: true` renders with a dashed edge and a "To fill in" chip; a section whose data file is empty removes itself, heading and all |
 
 ### Media
 
 | Film | Length | Master | On the site |
 |---|---:|---:|---:|
-| Joo Chiat Mini Vlog | 3:24 | 497.6 MB | 20.2 MB |
-| Holy Land Trip '23 | 0:31 | 268.5 MB | 7.9 MB |
+| Joo Chiat Mini Vlog | 3:24 | 497.6 MB | 19.3 MB |
+| Holy Land Trip '23 | 0:31 | 268.5 MB | 7.5 MB |
+| Hero loop (cut from Joo Chiat) | 0:04 | — | 179 KB |
 
-Photographs: 36 WebP, 74 KB average, 163 KB largest, 1,119–1,600 px on the long
-edge. Project stills: 10 WebP, 1.7 MB. The hero pass photo: 1 WebP, 53 KB. The first four frames load eagerly and
-the rest lazily; every frame carries its own aspect ratio so nothing jumps as it
-arrives.
+Photographs: 37 WebP in `assets/gallery/`, 2.6 MB in total. `assets/img/`
+holds 22 files, 2.3 MB — the About photo, the pass, the share card, four
+covers and ten project stills. The first four frames load eagerly and the rest
+lazily; every frame carries its own aspect ratio so nothing jumps as it arrives.
 
 ### Access
 
-- Reduced motion is honoured in 13 stylesheet blocks and 10 of the 13 modules —
-  the ring stops drifting, letters stop scrambling, the car stops driving, the
-  pass hangs still, and pages change without the wipe.
-- Eight `:focus-visible` rules; the ring brings a focused card round to the
+- Reduced motion is honoured in **13 stylesheet blocks** and in every module
+  that moves: the ring stops drifting, letters stop scrambling, the pass hangs
+  still, the hero film never starts, the fader is set rather than eased, and
+  pages change without the wipe.
+- **13 `:focus-visible` rules**; the ring brings a focused card round to the
   front; the pass swings with <kbd>←</kbd> and <kbd>→</kbd>; the lightbox takes
   <kbd>Esc</kbd>, <kbd>←</kbd> and <kbd>→</kbd>.
-- Scrambling letters are hidden from screen readers and the real words read out
-  once. Every photograph carries alt text and every control a label.
-- Soft ink sits at the darkest point where 10px type still clears 4.5:1 on all
-  four grounds.
+- Scrambling and split letters are hidden from screen readers and the real
+  words read out once. Every photograph carries alt text and every control a
+  label.
+- **Contrast: zero failures.** Audited on the live pages, every text node, both
+  themes, six pages — including with the overlay menu open, and at both ends of
+  the scroll now that the ground itself moves. Two known false positives: the
+  `.ring__*` captions and the `.statement__gel` line sit on gradients the
+  checker cannot sample; the latter measures 4.89:1 by hand against every stop.
 
 ### Hosting
 
 GitHub Pages, branch `main` / root, no build. No CDN, analytics, tracker or
-cookies — every byte comes from the same origin. Needs custom properties, grid,
-3D transforms and `IntersectionObserver`; where the observer is missing the ring
-simply stays awake. See [Putting it online](#putting-it-online) for the details.
+cookies — **zero third-party requests**; every byte comes from the same origin.
+Needs custom properties, grid, 3D transforms, `IntersectionObserver` and
+`color-mix()`; without `color-mix()` the accents fall back to tungsten and the
+ground stops shifting, and the page is otherwise unchanged.
 
 **Sharing and crawling.** Every page carries an absolute `og:image`
 (`assets/img/share.jpg`, 1200x630), `og:url`, `og:site_name`, image dimensions
 and alt, and `twitter:card`. The five public pages also carry a `canonical`.
-Relative `og:image` paths were invisible to every scraper, so the link arrived
-as bare text wherever it was pasted. `sitemap.xml` and `robots.txt` sit at the
-root. **All of these carry the full domain — if the site ever moves, they all
-need rewriting**; they are the only absolute URLs in the project.
+**These carry the full domain — if the site ever moves, they all need
+rewriting**; they are the only absolute URLs in the project. `sitemap.xml` and
+`robots.txt` sit at the root.
 
-**404.** GitHub Pages serves `404.html` for any address it doesn't have. Its
-links are relative, which is right for a wrong address one level deep — the
-only kind this site can produce.
-
-**Print.** `print.css` strips the fixed chrome, the car, the pass, the ring, the
-grain and the checkerboards, reveals anything waiting on a scroll, prints the
-address after any outgoing link, and signs the foot of the page with the site
-and the email.
+**Print.** `print.css` strips the fixed chrome, the pass, the ring and the
+grain, reveals anything waiting on a scroll, prints the address after any
+outgoing link, and signs the foot of the page.
 
 **Cache stamps.** Every page links its CSS and JS with a `?v=` fingerprint —
-59 links, a short hash of everything in `assets/css/`, `assets/js/` and
+**62 links**, a short hash of everything in `assets/css/`, `assets/js/` and
 `data/`. Pages serves assets with `max-age=600`, so without a stamp a visitor
-can run new HTML against a stylesheet cached ten minutes earlier, which is not
-stale so much as broken. The stamp was a date at first, and that failed the
-first time the site was deployed twice in one day: the files changed, the date
-didn't, and browsers kept the old copy. A fingerprint cannot drift out of step
-with the files. After changing anything under those folders, run:
+can run new HTML against a stylesheet cached ten minutes earlier. After
+changing anything under those folders, run:
 
 ```bash
 python3 tools/bump-cache.py
 ```
 
-then commit. It rewrites the stamp on all six pages, and does nothing if the files haven't changed.
-
----
-
-## The v2 draft
-
-`v2/` holds a complete second version of the site, unpublished, that repositions
-it from *engineer & photographer* to an engineering graduate moving into
-marketing — and dresses that claim in a different aesthetic. The root site is
-untouched; the two run side by side at <http://localhost:4173> and
-<http://localhost:4173/v2/>.
-
-**37 files, 940 KB.** It carries its own copy of everything small — six pages,
-three stylesheets, thirteen scripts, eight font files and four data files —
-because it is a different version of them rather than a skin over this one. It
-borrows the heavy media unchanged from `../assets/img`, `../assets/gallery` and
-`../assets/video`, and keeps one piece of its own: a 3.85-second, 179 KB hero
-loop cut from the Joo Chiat film.
-
-### Tungsten & daylight
-
-The ground is a cool near-black, not warm cream. The accents are the two gels
-on any lighting desk — CTO, the orange that warms a lamp to tungsten, and CTB,
-the blue that cools it to daylight — which is Samuel's own trade borrowed as a
-palette. Tungsten lights what he has made; daylight lights what he is learning;
-the statement band is where the colour temperature changes. Nothing else is
-saturated, so the photographs are the only full colour on the page.
-
-| | Root | v2 |
-|---|---|---|
-| Ground | `#f3ece0` warm cream | `#0c0e0f` cool near-black |
-| Accents | terracotta + cobalt | tungsten `#f2a544` + daylight `#7fc2e6` |
-| Display | Anton, condensed | Archivo 800, broad, −0.028em |
-| Labels & numbers | DM Sans 700, 0.42em | IBM Plex Mono 500 |
-| Gallery mounts | six coloured boards | one near-black, hairline-separated |
-| Type weight | 108 KB, 3 faces | 176 KB, 3 faces |
-| `site.css` | 164 KB | 162 KB |
-| Third-party requests | 2 (Spotify players) | 0 |
-| Contrast failures | 0 | 0 |
-
-**The desk.** Since September 2026 the palette is not just a palette: the page
-runs a colour-temperature scale from 3200K at the hero to 5600K at the footer,
-a readout in the top-right corner says what it is currently lit at, the ground
-itself is mixed 6% with that colour so the change is felt rather than read,
-every accent comes from the same number, and each section is stamped as a cue. The hero is a
-silent loop of Samuel's own Joo Chiat footage. See `v2/README.md` for the full
-account, including the two contrast fixes that audit turned up.
-
-Removed with the old look: the car that drove down the page, the ransom-note
-cut-out name, the checkerboard dividers (now a ruler — a hairline with a tick
-every 20px), `route.js`, `cutout.js`, Anton and Neucha. The manila folder is now
-a dark equipment case with one lit edge. The film grain stayed; on this ground
-it reads as sensor noise.
-
-### Content
-
-Work still leads, because the strongest argument for the change of direction is
-work already done, described for a different reader. S.O.N.I.C and the NYP Open
-House tunnel each gained a fourth beat, *What it was for*: an open house is a
-competition for attention, and the tunnel existed to make one corridor more
-attractive to walk down than the one beside it.
-
-Two new sections render from their own data files — *Learning the market*
-(`v2/data/learning.js`) and *Notes* (`v2/data/notes.js`). Both still hold
-placeholders and say so on screen: an item marked `draft: true` renders with a
-dashed edge and a "To fill in" chip, and a section whose data file is empty
-removes itself, heading and all.
-
-Also cut: both Spotify embeds and their section, the Cooking and Gaming tiles,
-primary and secondary school from the education ladder, and *photographer* from
-the H1. The privacy notice was rewritten, because it described a Spotify player
-that version no longer loads.
-
-See `v2/README.md` for what still needs Samuel's own words.
+then commit. It rewrites the stamp on all six pages, and does nothing if the
+files haven't changed.
 
 ---
 
@@ -432,10 +400,7 @@ tiny local server from this folder:
 cd "/Users/samwoh/Documents/Portfolio Website" && node .claude/serve.js
 ```
 
-Then open <http://localhost:4173>, or <http://localhost:4173/v2/> for the
-draft restyle. (`python3 -m http.server 4173` works too.) The server resolves
-any directory to its `index.html`, which is what makes the `/v2/` address work
-without naming the file.
+Then open <http://localhost:4173>. (`python3 -m http.server 4173` works too.)
 
 ---
 
@@ -476,15 +441,8 @@ Order in the file is the order on the page. Save, refresh, done.
 ### Grouping the wall
 
 Once you're past seven or so photos the wall stops reading as a set. Give items
-a `group` and they break into labelled chunks:
-
-```js
-{ "type": "photo", "title": "Nine Arches", "group": "2026", ... }
-```
-
-Any label works — a year, a city, a project. Items with no `group` sit together
-under an unlabelled chunk. With fewer than two distinct groups the wall stays
-flat, so you can ignore this until you need it.
+a `group` and they break into labelled chunks. Any label works — a year, a
+city, a project. Items with no `group` sit together under an unlabelled chunk.
 
 ## Adding videos
 
@@ -503,35 +461,11 @@ Three shapes, depending on where the video lives.
 }
 ```
 
-**A YouTube video** — use the *embed* URL (`/embed/ID`, not `/watch?v=ID`):
+**A YouTube video** — use the *embed* URL (`/embed/ID`, not `/watch?v=ID`).
 
-```js
-{
-  "type":   "video",
-  "title":  "Behind the Shoot",
-  "meta":   "YouTube",
-  "embed":  "https://www.youtube.com/embed/YOUR_VIDEO_ID",
-  "poster": "assets/gallery/thumb.jpg",
-  "w": 1280, "h": 720
-}
-```
-
-**A TikTok or Instagram post** — those block embedding, so link out instead.
-Using `href` turns the tile into a link that opens in a new tab:
-
-```js
-{
-  "type":   "video",
-  "title":  "Latest on TikTok",
-  "meta":   "TikTok",
-  "href":   "https://www.tiktok.com/@sam_yzx",
-  "poster": "assets/gallery/thumb.jpg",
-  "w": 900, "h": 1600
-}
-```
-
-Until you add any, the **Videos** filter shows a tidy empty state pointing at
-your TikTok.
+**A TikTok or Instagram post** — those block embedding, so link out instead:
+`"href": "https://www.tiktok.com/@sam_yzx"` turns the tile into a link that
+opens in a new tab.
 
 ## Adding projects
 
@@ -539,6 +473,7 @@ Edit `data/projects.js`:
 
 ```js
 {
+  "slug":  "project-name",
   "title": "Project Name",
   "year":  "2026",
   "blurb": "One or two sentences on what it is and what you learned.",
@@ -548,18 +483,50 @@ Edit `data/projects.js`:
 }
 ```
 
-`cover` is the image that follows your cursor when you hover the row. Reuse one
-of the existing covers in `assets/img/covers/`, or drop in a real screenshot.
+`cover` is the image that follows your cursor when you hover the row. A project
+with a `detail` array gets its own page at `project.html?p=slug`; one without
+links straight to its `href`.
 
----
+## The courses and the notes
+
+Two sections render from their own data files and both still hold placeholders,
+which they say on screen.
+
+- **`data/learning.js`** — the real course names, issuers, months and
+  certificate links. The field that matters is `took`: one sentence on what the
+  course changed about the way you look at something ordinary. A list of course
+  names proves attendance; that line proves thinking.
+- **`data/notes.js`** — one teardown, 300 words, on something you watched work.
+  Worth more than every certificate above it. Start with one.
+
+An item marked `draft: true` renders with a dashed edge and a "To fill in"
+chip, so nothing here can quietly ship looking like a qualification. Empty the
+file and the section removes itself, heading and all.
+
+## Changing the hero film
+
+The hero plays `assets/video/street-loop.mp4`. To cut a new one, pick a single
+continuous shot — a cut behind the headline reads as a glitch — with the
+movement in the right half, no on-screen text, and no blown highlights in the
+left third where the type sits:
+
+```bash
+FF=$(python3 -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())")
+"$FF" -ss 16.95 -t 3.85 -i source/video/YOUR.mov -an \
+  -vf "scale=1280:-2,fps=24" -c:v libx264 -crf 28 -preset slow \
+  -pix_fmt yuv420p -movflags +faststart assets/video/street-loop.mp4
+"$FF" -ss 17.1 -i source/video/YOUR.mov -frames:v 1 -vf "scale=1280:-2" \
+  -q:v 5 assets/video/street-loop.jpg
+```
+
+Keep the poster from the same shot as the loop's first frame, or the still a
+visitor sees before it plays will be a different picture from the one that
+starts.
 
 ## Video
 
 Films live in `assets/video/` as web-encoded MP4 with a poster frame beside
 them; the full-quality masters stay in `source/video/` and are never deployed.
-
-Camera exports are far too heavy to serve directly — a three-minute 1080p
-master runs to hundreds of megabytes. To re-encode one:
 
 ```bash
 FF=$(python3 -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())")
@@ -570,80 +537,43 @@ FF=$(python3 -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())")
 
 `crf` is the quality dial — lower is better and larger, 23–26 is the useful
 range for web. `+faststart` moves the index to the front of the file so
-playback can begin before the download finishes; without it a visitor waits
-for the whole file. ffmpeg came from the `imageio-ffmpeg` pip package, so
-there is no system install to maintain.
+playback can begin before the download finishes. A poster frame can be grabbed
+with `qlmanage -t -s 1400 -o . your-film.mp4`.
 
-To add the film to the gallery, put an entry in `data/gallery.js`:
-
-```js
-{
-  "type":   "video",
-  "src":    "assets/video/your-film.mp4",
-  "poster": "assets/video/your-film.jpg",
-  "w": 1920, "h": 1080,
-  "group":  "Joo Chiat",
-  "camera": "Sony A7 III",
-  "lens":   "FE 28–70mm f/3.5–5.6",
-  "edit":   "DaVinci Resolve"
-}
-```
-
-A poster frame can be grabbed with `qlmanage -t -s 1400 -o . your-film.mp4`.
-
-## Swapping the two portraits
-
-The hero panel and the About section each hold one photo of you. To change them:
+## Swapping the portraits
 
 ```bash
 python3 tools/set-photos.py <hero-photo> <about-photo>
 ```
 
 It converts (HEIC included), fixes phone rotation, resizes and saves both to
-the right places. Afterwards you may want to nudge the hero crop — that's
-`object-position` on `.hero__media img` in `assets/css/site.css`; the first
-number is horizontal, the second vertical, so `50% 30%` sits higher in frame.
-
-## The scroll route
-
-A car winds down a dashed route as you scroll. It lives at layer 0, behind all
-content, so it shows through the page's open ground and passes beneath every
-solid block — it can never cover anything.
-
-Dials are at the top of `assets/js/route.js`:
-
-| | |
-|---|---|
-| `CAR` | the image; any top-view car with a transparent background works |
-| `CAR_W` | on-screen width in px (height follows the image's aspect) |
-| `NOSE` | `-90` if the art points nose-down, `+90` if nose-up |
-| `MARGIN` | how far inside the page edges the route stays |
-| `DEPTH` | how much slower the road travels than the page — higher reads as further back |
-
-It sits out entirely under `prefers-reduced-motion`.
+the right places. The hero is a film now rather than a portrait, so the photo
+that matters here is the About one; `assets/img/badge.webp` — the face on the
+staff pass — is cropped separately from `portrait.jpg`.
 
 ## Changing the words
 
 Everything else — the headline, the about text, the stats, the footer — is
 plain text in the HTML files. Search for the sentence you want to change and
-type over it. The bio lives in `index.html` under `<!-- ==== About ==== -->`.
+type over it. The biography lives in `index.html` under `<!-- ==== 05 — about
+==== -->`.
 
 ### Your links
 
-These are wired into all three pages (the overlay menu, the contact footer's
-icon row, and the bottom-right corner of the home page):
+Wired into three places on every page: the corner chrome, the overlay menu and
+the footer's icon row.
 
 | Where | Link |
 |---|---|
 | Instagram | https://www.instagram.com/eattohrepeat/ |
+| Photography | https://www.instagram.com/samvisualdiary.jpg/ (linked from the gallery section) |
 | TikTok | https://www.tiktok.com/@sam_yzx |
 | GitHub | https://github.com/samwoh05 |
 | LinkedIn | https://www.linkedin.com/in/samuel-yee-573164284/ |
-| Spotify I | https://open.spotify.com/playlist/5l4wbWqj1yNKjOc1XNnSc0 |
-| Spotify II | https://open.spotify.com/playlist/3lRkVkXqaBwBWOFaWslODI |
+| Spotify | https://open.spotify.com/user/samuelyee4385 |
 | Email | samuelyee4385@gmail.com |
 
-To change one, search the three `.html` files for the old URL and replace it.
+To change one, search the six `.html` files for the old URL and replace it.
 
 ---
 
@@ -651,7 +581,8 @@ To change one, search the three `.html` files for the old URL and replace it.
 
 The site is published from GitHub
 ([samwoh05/Portfolio-Website-](https://github.com/samwoh05/Portfolio-Website-))
-with GitHub Pages, deploying from `main` / root. To update it, commit and push:
+with GitHub Pages, deploying from `main` / root. To update it, commit and push
+— in VS Code, **Source Control → Sync Changes**:
 
 ```bash
 git add -A && git commit -m "Describe the change" && git push
@@ -660,33 +591,25 @@ git add -A && git commit -m "Describe the change" && git push
 The live site refreshes a minute or so later.
 
 `.gitignore` keeps `source/` (the full-size originals), camera `.mov` exports,
-`.claude/` and `.DS_Store` files off GitHub. GitHub refuses any file over
-100 MB, so always re-encode a film (see *Video*) rather than committing the
-master. `.nojekyll` tells Pages to serve the files as they are.
+`.claude/` and `.DS_Store` off GitHub. GitHub refuses any file over 100 MB, so
+always re-encode a film (see *Video*) rather than committing the master.
+`.nojekyll` tells Pages to serve the files as they are.
 
 Because it's a plain static folder, Netlify, Vercel or Cloudflare Pages would
 host it just as well: import the repo, no build command, output directory `/`.
-
-Anton, DM Sans and Neucha are served from `assets/fonts/` rather than a font
-CDN, so the site makes no third-party requests at all and the type is right
-even with no connection.
 
 ---
 
 ## Notes
 
-- **`source/unused-photos/`** holds ten frames the gallery never showed (the
-  `g*` and `JB*` files from your old site). They are kept on your Mac but not
-  published. Move one back into `assets/gallery/` and add it to
-  `data/gallery.js` if you want it on the wall.
-- **`source/gallery-jpg-originals/`** holds the JPEGs the WebP wall was made
-  from, likewise local only.
+- **`source/`** holds the camera masters, the JPEG originals the WebP wall was
+  made from, and ten frames the gallery never showed. Local only.
+- **`assets/img/portrait.jpg`** is no longer used by any page — the hero is a
+  film now. It stays because `badge.webp` was cropped from it.
 - **Your email is published** on every page as a `mailto:` link. That's normal
   for a portfolio but it does attract spam — swap it for a contact form
   (Formspree, Tally) if that becomes annoying.
-- The about text says you *studied* at Nanyang Polytechnic. Your old site said
-  "on the verge of graduating", which was written in 2024 — update it to
-  whatever's true now.
-- Motion respects `prefers-reduced-motion`.
+- The status line in the hero and the "Now learning" stat should say what is
+  true this month. They are the two lines that date fastest.
 - The cursor is a mosaic-tiled pixel arrow defined in `site.css`; links get a
-  cobalt variant. Both are inline SVG, so there is no image file to manage.
+  second variant. Both are inline SVG, so there is no image file to manage.

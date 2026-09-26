@@ -9,6 +9,11 @@
      shots   photos for the detail page: { src, alt, caption? }
      links   outbound buttons on the detail page: { label, href }
      cover   the image that follows the cursor on the projects list
+     beats   [label, text] pairs on the detail page. The last one on a
+             written-up project is "What it was for": the same work described
+             for someone hiring a marketer rather than an engineer. It is the
+             cheapest honest argument on the site — nothing invented, just the
+             problem the build was actually solving.
 */
 window.PROJECTS_DATA = {
   "items": [
@@ -76,6 +81,10 @@ window.PROJECTS_DATA = {
         [
           "The call",
           "Everything runs over OSC. One Pi keeps grandMA3, L-ISA Studio and Reaper in step while the game is running, so the lighting reacts to the game rather than playing alongside it."
+        ],
+        [
+          "What it was for",
+          "A game station only earns its floor space if a stranger walks up to it unprompted. Everything in this one is arranged to buy the next thirty seconds: the sound that tells you where to aim, the lights answering a hit, and three rounds that each give you less time than the last. I didn't have a word for that at the time. It was audience retention."
         ]
       ],
       "expansion": "Sensory Observation Ninja Immersive Challenge",
@@ -163,6 +172,10 @@ window.PROJECTS_DATA = {
         [
           "The call",
           "Black cloth over the whole structure. Without it the effects washed out in daylight, and the tunnel ran through the day."
+        ],
+        [
+          "What it was for",
+          "An open house is a competition for attention — a few thousand visitors, a fixed number of hours, and every course wanting them in its room. The tunnel was not decoration. It was the reason one corridor was more attractive to walk down than the one beside it."
         ]
       ]
     },
