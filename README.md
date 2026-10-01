@@ -30,7 +30,6 @@ assets/js/site.js     Preloader, cursor, menu, reveals, parallax, tilt, hero fil
 assets/js/desk.js     The colour temperature — the readout and the live mix
 assets/js/theme.js    The light/dark switch
 assets/js/transition.js  The filament wipe between pages
-assets/js/lanyard.js  The staff pass swinging in the hero
 assets/js/ring.js     The turning ring of photographs on the home page
 assets/js/folder.js   The project case that opens on the home page
 assets/js/gallery.js  Builds the gallery wall + lightbox
@@ -41,7 +40,7 @@ assets/js/split.js    Splits a line into letters so each rises on its own
 assets/js/decrypt.js  The scrambling "Say Hello"
 
 assets/gallery/       Your photos (WebP)
-assets/img/           About photo, badge photo, project shots, covers
+assets/img/           About photo, project shots, covers
 assets/img/certs/     The certificates themselves
 assets/video/         Web-encoded films + posters, and the hero loop
 assets/fonts/         Archivo, DM Sans, IBM Plex Mono
@@ -58,14 +57,14 @@ source/               Full-size originals — never published
 
 ## Spec sheet
 
-Measured from this folder, September 2026. **103 tracked files, 32.9 MB**, of
+Measured from this folder, October 2026. **101 tracked files, 32.9 MB**, of
 which 27.4 MB is video.
 
 ### Pages
 
 | File | What it holds | Lines | Size |
 |---|---|---:|---:|
-| `index.html` | Hero reel, the work, the gel change, learning, gallery, about, education | 417 | 24 KB |
+| `index.html` | Hero reel, the work, the gel change, learning, gallery, about, education | 412 | 23 KB |
 | `privacy.html` | Privacy notice | 201 | 14 KB |
 | `404.html` | Wrong address — a patch bay, four ways out, three frames | 201 | 9 KB |
 | `gallery.html` | The full wall, grouped by set, with filters and a lightbox | 174 | 13 KB |
@@ -115,8 +114,8 @@ photographs are the only full colour in the building.
 
 **Surfaces.** Ink and page colours swap between themes. Anything standing for a
 physical surface keeps its own colour and **re-binds the ink tokens**, so type
-on it follows the surface rather than the page — `--sheet` (the pass, the
-folder strips, the lifted card), `--stock` (the overlay menu, dark chips),
+on it follows the surface rather than the page — `--sheet` (the folder
+strips, the lifted card), `--stock` (the overlay menu, dark chips),
 `--mat` (the near-black every photograph is mounted on). The overlay menu is
 the case that proves it: printed on dark stock in either theme, it was reading
 the page's `--ink-soft` and coming out at 3.24:1 in the light theme.
@@ -175,8 +174,8 @@ rail, social links — and drops to 0 under 860px, where content takes the full
 width. `--gutter` is clamp(20px, 5vw, 72px). Breakpoints: 1120 · 980 · 900 ·
 861 · 860 · 700 · 560 · 520 px. Texture comes from a measured rule (a hairline
 with a tick every 16px), a film-grain overlay, and a pixel-arrow cursor drawn
-as inline SVG — no image files to manage. `site.css` is **4,108 lines /
-168 KB**, which GitHub Pages gzips to 32 KB. `print.css` (175 lines) is
+as inline SVG — no image files to manage. `site.css` is **3,898 lines /
+162 KB**, which GitHub Pages gzips to 32 KB. `print.css` (174 lines) is
 linked with `media="print"`, so a screen visitor never downloads it.
 
 The first screen is verified at **375×812, 800×600, 1024×768, 1440×900 and
@@ -186,12 +185,11 @@ and the fixed social links — share it at none of them.
 
 ### Behaviour
 
-Thirteen modules, **2,410 lines**, no dependencies.
+Twelve modules, **2,122 lines**, no dependencies.
 
 | Module | What it does | Lines |
 |---|---|---:|
 | `site.js` | Preloader, cursor, overlay menu, reveals, parallax, tilt, ticker, hero film | 356 |
-| `lanyard.js` | The staff pass hanging in the hero, on a simulated rope | 288 |
 | `ring.js` | The photo ring on the home page | 265 |
 | `gallery.js` | Builds the wall from data, filters it, runs the lightbox | 240 |
 | `decrypt.js` | "Say Hello" scrambles and settles | 232 |
@@ -253,32 +251,10 @@ pick one and it opens in the gallery lightbox.
 | Quiet swaps | Every 6 s one card past 150° — out of sight — loads another photograph |
 | Holds still | Under the pointer, during a drag, and while a card has keyboard focus |
 
-### Lanyard
-
-The hero carries a staff pass on a lanyard, hanging over the film — the idea of
-the Framer/React Bits Lanyard component, which uses three.js and a WASM physics
-engine. With no framework here the rope is simulated in `lanyard.js` and drawn
-as SVG: about 240 lines of physics and no new bytes beyond the pass photo.
-
-| Setting | Value |
-|---|---|
-| Rope | 13 points, Verlet integration, 14 constraint passes per step |
-| Step | Fixed at 1/120 s, so it moves the same on any screen |
-| Gravity / drag | 2100 px/s², 0.995 friction, extra air on the pass itself |
-| The pass | Two more points held a card apart — that rigid link gives it an angle to hang at |
-| Print | The name repeats down the left strand on an SVG `textPath`, so it bends as the strap swings |
-| Drag | Grabs the nearer end; it keeps the speed you let go at |
-| Keyboard | The pass takes focus; ← and → nudge it |
-| Hangs from | 96–132px down, so its cord clears the readout in the corner |
-| Still | Under reduced motion it hangs straight and never moves |
-
-The pass carries `assets/img/badge.webp` (53 KB), cropped from `portrait.jpg`.
-
 ### Themes
 
 The same rooms after dark, not an inversion: the ground goes near-black, the
-two gels lift so they still carry, and shadows deepen. The staff pass keeps its
-own light colours — it is white plastic in any light.
+two gels lift so they still carry, and shadows deepen.
 
 | | |
 |---|---|
@@ -340,18 +316,18 @@ The certificate is `assets/img/certs/digital-marketing-simplilearn.webp`, 900×6
 and its fullscreen button painted out against the flat areas they covered.
 
 Photographs: 37 WebP in `assets/gallery/`, 2.6 MB in total. `assets/img/`
-holds 22 files, 2.3 MB — the About photo, the pass, the share card, four
-covers and ten project stills. The first four frames load eagerly and the rest
+holds 20 files, 2.2 MB — the About photo, the share card, the certificate,
+four covers and ten project stills. The first four frames load eagerly and the rest
 lazily; every frame carries its own aspect ratio so nothing jumps as it arrives.
 
 ### Access
 
-- Reduced motion is honoured in **14 stylesheet blocks** and in every module
-  that moves: the ring stops drifting, letters stop scrambling, the pass hangs
-  still, the hero film never starts, the fader is set rather than eased, and
+- Reduced motion is honoured in **13 stylesheet blocks** and in every module
+  that moves: the ring stops drifting, letters stop scrambling, the hero film
+  never starts, the fader is set rather than eased, and
   pages change without the wipe.
-- **14 `:focus-visible` rules**; the ring brings a focused card round to the
-  front; the pass swings with <kbd>←</kbd> and <kbd>→</kbd>; the lightbox takes
+- **12 `:focus-visible` rules**; the ring brings a focused card round to the
+  front; the lightbox takes
   <kbd>Esc</kbd>, <kbd>←</kbd> and <kbd>→</kbd>.
 - Scrambling and split letters are hidden from screen readers and the real
   words read out once. Every photograph carries alt text and every control a
@@ -387,12 +363,11 @@ and alt, and `twitter:card`. The five public pages also carry a `canonical`.
 rewriting**; they are the only absolute URLs in the project. `sitemap.xml` and
 `robots.txt` sit at the root.
 
-**Print.** `print.css` strips the fixed chrome, the pass, the ring and the
-grain, reveals anything waiting on a scroll, prints the address after any
+**Print.** `print.css` strips the fixed chrome, the ring and the grain, reveals anything waiting on a scroll, prints the address after any
 outgoing link, and signs the foot of the page.
 
 **Cache stamps.** Every page links its CSS and JS with a `?v=` fingerprint —
-**61 links**, a short hash of everything in `assets/css/`, `assets/js/` and
+**60 links**, a short hash of everything in `assets/css/`, `assets/js/` and
 `data/`. Pages serves assets with `max-age=600`, so without a stamp a visitor
 can run new HTML against a stylesheet cached ten minutes earlier. After
 changing anything under those folders, run:
@@ -578,8 +553,7 @@ python3 tools/set-photos.py <hero-photo> <about-photo>
 
 It converts (HEIC included), fixes phone rotation, resizes and saves both to
 the right places. The hero is a film now rather than a portrait, so the photo
-that matters here is the About one; `assets/img/badge.webp` — the face on the
-staff pass — is cropped separately from `portrait.jpg`.
+that matters here is the About one.
 
 ## Changing the words
 
@@ -635,7 +609,7 @@ host it just as well: import the repo, no build command, output directory `/`.
 - **`source/`** holds the camera masters, the JPEG originals the WebP wall was
   made from, and ten frames the gallery never showed. Local only.
 - **`assets/img/portrait.jpg`** is no longer used by any page — the hero is a
-  film now. It stays because `badge.webp` was cropped from it.
+  film now, and the staff pass that wore a crop of it has gone. Safe to delete.
 - **Your email is published** on every page as a `mailto:` link. That's normal
   for a portfolio but it does attract spam — swap it for a contact form
   (Formspree, Tally) if that becomes annoying.

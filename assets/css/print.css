@@ -1,9 +1,9 @@
 /* ==========================================================================
    Print — for the person who saves a project page as a PDF, or prints one to
    read on the train. Paper has no hover, no scroll and no colour budget, so
-   the poster layer comes off: the fixed chrome, the car, the ring, the pass,
-   the grain and the checkerboards all go, and what is left is the writing,
-   the photographs and a way to get back to the site.
+   the poster layer comes off: the fixed chrome, the car, the ring, the grain
+   and the checkerboards all go, and what is left is the writing, the
+   photographs and a way to get back to the site.
 
    Linked with media="print", so a screen visitor never downloads it.
    ========================================================================== */
@@ -45,7 +45,6 @@ body {
 .marquee,
 .checker,
 .route,
-.lanyard,
 .ring-stage,
 .hero__ghost,
 .page-head__ghost,
