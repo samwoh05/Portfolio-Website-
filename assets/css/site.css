@@ -1900,6 +1900,58 @@ a.label::before,
   .path__note { max-width: none; }
 }
 
+/* The motto under the path. Set on the same two columns as the stops above
+   it, so the line lands under "Now" and the credit sits in the margin under
+   "Diploma", in the mono every other note on the site is printed in. Body
+   face rather than display: it is someone else's sentence, and the display
+   face is the site speaking for itself. */
+.motto {
+  margin: clamp(44px, 7vh, 80px) 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 46px);
+  align-items: baseline;
+}
+.motto__line {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+}
+.motto__line p {
+  margin: 0;
+  max-width: 24ch;
+  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  text-indent: -0.4em;   /* the opening mark hangs, so the words line up */
+}
+.motto__credit {
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.motto__credit cite {
+  display: block;
+  margin-top: 6px;
+  font-style: normal;
+  color: var(--ink-mid);
+}
+@media (max-width: 860px) {
+  .motto {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding-left: 26px;
+  }
+  .motto__line,
+  .motto__credit { grid-column: 1; grid-row: auto; }
+}
+
 /* ==========================================================================
    Project detail — one project, given room. Long copy sits on a reading
    measure; photographs run full width at their own shape underneath.

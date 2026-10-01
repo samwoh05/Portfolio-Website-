@@ -64,7 +64,7 @@ which 27.4 MB is video.
 
 | File | What it holds | Lines | Size |
 |---|---|---:|---:|
-| `index.html` | Hero reel, the work, the gel change, learning, gallery, about, education | 412 | 23 KB |
+| `index.html` | Hero reel, the work, the gel change, learning, gallery, about, education | 424 | 24 KB |
 | `privacy.html` | Privacy notice | 201 | 14 KB |
 | `404.html` | Wrong address — a patch bay, four ways out, three frames | 201 | 9 KB |
 | `gallery.html` | The full wall, grouped by set, with filters and a lightbox | 174 | 13 KB |
@@ -174,8 +174,8 @@ rail, social links — and drops to 0 under 860px, where content takes the full
 width. `--gutter` is clamp(20px, 5vw, 72px). Breakpoints: 1120 · 980 · 900 ·
 861 · 860 · 700 · 560 · 520 px. Texture comes from a measured rule (a hairline
 with a tick every 16px), a film-grain overlay, and a pixel-arrow cursor drawn
-as inline SVG — no image files to manage. `site.css` is **3,898 lines /
-162 KB**, which GitHub Pages gzips to 32 KB. `print.css` (174 lines) is
+as inline SVG — no image files to manage. `site.css` is **3,950 lines /
+163 KB**, which GitHub Pages gzips to 32 KB. `print.css` (174 lines) is
 linked with `media="print"`, so a screen visitor never downloads it.
 
 The first screen is verified at **375×812, 800×600, 1024×768, 1440×900 and
@@ -216,7 +216,7 @@ to say so.
 | 02 | **The market** — the courses, with the certificate itself | 4100K |
 | 03 | **Gallery** — the photo ring, and Sam's Visual Diary | 4400K |
 | 04 | **Start here** — the biography | 4950K |
-| 05 | **How I got here** — two stops, not four | 5450K |
+| 05 | **How I got here** — two stops, not four, and Tolstoy under them | 5450K |
 | | Contact — "Say Hello", the address, the socials | 5600K |
 
 Section names are set at poster scale with the old label underneath as the
@@ -225,6 +225,22 @@ caption, and one `h2` per section, so the outline reads `h1 → h2 → h3`.
 The hero carries a status line (**edit it in `index.html` — it should say what
 is true this month**) and two buttons: *Email me* and *See the work*. A third,
 commented out, links `assets/cv.pdf` — uncomment it once that file exists.
+
+### The motto
+
+Under the two stops of *How I got here*, the one borrowed line on the site:
+*"The strongest of all warriors are these two — Time and Patience."* Kutuzov
+says it to Prince Andrei in *War and Peace*, Book X, chapter 16; the wording
+is the Maude translation's, so it is credited to Leo Tolstoy and can be
+checked.
+
+| | |
+|---|---|
+| Where | The end of section 05, because that is where the page admits the change of direction is a slow one |
+| Layout | On the path's two columns — the line under *Now*, the credit in mono under *Diploma*; one column with the path's 26px inset under 861px |
+| Type | DM Sans clamp(1.25rem, 2.1vw, 1.75rem) / 1.3, 24ch measure, opening mark hung so the words align. Body face, not display — it is someone else's sentence |
+| Markup | `<figure>` with a `<blockquote>` and a `<figcaption>` holding the `<cite>` |
+| Why not bigger | The page already has one poster-sized line, *People buy what it says about them.* A second would make both read as slogans |
 
 ### The project case
 
@@ -560,7 +576,8 @@ that matters here is the About one.
 Everything else — the headline, the about text, the stats, the footer — is
 plain text in the HTML files. Search for the sentence you want to change and
 type over it. The biography lives in `index.html` under `<!-- ==== 05 — about
-==== -->`.
+==== -->`. The Tolstoy line is the `<figure class="motto">` at the end of the
+education section — if you change the words, change the credit with them.
 
 ### Your links
 
